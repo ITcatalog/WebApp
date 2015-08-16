@@ -1,0 +1,35 @@
+html, body {
+  font-family: 'Roboto', 'Helvetica', sans-serif;
+}
+
+.service-profile-cat{
+
+}
+
+.itcat-category > .mdl-card--expand {
+  color:#fff;
+}
+
+
+.itcat-category > .mdl-card__supporting-text{
+  height:130px;
+}
+
+
+.itcat-service > .mdl-card__supporting-text{
+  height:130px;
+}
+
+.service-attribute{
+  margin-bottom:10px;
+
+}
+
+.service-attribute__title{
+  font-weight:bold;
+
+}
+
+.service-attribute__value{
+
+}
