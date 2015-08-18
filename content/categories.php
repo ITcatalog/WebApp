@@ -4,12 +4,14 @@
 <?php
 $sparql = "
 SELECT *
-WHERE {
-  ?cat a itcat:ServiceKategorie;
-  skos:prefLabel ?catLabel.
-  OPTIONAL {
-    ?cat dcterms:description ?catDescription
-  }
+FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
+{
+	?cat a itcat:ServiceKategorie;
+	skos:prefLabel ?catLabel.
+
+	GRAPH ?g {
+    	?cat itcat_app:hasBGColor ?bgColor.
+  	}.
 }
 ";
 
@@ -36,7 +38,7 @@ while( $row = $result->fetch_array() ){
 
 
 <div class="itcat-category mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid mdl-grid--no-spacing">
-    <div class="mdl-card__title mdl-card--expand mdl-color--blue-300">
+    <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $row['bgColor']; ?>-300">
       <h2 class="mdl-card__title-text mdl-badge badge-btn" data-badge="<?php echo $numberOfServices; ?>">
         <?php echo $row['catLabel']; ?>
       </h2>

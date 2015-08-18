@@ -12,6 +12,7 @@ $db->ns( "skos","http://www.w3.org/2004/02/skos/core#");
 $db->ns( "schema","https://schema.org#");
 $db->ns( "usdlagreement","http://www.linked-usdl.org/ns/usdl-agreement#");
 $db->ns( "itcat","http://th-brandenburg.de/ns/itcat#" );
+$db->ns( "itcat_app","http://th-brandenburg.de/ns/itcat_app#" );
 
 
 if(isset($_GET['c'])){

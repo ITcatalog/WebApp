@@ -4,6 +4,7 @@ $service = urldecode($_GET['service']);
 
 $sparql = '
   SELECT *
+  FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
   WHERE {
     ?x  rdf:type schema:Service;
         skos:prefLabel ?labelX;
@@ -12,9 +13,15 @@ $sparql = '
     <'.$service.'> schema:isRelatedTo ?y.
     OPTIONAL{
       ?catX itcat:hasITService ?x.
+      GRAPH ?g {
+          ?catX itcat_app:hasBGColor ?bgColorX.
+        }.
     }
     OPTIONAL{
       ?catY itcat:hasITService ?y.
+     GRAPH ?g {
+          ?catY itcat_app:hasBGColor ?bgColorY.
+        }.
     }
   }
 ';
@@ -30,13 +37,68 @@ while( $row = $result->fetch_array() ){
     if(!isset($row['catX'])){
       $row['catX'] = 'none';
     }
-    $nodes[$row['x']] = "{id:'".$row['x']."', label:'".substr($row['labelX'], 0, 20)."', color: '#7BE141', group: '".$row['catX']."'}";
+
+    if(isset($row['bgColorX'])){
+      switch($row['bgColorX']){
+        case 'purple':
+          $bgColorHex = '#BA68C8';
+          break;
+
+        case 'cyan':
+          $bgColorHex = '#4DD0E1';
+          break;
+
+        case 'orange':
+          $bgColorHex = '#FFB74D';
+          break;
+
+        case 'green':
+          $bgColorHex = '#81C784';
+          break;
+
+        default:
+          $bgColorHex = '#ffffff';
+          break;
+      }
+    }
+    else{
+      $bgColorHex = '#ffffff';
+    }
+
+    $nodes[$row['x']] = "{id:'".$row['x']."', label:'".substr($row['labelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catX']."'}";
   }
   if(!in_array($row['y'], $nodes)){
     if(!isset($row['catY'])){
       $row['catY'] = 'none';
     }
-    $nodes[$row['y']] = "{id:'".$row['y']."', label:'".substr($row['labelY'], 0, 20)."', color: '#7BE141', group: '".$row['catY']."'}";
+    if(isset($row['bgColorY'])){
+      switch($row['bgColorY']){
+        case 'purple':
+          $bgColorHex = '#BA68C8';
+          break;
+
+        case 'cyan':
+          $bgColorHex = '#4DD0E1';
+          break;
+
+        case 'orange':
+          $bgColorHex = '#FFB74D';
+          break;
+
+        case 'green':
+          $bgColorHex = '#81C784';
+          break;
+
+        default:
+          $bgColorHex = '#ffffff';
+          break;
+      }
+    }
+    else{
+      $bgColorHex = '#ffffff';
+    }
+
+    $nodes[$row['y']] = "{id:'".$row['y']."', label:'".substr($row['labelY'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catY']."'}";
   }
 
   $edges[] = "{from: '".$row['x']."', to: '".$row['y']."'}";

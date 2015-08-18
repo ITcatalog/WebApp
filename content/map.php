@@ -1,17 +1,19 @@
 <?php
 
 #$service = 'itcat:Moodle';
-$service = '?x';
 
 $sparql = '
   SELECT *
+  FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
   WHERE {
-    '.$service.' rdf:type schema:Service;
-  	   skos:prefLabel ?labelX.
-    OPTIONAL{
-      ?cat itcat:hasITService ?x.
+    ?service rdf:type schema:Service;
+    skos:prefLabel ?labelX.
+    OPTIONAL {
+      ?cat itcat:hasITService ?service.
+      GRAPH ?g {
+        ?cat itcat_app:hasBGColor ?bgColor.
+      }.
     }
-
   }
 ';
 
@@ -19,16 +21,45 @@ $result = $db->query( $sparql );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 while( $row = $result->fetch_array() ){
+
   if(!isset($row['cat'])){
     $row['cat'] = 'none';
   }
-  $nodes[] = "{id:'".$row['x']."', label:'".substr($row['labelX'], 0, 20)."', color: '#7BE141', group: '".$row['cat']."'}";
+
+  if(isset($row['bgColor'])){
+    switch($row['bgColor']){
+      case 'purple':
+        $bgColorHex = '#BA68C8';
+        break;
+
+      case 'cyan':
+        $bgColorHex = '#4DD0E1';
+        break;
+
+      case 'orange':
+        $bgColorHex = '#FFB74D';
+        break;
+
+      case 'green':
+        $bgColorHex = '#81C784';
+        break;
+
+      default:
+        $bgColorHex = '#ffffff';
+        break;
+    }
+  }
+  else{
+    $bgColorHex = '#ffffff';
+  }
+
+  $nodes[] = "{id:'".$row['service']."', label:'".substr($row['labelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['cat']."'}";
 }
 
 $sparql = '
   SELECT *
   WHERE {
-    '.$service.'  rdf:type schema:Service;
+    ?x  rdf:type schema:Service;
   	    skos:prefLabel ?labelX;
 	      schema:isRelatedTo ?y.
   	?y  skos:prefLabel ?labelY.
