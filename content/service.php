@@ -58,7 +58,9 @@ function getProperties ($property, $db, $service){
 
   <ul>
     <li class="mdl-button mdl-js-button <?php if(!isset($_GET['action'])){echo 'mdl-button--raised';}?>"><a href="?c=service&service=<?php echo urlencode($service)?>">Steckbrief</a></li>
-    <li class="mdl-button mdl-js-button <?php if(isset($_GET['action']) && $_GET['action'] == 'map'){echo 'mdl-button--raised';}?>"><a href="?c=service&action=map&service=<?php echo urlencode($service)?>">Landkarte</a></li>
+    <?php $result = getProperties('schema:isRelatedTo', $db, $service); if($result['num'] > 0){?>
+        <li class="mdl-button mdl-js-button <?php if(isset($_GET['action']) && $_GET['action'] == 'map'){echo 'mdl-button--raised';}?>"><a href="?c=service&action=map&service=<?php echo urlencode($service)?>">Landkarte</a></li>
+    <?php } ?>
     <li class="mdl-button mdl-js-button  mdl-badge badge-header <?php if(isset($_GET['action']) && $_GET['action'] == 'docs'){echo 'mdl-button--raised';}?>" data-badge="10"><a href="?c=service&action=docs&service=<?php echo urlencode($service)?>">Dokumente</a></li>
   </ul>
 
