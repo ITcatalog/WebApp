@@ -57,13 +57,25 @@ function getProperties ($property, $db, $service){
 <div class="mdl-cell mdl-cell--12-col mdl-grid mdl-color--white mdl-shadow--2dp">
 
   <ul>
-    <li class="mdl-button mdl-js-button mdl-button--raised">Steckbrief</li>
-    <li class="mdl-button mdl-js-button">Landkarte</li>
-    <li class="mdl-button mdl-js-button  mdl-badge badge-header" data-badge="10">Dokumente</li>
+    <li class="mdl-button mdl-js-button <?php if(!isset($_GET['action'])){echo 'mdl-button--raised';}?>"><a href="?c=service&service=<?php echo urlencode($service)?>">Steckbrief</a></li>
+    <li class="mdl-button mdl-js-button <?php if(isset($_GET['action']) && $_GET['action'] == 'map'){echo 'mdl-button--raised';}?>"><a href="?c=service&action=map&service=<?php echo urlencode($service)?>">Landkarte</a></li>
+    <li class="mdl-button mdl-js-button  mdl-badge badge-header <?php if(isset($_GET['action']) && $_GET['action'] == 'docs'){echo 'mdl-button--raised';}?>" data-badge="10"><a href="?c=service&action=docs&service=<?php echo urlencode($service)?>">Dokumente</a></li>
   </ul>
 
-
 </div>
+
+
+<?php
+if(isset($_GET['action']) && $_GET['action'] == 'map'){
+
+	include ('content/serviceMap.php');
+
+}
+elseif(isset($_GET['action']) && $_GET['action'] == 'docs'){
+	include ('content/serviceDocs.php');
+}
+else{
+ ?>
 
 
 <div class="mdl-cell mdl-cell--6-col mdl-grid">
@@ -225,3 +237,5 @@ if($result['num'] > 0){
   <?php } ?>
 
 </div>
+
+<?php } ?>

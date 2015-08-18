@@ -3,37 +3,14 @@
 
 <?php
 
-if(isset($_GET['c'])){
-  switch ($_GET['c']){
+  if(isset($includePath)){
 
-    case 'catagories':
-      include ('content/catagories.php');
-      break;
-
-    case 'category':
-      include ('content/category.php');
-      break;
-
-    case 'service':
-      include ('content/service.php');
-      break;
+    include($includePath);
 
   }
-}
-else {
 
-  #include ('content/catagories.php');
+ ?>
 
-}
-
-
-if(isset($_GET['include'])){
-
-  include('content/' . $_GET['include']);
-
-}
-
-?>
 
 
   </div>

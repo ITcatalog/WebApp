@@ -12,3 +12,64 @@ $db->ns( "skos","http://www.w3.org/2004/02/skos/core#");
 $db->ns( "schema","https://schema.org#");
 $db->ns( "usdlagreement","http://www.linked-usdl.org/ns/usdl-agreement#");
 $db->ns( "itcat","http://th-brandenburg.de/ns/itcat#" );
+
+
+if(isset($_GET['c'])){
+  switch ($_GET['c']){
+    case 'home':
+      $includePath = 'content/home.php';
+      break;
+
+    case 'categories':
+      $includePath = 'content/categories.php';
+      $pageTitle = 'Service-Kategorien';
+      break;
+
+    case 'category':
+      $includePath = 'content/category.php';
+      break;
+
+    case 'service':
+      $includePath = 'content/service.php';
+      break;
+
+    case 'map':
+      $includePath = 'content/map.php';
+      $pageTitle = 'Service-Karte';
+      break;
+
+    case 'list':
+      $includePath = 'content/list.php';
+      $pageTitle = 'Service-Liste';
+      break;
+
+    case 'catalog':
+      $includePath = 'content/catalog.php';
+      $pageTitle = 'Service-Kataloge';
+      break;
+
+    case 'reports':
+      $includePath = 'content/reports.php';
+      $pageTitle = 'Reports';
+      break;
+
+  }
+}
+elseif(isset($_GET['search'])){
+  $includePath = 'content/search.php';
+  $pageTitle = 'Suche';
+}
+else {
+
+  $includePath = 'content/home.php';
+
+}
+
+
+if(isset($_GET['include'])){
+
+  $includePath = 'content/' . $_GET['include'];
+
+}
+
+?>

@@ -1,9 +1,14 @@
 <?php
 
 $pageName = '';
-$pageTitle = '';
 $pageColor = '';
 $currentPath = '';
+
+if(isset($pageTitle)){
+
+  $currentPath .= '/ ' . $pageTitle;
+
+}
 
 
 if(isset($_GET['cat'])){
@@ -40,8 +45,10 @@ if(isset($_GET['service'])){
         <i class="material-icons">search</i>
       </label>
       <div class="mdl-textfield__expandable-holder">
-        <input class="mdl-textfield__input" type="text" id="search" />
-        <label class="mdl-textfield__label" for="search">Enter your query...</label>
+        <form name="" action="" method="get">
+          <input class="mdl-textfield__input" type="text" id="search" name="search"/>
+          <label class="mdl-textfield__label" for="search">Enter your query...</label>
+        </form>
       </div>
     </div>
     <button class="mdl-button mdl-js-button mdl-js-ripple-effect mdl-button--icon" id="hdrbtn">

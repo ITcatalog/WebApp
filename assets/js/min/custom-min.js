@@ -1,0 +1,1 @@
+$(".itcat-service > .mdl-card__supporting-text").truncate({width:"auto",token:"&hellip;",side:"right",multiline:!0}),$(".itcat-category > .mdl-card__supporting-text").truncate({width:"auto",token:"&hellip;",side:"right",multiline:!0}),$(".mdl-card__title-text").truncate({width:"auto",token:"&hellip;",side:"right",multiline:!1});

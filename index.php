@@ -23,18 +23,20 @@
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
 
-    <!-- SEO: If your mobile URL is different from the desktop URL, add a canonical link to the desktop page https://developers.google.com/webmasters/smartphone-sites/feature-phones -->
-    <!--
-    <link rel="canonical" href="http://www.example.com/">
-    -->
-
     <link rel="stylesheet" href="./bower_components/material-design-lite/material.min.css">
 
     <link href="https://fonts.googleapis.com/css?family=Roboto:regular,bold,italic,thin,light,bolditalic,black,medium&amp;lang=en" rel="stylesheet">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Color -->
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-orange.min.css" />
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-red.min.css" />
+
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+    <!-- VIS.js -->
+
+    <script src="bower_components/vis/dist/vis.js"></script>
+    <link href="bower_components/vis/dist/vis.css" rel="stylesheet" type="text/css" />
 
     <!-- ITcat styles -->
     <link rel="stylesheet" href="./css/styles.css">
@@ -44,7 +46,7 @@
   </head>
   <body>
 
-  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--fixed-header">
+  <div class="demo-layout mdl-layout mdl-js-layout mdl-layout--fixed-header">
       <?php
         include ('inc/header.php');
         include ('inc/navigation.php');
@@ -57,5 +59,9 @@
 
 
     <script src="./bower_components/material-design-lite/material.min.js"></script>
+
+    <script src="./assets/js/jquery.truncate.min.js"></script>
+    <script src="./assets/js/custom.js"></script>
+
   </body>
 </html>

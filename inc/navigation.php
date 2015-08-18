@@ -1,3 +1,5 @@
+
+
 <div class="demo-drawer mdl-layout__drawer mdl-color--blue-grey-900 mdl-color-text--blue-grey-50">
   <header class="demo-drawer-header">
     <img src="images/user.jpg" class="demo-avatar">
@@ -17,11 +19,13 @@
   </header>
 
   <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Dashboard</a>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">inbox</i>Liste</a>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">delete</i>Landkarte</a>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Analyse</a>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>HelpDesk</a>
+    <a class="mdl-navigation__link" href="?c=home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Dashboard</a>
+    <a class="mdl-navigation__link" href="?c=categories"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_module</i>Kategorien</a>
+    <a class="mdl-navigation__link" href="?c=catalog"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_library</i>Kataloge</a>
+    <a class="mdl-navigation__link" href="?c=list"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_list</i>Liste</a>
+    <a class="mdl-navigation__link" href="?c=map"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">share</i>Landkarte</a>
+    <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Reports</a>
+    <a class="mdl-navigation__link" href="?c=help"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>HelpDesk</a>
     <div class="mdl-layout-spacer"></div>
     <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
   </nav>
