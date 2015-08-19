@@ -1,4 +1,30 @@
 <?php
+function convertColorNameToHex ($colorName){
+  switch($colorName){
+    case 'purple':
+      $bgColorHex = '#BA68C8';
+      break;
+
+    case 'cyan':
+      $bgColorHex = '#4DD0E1';
+      break;
+
+    case 'orange':
+      $bgColorHex = '#FFB74D';
+      break;
+
+    case 'green':
+      $bgColorHex = '#81C784';
+      break;
+
+    default:
+      $bgColorHex = '#ffffff';
+      break;
+  }
+  return $bgColorHex;
+}
+
+
 $service = urldecode($_GET['service']);
 
 
@@ -6,21 +32,24 @@ $sparql = '
   SELECT *
   FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
   WHERE {
-    ?x  rdf:type schema:Service;
-        skos:prefLabel ?labelX;
-        schema:isRelatedTo ?y.
-    ?y  skos:prefLabel ?labelY.
-    <'.$service.'> schema:isRelatedTo ?y.
+    <'.$service.'> (^schema:isRelatedTo | schema:isRelatedTo)+ ?service.
+    ?service schema:isRelatedTo ?serviceX.
     OPTIONAL{
-      ?catX itcat:hasITService ?x.
+      ?service  skos:prefLabel ?prefLabel.
+    }
+    OPTIONAL{
+      ?serviceX  skos:prefLabel ?prefLabelX.
+    }
+    OPTIONAL{
+      ?cat itcat:hasITService ?service.
       GRAPH ?g {
-          ?catX itcat_app:hasBGColor ?bgColorX.
+          ?cat itcat_app:hasBGColor ?bgColor.
         }.
     }
     OPTIONAL{
-      ?catY itcat:hasITService ?y.
-     GRAPH ?g {
-          ?catY itcat_app:hasBGColor ?bgColorY.
+      ?catX itcat:hasITService ?serviceX.
+      GRAPH ?g {
+          ?catX itcat_app:hasBGColor ?bgColorX.
         }.
     }
   }
@@ -33,75 +62,41 @@ $nodes = array();
 
 while( $row = $result->fetch_array() ){
 
-  if(!in_array($row['x'], $nodes)){
+  if(!in_array($row['service'], $nodes)){
+    if(!isset($row['cat'])){
+      $row['cat'] = 'none';
+    }
+
+    if(isset($row['bgColor'])){
+      $bgColorHex = convertColorNameToHex($row['bgColor']);
+    }
+    else{
+      $bgColorHex = '#ffffff';
+    }
+
+    if(!isset($row['prefLabel'])) { $row['prefLabel'] = 'empty';}
+
+    $nodes[$row['service']] = "{id:'".$row['service']."', label:'".substr($row['prefLabel'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['cat']."'}";
+  }
+  if(!in_array($row['serviceX'], $nodes)){
+
     if(!isset($row['catX'])){
       $row['catX'] = 'none';
     }
 
     if(isset($row['bgColorX'])){
-      switch($row['bgColorX']){
-        case 'purple':
-          $bgColorHex = '#BA68C8';
-          break;
-
-        case 'cyan':
-          $bgColorHex = '#4DD0E1';
-          break;
-
-        case 'orange':
-          $bgColorHex = '#FFB74D';
-          break;
-
-        case 'green':
-          $bgColorHex = '#81C784';
-          break;
-
-        default:
-          $bgColorHex = '#ffffff';
-          break;
-      }
+      $bgColorHex = convertColorNameToHex($row['bgColorX']);
     }
     else{
       $bgColorHex = '#ffffff';
     }
 
-    $nodes[$row['x']] = "{id:'".$row['x']."', label:'".substr($row['labelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catX']."'}";
+    if(!isset($row['prefLabelX'])) { $row['prefLabelX'] = 'empty';}
+
+    $nodes[$row['serviceX']] = "{id:'".$row['serviceX']."', label:'".substr($row['prefLabelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catX']."'}";
+
   }
-  if(!in_array($row['y'], $nodes)){
-    if(!isset($row['catY'])){
-      $row['catY'] = 'none';
-    }
-    if(isset($row['bgColorY'])){
-      switch($row['bgColorY']){
-        case 'purple':
-          $bgColorHex = '#BA68C8';
-          break;
-
-        case 'cyan':
-          $bgColorHex = '#4DD0E1';
-          break;
-
-        case 'orange':
-          $bgColorHex = '#FFB74D';
-          break;
-
-        case 'green':
-          $bgColorHex = '#81C784';
-          break;
-
-        default:
-          $bgColorHex = '#ffffff';
-          break;
-      }
-    }
-    else{
-      $bgColorHex = '#ffffff';
-    }
-
-    $nodes[$row['y']] = "{id:'".$row['y']."', label:'".substr($row['labelY'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catY']."'}";
-  }
-
-  $edges[] = "{from: '".$row['x']."', to: '".$row['y']."'}";
+  $edges[] = "{from: '".$row['service']."', to: '".$row['serviceX']."'}";
 }
 
 //Mark Selected Service

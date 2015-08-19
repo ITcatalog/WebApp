@@ -1,76 +1,103 @@
 <?php
 
-#$service = 'itcat:Moodle';
+function convertColorNameToHex ($colorName){
+  switch($colorName){
+    case 'purple':
+      $bgColorHex = '#BA68C8';
+      break;
 
-$sparql = '
-  SELECT *
-  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
-  WHERE {
-    ?service rdf:type schema:Service;
-    skos:prefLabel ?labelX.
-    OPTIONAL {
-      ?cat itcat:hasITService ?service.
-      GRAPH ?g {
-        ?cat itcat_app:hasBGColor ?bgColor.
-      }.
-    }
+    case 'cyan':
+      $bgColorHex = '#4DD0E1';
+      break;
+
+    case 'orange':
+      $bgColorHex = '#FFB74D';
+      break;
+
+    case 'green':
+      $bgColorHex = '#81C784';
+      break;
+
+    default:
+      $bgColorHex = '#ffffff';
+      break;
   }
-';
-
-$result = $db->query( $sparql );
-if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
-
-while( $row = $result->fetch_array() ){
-
-  if(!isset($row['cat'])){
-    $row['cat'] = 'none';
-  }
-
-  if(isset($row['bgColor'])){
-    switch($row['bgColor']){
-      case 'purple':
-        $bgColorHex = '#BA68C8';
-        break;
-
-      case 'cyan':
-        $bgColorHex = '#4DD0E1';
-        break;
-
-      case 'orange':
-        $bgColorHex = '#FFB74D';
-        break;
-
-      case 'green':
-        $bgColorHex = '#81C784';
-        break;
-
-      default:
-        $bgColorHex = '#ffffff';
-        break;
-    }
-  }
-  else{
-    $bgColorHex = '#ffffff';
-  }
-
-  $nodes[] = "{id:'".$row['service']."', label:'".substr($row['labelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['cat']."'}";
+  return $bgColorHex;
 }
 
 $sparql = '
   SELECT *
   WHERE {
-    ?x  rdf:type schema:Service;
-  	    skos:prefLabel ?labelX;
-	      schema:isRelatedTo ?y.
-  	?y  skos:prefLabel ?labelY.
+    ?service a schema:Service.
+    OPTIONAL {
+      ?service skos:prefLabel ?prefLabel.
+    }
+    OPTIONAL{
+      ?cat itcat:hasITService ?service.
+      GRAPH ?g {
+          ?cat itcat_app:hasBGColor ?bgColor.
+        }.
+    }
+    OPTIONAL{
+      ?service schema:isRelatedTo+ ?serviceX.
+      OPTIONAL{
+          ?serviceX skos:prefLabel ?prefLabelX.
+          OPTIONAL{
+            ?catX itcat:hasITService ?serviceX.
+            GRAPH ?g {
+                ?catX itcat_app:hasBGColor ?bgColorX.
+              }.
+          }
+      }
+    }
   }
 ';
 
+
 $result = $db->query( $sparql );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
+$nodes = array();
 
 while( $row = $result->fetch_array() ){
-  $edges[] = '{from: \''. $row['x'] .'\', to: \''. $row['y'] .'\'}';
+
+  if(!in_array($row['service'], $nodes)){
+    if(!isset($row['cat'])){
+      $row['cat'] = 'none';
+    }
+
+    if(isset($row['bgColor'])){
+      $bgColorHex = convertColorNameToHex($row['bgColor']);
+    }
+    else{
+      $bgColorHex = '#ffffff';
+    }
+
+    if(!isset($row['prefLabel'])) { $row['prefLabel'] = 'empty';}
+
+    $nodes[$row['service']] = "{id:'".$row['service']."', label:'".substr($row['prefLabel'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['cat']."'}";
+  }
+  if(isset($row['serviceX']) && !in_array($row['serviceX'], $nodes)){
+
+    if(!isset($row['catX'])){
+      $row['catX'] = 'none';
+    }
+
+    if(isset($row['bgColorX'])){
+      $bgColorHex = convertColorNameToHex($row['bgColorX']);
+    }
+    else{
+      $bgColorHex = '#FFFFFF';
+    }
+
+    if(!isset($row['prefLabelX'])) { $row['prefLabelX'] = 'empty';}
+
+    $nodes[$row['serviceX']] = "{id:'".$row['serviceX']."', label:'".substr($row['prefLabelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catX']."'}";
+
+  }
+  if(isset($row['service']) && isset($row['serviceX'])){
+    $edges[] = "{from: '".$row['service']."', to: '".$row['serviceX']."'}";
+  }
+
 }
 
 
