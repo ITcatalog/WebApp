@@ -1,0 +1,364 @@
+@prefix dc:    <http://purl.org/dc/elements/1.1/> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix rdfa:  <http://www.w3.org/ns/rdfa#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix dc11:  <http://purl.org/dc/elements/1.1/> .
+@prefix org:   <http://www.w3.org/ns/org#> .
+@prefix qb:    <http://purl.org/linked-data/cube#> .
+@prefix dcterms: <http://purl.org/dc/terms/> .
+@prefix schema: <https://schema.org#> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix dcat:  <http://www.w3.org/ns/dcat#> .
+@prefix dc1:   <http://purl.org/dc/terms/> .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix itcat: <http://th-brandenburg.de/ns/itcat#> .
+@prefix usdlagreement: <http://www.linked-usdl.org/ns/usdl-agreement#> .
+@prefix itcat_app: <http://th-brandenburg.de/ns/itcat_app#> .
+
+itcat:HISQIS  a                 schema:Service ;
+        dc1:description         "Das HISQIS ist die Plattform für Studenten der Fachhochschule Brandenburg, welche folgende Dienste bereitstellt: Allgemeine Verwaltung: Kontaktdaten des Studierenden Studium Verwaltung: Studienbescheinigung, Gebühreninfos und Studentenstatus Prüfungsverwaltung: Notenspiegel Authentifiziert wird sich hierbei mit den IDM-Login Daten." ;
+        dc1:subject             "Online-Portal des Studierendensekretariats/Studentenportal (HISQIS)" ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop , itcat:Computer ;
+        skos:prefLabel          " Online-Portal des Studierendensekretariats der Fachhochschule Brandenburg" ;
+        schema:isRelatedTo      itcat:IDM ;
+        schema:url              <https://moodle.fh-brandenburg.de/course/view.php?id=199> ;
+        schema:user             itcat:Mitarbeiter .
+
+itcat:Online-Katalog  a         schema:Service ;
+        dc1:description         "Der Online Public Access Catalogue (Opac) bietet Studenten und Mitarbeitern die Möglichkeit Bücher und E-Books online abzufragen. Die Web-Plattform bietet folgende Dienste an: Die Suche nach lokalen Büchern, E-Books und/oder Abschlussarbeiten Produktbeschreibungen- und Informationen  (soweit vorhanden) Den Status der Bücher (verliehen/nicht verliehen) Einen Wegweiser zum physischen Lagerungsort Das Erstellen einer Merkliste Den Zugriff auf das eigene Konto über mobile Geräte (Web Opac App) Das Anzeigen von Neuerwerbungen. Authentifiziert wird sich hierbei mit den Logindaten der Bibliothek, welche nicht identisch mit den IDM-Logindaten sind." ;
+        dc1:subject             "Online-Katalog (Opac)" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Computer , itcat:Smartphones , itcat:Laptop ;
+        skos:prefLabel          " Online-Katalog " ;
+        schema:provider         itcat:Hochschulbibliothek ;
+        schema:url              <https://opac.fh-brandenburg.de/InfoGuideClient.bfbsis/start.do?Login=igbfb> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:HIS  a                itcat:ServiceKategorie ;
+        itcat:hasITService  itcat:Dienstreiseservice , itcat:QISFSV , itcat:HISinOne , itcat:QISPOS , itcat:HISQIS ;
+        skos:prefLabel      "HIS" .
+
+itcat:Samba  a                  schema:Service ;
+        dc1:description         "Die Software Samba wird in der FH Brandenburg als Datei- und Druckserver verwendet. Sie basiert auf dem NetBIOS-Protokoll SMB von Microsoft. Sie gibt den Anwendern die Möglichkeit auf ihre Laufwerke über eine VPN Verbindung zuzugreifen und auf ihnen lokal unabhängig zu interagieren. Authentifiziert wird sich hierbei mit dem IDM-Login Daten." ;
+        dc1:subject             "DSFW- / Samba Serverdienst (Zugriff auf FHB-Laufwerke)" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:WindowsComputer , itcat:WindowsLaptops ;
+        skos:prefLabel          " DSFW- / Samba" ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-brandenburg.de/samba-faq.1.html> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:E-Mail  a                 schema:Service ;
+        dc1:description         "Das Rechenzentrum betreibt 2 Mailserver (Mailrelay), die die Verteilung von Email innerhalb der Domain fh-brandenburg.deundden Empfang und Versand nach aussen abwickeln.\n Die Adressen dieser Server, in Emailclients als SMTP-Server oder Server für ausgehende Nachrichten bezeichnet, lauten: \n mail.fh-brandenburg.de:25\nmail-auth.fh-brandenburg.de:25 (StartTLS)\nEingehende Nachrichten können mittels pop3- oder imap-Protokoll abgerufen werden. Die Adressen dieser Server, in Emailclients als POP3-/IMAP-Server oder Server für eingehende Nachrichten bezeichnet, lauten:\n pop3-server: pop3.fh-brandenburg.de port: 995 \n imap-server: imap.fh-brandenburg.de port: 143/starttls \n imap-server: imap.fh-brandenburg.de port: 993/ssl \n Die Größe einer Email ist begrenzt auf 10 MB." ;
+        dc1:subject             "Verteilung von Email innerhalb der Domain" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop ;
+        skos:prefLabel          "E-Mail" ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-brandenburg.de/email2.html> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:Lehrelaufwerk  a          schema:Service ;
+        dc1:description         "Die Dozenten sind angehalten, Ihre Lehrscripte, die in elektronischer Form ausgearbeitet sind, auf einem zentralen Serverlaufwerk zu veröffentlichen. Innerhalb der Fachhochschule ist der Portalserver des FB Wirtschaft nach erfolgreicher Anmeldung auf dem Netzwerklaufwerk L: (Lehre) auf den Desktops zugewiesen. Der Link zum browserbasierten Portalzugriff ist unten veröffentlicht. Für den Zugang benötigen Sie einen gültigen Account und gegebenenfalls das Zertifikat für den WEB-Browser. Authentifiziert wird sich hierbei mit den IDM-Login Daten." ;
+        dc1:subject             "Bereitstellungsservice über Lehrelaufwerk" ;
+        usdlagreement:refersTo  itcat:Computer , itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          "Lehrelaufwerk" ;
+        schema:isProvidedBy     itcat:TLSO ;
+        schema:isRelatedTo      itcat:IDM ;
+        schema:url              <http://bscw.fh-brandenburg.de> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:NTP  a                    schema:Service ;
+        dc1:description         "Um eine eindeutige und weitgehend monotone Systemzeit netzweit zu erreichen, betreibt das Rechenzentrum einen Zeitserver. Der Name des Servers lautet: timehost.fh-brandenburg.de" ;
+        dc1:subject             "Zeitsynchronisationsdienst mit  NTP" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Laptop ;
+        skos:prefLabel          " Zeitsynchronisationsdienst mit  NTP" ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-brandenburg.de/zeitsynchronisation.htm> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:WLAN  a                   schema:Service ;
+        dc1:description         "Die Nutzung des WLANs fhb-wlan steht allen Angehörigen der Fachhochschule Brandenburg frei. Einrichten und Betreuen von Zugängen für Mitarbeiter, Studenten und möglicherweise weitere Anwender. Verwalten des Zugangs/Betriebs von Bewohnern des Studentenheims." ;
+        dc1:subject             "WLAN" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop ;
+        skos:prefLabel          "WLAN" ;
+        schema:isRelatedTo      itcat:IDM ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-Brandenburg.de/wlananleitung.htm> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+<http://th-brandenburg.de/ns/itcat#Weidner&Doletzki>
+        a               itcat:Provider ;
+        skos:prefLabel  "Hr. Ralf Doletzki und Hr. Wolfram Weidner" .
+
+itcat:IDM  a                schema:Service ;
+        dc1:description     "Das IdM beinhaltet die zentrale Benutzerverwaltung der Fachhochschule Brandenburg. Hier werden die wichtigsten Daten aller Angehörigen der FHB in einem zentralen Verzeichnisdienst (LDAP) gespeichert und verwaltet, die für den Zugang zur IT-Infrastruktur und der angeschlossenen Systeme notwendig sind. Verwendet wird die Benutzerkennung für Dienste wie: E-Mail, Lernplattform Moodle, Anmeldung in Computerlaboren Verbindung von Netzlaufwerke, Zugang zum WLAN, Nutzung VPN-Zugang, Antrag zur Nutzung Internet im Studentenwohnheim" ;
+        dc1:subject         "Identity Management (IDM)" ;
+        itcat:Status        " " ;
+        skos:prefLabel      "Identity Management" ;
+        schema:isRelatedTo  itcat:Mailservice ;
+        schema:provider     itcat:Rechenzentrum , <http://th-brandenburg.de/ns/itcat#Schulz&Thiele> , <http://th-brandenburg.de/ns/itcat#Weidner&Doletzki> , itcat:TLSO ;
+        schema:url          <http://www.fh-brandenburg.de/2261.html> ;
+        schema:user         itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:VPN-Dienste  a        schema:Service ;
+        dc1:description     "Der VPN-Zugang ermöglicht vor allem den Benutzern, die über andere Netze als das der FH Brandenburg Zugang zum Internet haben (z.B. DSL, Netz einer anderen Hochschule), durch eine getunnelte Verbindung auch die nicht öffentlichen IP-Adressen unseres Datennetzes zu erreichen. Einrichten und Betreuen von Zugängen für Mitarbeiter, Studenten und möglicherweise weitere Anwender. Verwalten des Zugangs/Betriebs von Bewohnern des Studentenheims. Authentifiziert wird sich mit den IDM Login Daten." ;
+        dc1:subject         "VPN-Dienste" ;
+        itcat:Status        "in Betrieb" ;
+        skos:prefLabel      "VPN" ;
+        schema:isRelatedTo  itcat:IDM ;
+        schema:provider     itcat:Rechenzentrum ;
+        schema:url          <http://www.fh-brandenburg.de/vpnanleitung.html> ;
+        schema:user         itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:Proxies  a                schema:Service ;
+        dc1:description         "Bereitstellung von Proxy-Servern zur Nutzung der Dienste: htttp/https, ftp, sowie socks5 innerhalb des Hochschulnetzes. Dienste und ihre Proxy-Adressen: Dienst / Adresse / Port \n http/https proxy.fh-brandenburg.de 3128 \n ftp \n ftp-proxy.fh-brandenburg.de 21 \n socks5 socks5-proxy.fh-brandenburg.de 1080" ;
+        dc1:subject             "Verwalten und Einrichten von Web-Filtern (Proxies an der FH Brandenburg)" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          " Proxies an der FHB" ;
+        schema:isRelatedTo      itcat:IDM ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-brandenburg.de/proxies.html> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:mapongo  a                schema:Service ;
+        dc1:description         "Den Mitarbeiterinnen und Mitarbeitern des Fachbereichs steht nunmehr auch ein Cloud-Service zur Verfügung. Die Startseite zeigt Ihnen Ihr Home-Laufwerk, welches Sie als Arbeitsbereich nutzen können. Des Weiteren sehen Sie unter dem Menüpunkt Netzlaufwerke, die Ihnen zugewiesenen Laufwerke (z.B. Projekte, Lehre etc.). Über die Weboberfläche unseres Cloud-Services können Sie sich zusätzlich einen Client für Ihren PC/MAC herunterladen. Dieser Client besitzt erweiterte Funktionalitäten, z.B. auch Synchronisationsmöglichkeiten, wie Sie sie vom iFolder her kennen. (Klicken Sie in der Webanwendung oben rechts auf Ihren Namen. Es öffnet sich ein Tooltip mit einem Link zum Download.) Für Smartphones und Tablets gibt es im Apple-App-Store bzw. Google Play Store eine kostenlose App mit dem Namen Filr. Authentifiziert wird sich hierbei mit dem IDM-Login Daten. Ein elektronisches Abbild der Bibliothek der Fachhochschule inkl.Dem Aufbewahrungsort von Büchern. Dieser Dienst kann im Zusammenhang mit dem Online-Katalog (Opac) verwendet werden." ;
+        dc1:subject             "Standortsuche FH Bibliothek (mapongo)" , "Cloud-Service des FBW" ;
+        itcat:Status            " " ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop ;
+        skos:prefLabel          "Standortsuche FH Bibliothek" ;
+        schema:provider         itcat:TLSO , itcat:Hochschulbibliothek ;
+        schema:url              <https://cloud.fh-brandenburg.de> , <http://fh-brandenburg.mapongo.de/viewer?language=de&project_id=1> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:kobv  a                   schema:Service ;
+        dc1:description         "Im Rahmen des Deutschen und Internationalen Leihverkehrs haben Sie die Möglichkeit, Medien (Bücher, Zeitschriftenartikel, usw.), die sich nicht im Bestand der Hochschulbibliothek befinden, aus anderen Bibliotheken zu bestellen. Die Realisierung einer Fernleihbestellung dauert in der Regel 2-4 Wochen. Bevor Sie eine Fernleihbestellung aufgeben, führen Sie bitte stets eine Bestandskontrolle im Online-Katalog durch. Sind die gewünschten Medien nicht vorhanden, können Sie eine gebührenpflichtige Fernleihbestellung aufgeben.Wenn die bestellten Medien in der Hochschulbibliothek eingegangen sind, werden Sie per E-MailE-Mail oder schriftlich benachrichtigt. Leihfrist und Ausleihbedingungen werden von der verleihenden Bibliothek festgelegt und sind streng einzuhalten. Kann Ihre Fernleihbestellung aus keiner deutschen Bibliothek beschafft werden, besteht die Möglichkeit einer internationalen Fernleihe" ;
+        dc1:subject             "Fernleihe (kobv)" ;
+        itcat:Status            " " ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones , itcat:Computer ;
+        skos:prefLabel          "KOBV" ;
+        schema:isRelatedTo      itcat:Mailservice , itcat:DBIS ;
+        schema:provider         itcat:UniversitätRegensburg ;
+        schema:url              <http://www.google.com/url?q=http%3A%2F%2Fvs13.kobv.de%2FV%3Fportal%3DKOBV%26institute%3DKOBV%26func%3Dmeta-1%26mode%3Dadvanced&sa=D&sntz=1&usg=AFQjCNEZIAusBR1o6MGMe5mG_HngKNLJ_A> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:Monotoring  a             schema:Service ;
+        dc1:description         " " ;
+        dc1:subject             "Monotoring" ;
+        itcat:Status            " " ;
+        usdlagreement:refersTo  itcat:Laptop ;
+        skos:prefLabel          " Nagios" ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:Online-Shop  a            schema:Service ;
+        dc1:description         "Über den Online-Shop, in Verbindung mit Social-Commerce-Unternehmen dem Spreadshirt,können Bekleidungsstücke mit Motiven der Fachhochschule bestellt werden." ;
+        dc1:subject             "Online-Shop der Fachhochschule Brandenburg" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          " FHB Online-Shop" ;
+        schema:provider         itcat:TLSO ;
+        schema:url              <http://www.bsn-infodisplay.de/mobil/fhbfbwi> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten , itcat:Extern .
+
+<http://th-brandenburg.de/ns/itcat#DHCP/DNS/Bereitstellung/EmpfangGroßerDateien>
+        a                       schema:Service ;
+        dc1:description         "Wie allgemein bekannt, ist die Begrenzung einer Email auf 10 MB eigentlich schon ein Zugeständnis und für den Austausch von Dateien auch nicht erfunden worden. Jedenfalls hat die Nachfrage nach dem Austausch von Dateien > 10 MB mit externen Partner stark zugenommen. Das Rechenzentrum bietet jetzt die Möglichkeit über ein Formular, Dateien für externe Partner zur Verfügung zu stellen bzw. große Dateien zu empfangen." ;
+        dc1:subject             "Bereitstellung/Empfang großer Dateien" ;
+        itcat:Status            "" ;
+        usdlagreement:refersTo  itcat:Laptop ;
+        skos:prefLabel          " Bereitstellung/Empfang großer Dateien" ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-brandenburg.de/zeitsynchronisation.html> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:QISFSV  a             schema:Service ;
+        dc1:description     "Dient der Bearbeitung von Finanzen und Sachmittel mit folgenden Modulen: Mittelbewirtschaftung (MBS) Finanzbuchhaltung (FIBU) Beschaffung (BES) Inventarverwaltung (IVS) Materialwirtschaft (MAT) Anlagebuchhaltung (BAT)" ;
+        dc1:subject         "Software  für Finanzberichte der FH Brandenburg (QISFSV)" ;
+        itcat:Status        "in Betrieb" ;
+        skos:prefLabel      " Online-Portal für Finanzberichte der FH Brandenburg" ;
+        schema:isRelatedTo  itcat:IDM ;
+        schema:provider     itcat:Rechenzentrum ;
+        schema:url          <https://qisfsv.fh-brandenburg.de/qisserver/rds?state=user&type=0&topitem=> ;
+        schema:user         itcat:Mitarbeiter .
+
+itcat:Infodisplay  a            schema:Service ;
+        dc1:description         "Über das Display in der 2. Etage  des WWZ, sowie beim Zugang zum Essbereich der Mensa werdenStudenten und Mitarbeiter über aktuelle Veranstaltungen, Ausfälle von Vorlesungen, den tagesaktuellem Mensaplan und/oder Raumänderungeninformiert." ;
+        dc1:subject             "Informationsservice Infodisplay" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          "Infodisplay" ;
+        schema:provider         itcat:TLSO ;
+        schema:url              <http://www.bsn-infodisplay.de/mobil/fhbfbwi> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:DBIS  a                   schema:Service ;
+        dc1:description         "Das Datenbank-Infosystem (DBIS) ist ein kooperativer Service zur Nutzung wissenschaftlicher Datenbanken." ;
+        dc1:subject             "Datenbank-Infosystem (DBIS)" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones , itcat:Computer ;
+        skos:prefLabel          "Datenbank-Infosystem" ;
+        schema:provider         <http://th-brandenburg.de/ns/FHBrandenburg> , itcat:UniversitätRegensburg ;
+        schema:url              <http://rzblx10.uni-regensburg.de/dbinfo/dbliste.php?bib_id=fhbrb&colors=31&ocolors=40&lett=a> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:QISPOS  a                 schema:Service ;
+        dc1:description         "Ermöglicht Dozenten die webbasierte Prüfungsverbuchung (Notenvergabe) Authentifiziert wird sich hierbei mit dem IDM-Login Daten." ;
+        dc1:subject             "Prüferfunktionen (QISPOS)" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Computer , itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          " Prüfer online Sekretariat" ;
+        schema:isRelatedTo      itcat:IDM ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <https://hapweb.fh-brandenburg.de> , <http://www.fh-brandenburg.de/qispos.html> ;
+        schema:user             itcat:Mitarbeiter .
+
+itcat:Geräteverleih  a          schema:Service ;
+        dc1:description         "Die Fachhochschule Brandenburg bietet seinen Studierenden die Möglichkeit verschiedenste Geräte für den Gebrauch in der FH zur Verfügung zu stellen. Bei den Geräten sind, soweit verfügbar, auch Anleitungen verlinkt. Sie liegen teilweise in Deutsch und teilweise in Englisch vor. Es sind auch einige weitere Materialien, die hilfreich sein könnten, hinterlegt. Modalitäten des Geräteverleihs: Voraussetzungen für den Geräteverleih an Studenten Der Geräteverleih an Studenten ist nur im Rahmen des Unterrichts an der FH-Brandenburg möglich. Bedingung ist, das vom Studenten eine Haftpflichversicherung abgeschlossen wurde. Nähere Informationen hierzu sind am Schwarzen Brett in der Nähe des Raumes InfZ 108 zu finden. Diese Informationen können auch als PDF heruntergeladen werden. Es ist ein Leihschein auszufüllen und von dem verantwortlichen Professor zu unterschreiben. Diese Scheine sind bei Fr. Prenzlow zu bekommen. Hier wird dann auch gleich das Vorhandensein einer Versicherung (MLP) geprüft. Auf dem Schein sind die gewünschten Geräte anzukreuzen. Aufgrund der begrenzten Resourcen sollten die Geräte rechtzeitig reserviert werden. Andernfalls kann die Verfügbarkeit zum gewünschten Zeitraum nicht gewährleistet werden." ;
+        dc1:subject             "Geräteverleih" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Computer , itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          " Geräteverleih" ;
+        schema:isRelatedTo      itcat:E-Mail , itcat:Moodle ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <https://hisqis.fh-brandenburg.de> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:BSWC  a                   schema:Service ;
+        dc1:description         "Um die Kosten- und Zeitvorteile die das Internet bietet auszunutzen, wurde das Projekt- und Dokumentenmanagementsystem BSCW (Basic Support for Cooperative Work) entwickelt. Der FB Wirtschaft hat eine Lizenz für Forschung und Lehre erworben und bietet auf einem eigenen Server, der in studentischer Betreuung steht, eine Nutzung an. BSCW ist das ideale Werkzeug für effiziente Kooperation, insbesondere für firmen- oder standortübergreifende Projekte. Es ermöglicht - ohne Softwareinstallation bei den Endbenutzern - die Zusammenarbeit von beliebig großen Benutzergrupp Angemeldet wird sich hierbei mit Softwareeigenen Nutzerdaten, welcher nicht zwangsläufig der IDM-Login sein muss." ;
+        dc1:subject             "Projekt- und Dokumentenmanagementsystem BSCW (Basic Support for Cooperative Work)" ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop , itcat:Computer ;
+        skos:prefLabel          "BSCW" ;
+        schema:isProvidedBy     itcat:TLSO ;
+        schema:url              <http://bscw.fh-brandenburg.de> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:Bibliotheksdienste
+        a                   itcat:ServiceKategorie ;
+        itcat:hasITService  itcat:kobv , itcat:DBIS , itcat:Online-Katalog , itcat:EZB ;
+        skos:prefLabel      "Bibliotheksdienste" .
+
+<http://th-brandenburg.de/ns/itcat#DHCP/DNS/Bereitstellung/eduroam>
+        a                schema:Service ;
+        dc1:description  "Mit Hilfe von eduroam können sie sich als Mitglied unserer Hochschule an anderen Bildungseinrichtungen mit dem Internet verbinden. Eine Karte mit allen Standorten, an denen sie eduraom nutzen können, finden sie hier:  airoserv4.dfn.de An der FH-Brandenburg können sie sich als Mitglied unserer Hochschule nicht mit eduroam verbinden. Um sich mit einem eduroam-Netzwerk zu verbinden gehen sie auf die Seite edit.dfn.de. Hier können sie ein Installationsprogramm für eduroam herunterladen. Sie müssen als Heimatorganisation die FH Brandenburg auswählen, wenn sie hier studieren bzw. Mitarbeiter sind." ;
+        dc1:subject      "eduroam - Internet an anderen Bildungseinrichtungen" ;
+        itcat:Status     "in Betrieb" ;
+        skos:prefLabel   "eduroam" ;
+        schema:provider  itcat:Rechenzentrum ;
+        schema:url       <http://www.fh-brandenburg.de/eduroam.html> , <https://www.dfn.de/dienstleistungen/dfnroaming/> ;
+        schema:user      itcat:Mitarbeiter , itcat:Studenten .
+
+<http://th-brandenburg.de/ns/FHBrandenburg>
+        a               itcat:Provider ;
+        skos:prefLabel  "FH Brandenburg: Marcus Heinrich " .
+
+itcat:Moodle  a                 schema:Service ;
+        dc1:description         "Moodle dient als Plattform für Kurse an der Fachhochschule Brandenburg. Diese Kurse können Vorlesungen oder andere organisatorische Einheiten sein. In diesen Kursen können u.a. Dokumente und Dateien hoch- und runtergeladen werden, Tests veröffentlicht, Aufgaben verteilt, Foren eröffnet, oder Wikis erstellt/bereitgestellt werden. In Moodle können Kurse für bestimmte Usergruppen gesperrt, bzw. geöffnet werden. Authentifiziert wird sich hierbei mit den IDM-Login Daten" ;
+        dc1:subject             "Online-Portal des Studierendensekretariats der Fachhochschule Brandenburg" ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones , itcat:Computer ;
+        skos:prefLabel          "Kurs-/Lernmanagementsystem Moodle " ;
+        schema:isRelatedTo      itcat:IDM , itcat:E-Mail ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <http://www.fh-brandenburg.de/moodle> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:Stundenpläne  a           schema:Service ;
+        dc1:description         "Mittels des Stundenplans können Studenten Informationen über den Vorlesungsart, Vorlesungszeiten, Dozenten einsehen. Die Vorlesung werden zu einer Informationsseite verlinkt, in welcher Ziele und Inhalte der Veranstaltungen,die jeweiligen Literaturverzeichnisse,Arten (Wahlpflicht/Pflicht),ECTS Credits,Informationen über die Lehrmethoden und Bewertungen, Sprache, sowie Informationen über die zugewiesenen Dozenten dargestellt werden" ;
+        dc1:subject             "Online-Stundenpläne" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          " Stundenpläne" ;
+        schema:provider         itcat:FBWirtschaft ;
+        schema:url              <http://zeus.fh-brandenburg.de/Stundenplan/Plan.htm> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:EZB  a                    schema:Service ;
+        dc1:description         "Die Elektronische Zeitschriftenbibliothek ist ein Service zur effektiven Nutzung wissenschaftlicher Volltextzeitschriften im Internet. Sie bietet einen schnellen, strukturierten und einheitlichen Zugang zu wissenschaftlichen Volltextzeitschriften. Sie umfasst 80186 Titel, davon 15231 reine Online-Zeitschriften, zu allen Fachgebieten. Zudem werden 83449 Zeitschriften von Aggregatoren verzeichnet. 48859 Fachzeitschriften sind im Volltext frei zugänglich. Die Anwenderbibliotheken bieten ihren Benutzern zusätzlich den Zugriff auf die Volltexte der von ihnen abonnierten E-Journals. Die Zeitschriften werden nach Fächern geordnet angeboten. Die Fachlisten für die Teilnehmerbibliotheken werden jeweils aktuell aus einer Datenbank erzeugt. Pay per View: Bei Zeitschriften, die zusätzlich zur Ampel auch ein Eurosymbol tragen, können Einzelartikel über Pay-per-View kostenpflichtig abgerufen werden. EZB-App: Für Smartphones und Tablets mit dem Betriebssystem -Android steht eine mobile Anwendung der EZB zur Verfügung. Newsfeed Einige Zeitschriften in der EZB enthalten einen Newsfeed mit Informationen über aktuelle Artikel. Dieser Dienst wird unterstützt von JournalTOC." ;
+        dc1:subject             "Elektronische Zeitschriftenbibliothek (EZB)" ;
+        itcat:Status            " " ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop , itcat:Computer ;
+        skos:prefLabel          " Elektronische Zeitschriftenbibliothek" ;
+        schema:provider         itcat:UniversitätRegensburg ;
+        schema:url              <http://rzblx1.uni-regensburg.de/ezeit/> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:HISinOne  a               schema:Service ;
+        dc1:description         "Übernimmt die Aufgaben des vorher verwendeten QISZUL.Verwaltung der Zulassungen, Verwaltung der notwendigen Formulare und Anleitungen. Angemeldet wird sich hierbei mit Softwareeigenen Nutzerdaten, welcher nicht zwangsläufig der IDM-Login sein muss." ;
+        dc1:subject             "Zulassungsservice an der Fachhochschule Brandenburg  (HISinOne)" ;
+        usdlagreement:refersTo  itcat:Computer , itcat:Laptop , itcat:Smartphones ;
+        skos:prefLabel          " Zulassungsservice an der Fachhochschule Brandenburg  " ;
+        schema:isRelatedTo      itcat:Mailservice ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <https://hapweb.fh-brandenburg.de> ;
+        schema:user             itcat:Mitarbeiter , itcat:Studenten , itcat:Extern .
+
+<http://th-brandenburg.de/ns/itcat#DHCP/DNS/Datensicherung>
+        a                schema:Service ;
+        dc1:description  "" ;
+        dc1:subject      "Datensicherung FBW (Backup- / Restoreservice)" .
+
+itcat:Dienstreiseservice
+        a                   schema:Service ;
+        dc1:description     " Sämtliche Formulare, welche nötig sind um eine Dienstreise zu beantragen, lassen sich online unter http://www.fh-brandenburg.de/formulare_verwaltung.3.html finden Als Bearbeitungssoftware und Antrags-, Genehmigungs- und Abrechnungsverfahren von dienstlichen Reisen werden in der FH die Produkte HISRKA, sowie QISRKA verwendet." ;
+        dc1:subject         "Dienstreiseservice" ;
+        itcat:Status        "in Betrieb" ;
+        skos:prefLabel      " Beantragung und Verarbeitung von Dienstreisen" ;
+        schema:isRelatedTo  itcat:IDM , itcat:E-Mail ;
+        schema:provider     itcat:Personalabteilung ;
+        schema:url          <http://www.fh-brandenburg.de/formulare_verwaltung.3.html> ;
+        schema:user         itcat:Mitarbeiter , itcat:Studenten .
+
+itcat:NetzwerkDienste
+        a                   itcat:ServiceKategorie ;
+        dc1:description     "Für die Interaktion mit der FH Brandenburg ist es bedeutend über die Netzwerk Dienste welche die Fachhochschule anbietet Kenntnisse zu besitzen. Besonders bei der immer schneller werdende Entwicklung in der Gesellschaft u8nd damit auch bei den Studenten muss sich die IT stetig anpassen um allen Bedürfnissen gerecht zu werden. Dem entsprechend ist es ratsam sich über Änderungen und Erneuerungen zu informieren und darauf einzustellen." ;
+        itcat:hasITService  itcat:Samba , itcat:Proxies , itcat:VPN-Dienste , itcat:WLAN , <http://th-brandenburg.de/ns/itcat#DHCP/DNS/Datensicherung> , <http://th-brandenburg.de/ns/itcat#DHCP/DNS/Bereitstellung/eduroam> , itcat:NTP , <http://th-brandenburg.de/ns/itcat#DHCP/DNS/Bereitstellung/EmpfangGroßerDateien> , <http://th-brandenburg.de/ns/itcat#DHCP/DNS/Gateways> ;
+        skos:prefLabel      "Netzwerk Dienste" .
+
+itcat:Lehrportale  a        itcat:ServiceKategorie ;
+        itcat:hasITService  itcat:Lehrelaufwerk , itcat:Moodle , itcat:BSWC , itcat:Geräteverleih ;
+        skos:prefLabel      "Lehrportale" .
+
+itcat:Webmail  a                schema:Service ;
+        dc1:description         "Der Webmail-Service ist plattformunabhängig mit jedem Gerät abrufbar. Verwendet wird zentral die Software „Zimbra“, welche neben dem E-MailE-Mail Service weitere Funktionen einer Groupware wie einen Kalender, Kontaktbuch, Aufgabenbereich beinhaltet. Des Weiteren kann man online Dateien hochladen und freigeben." ;
+        dc1:subject             "Webmail" ;
+        itcat:Status            "in Betrieb" ;
+        usdlagreement:refersTo  itcat:Smartphones , itcat:Laptop ;
+        skos:prefLabel          "Webmail" ;
+        schema:isRelatedTo      itcat:Mailservice ;
+        schema:provider         itcat:Rechenzentrum ;
+        schema:url              <https://webmail.fh-brandenburg.de/> ;
+        schema:user             itcat:Studenten , itcat:Mitarbeiter .
+
+itcat:TLSO  a           itcat:Provider ;
+        skos:prefLabel  "TLSO" .
+
+itcat:Rechenzentrum  a  itcat:Provider ;
+        skos:prefLabel  "Rechenzentrum" .
+
+itcat:Personalabteilung
+        a               itcat:Provider ;
+        skos:prefLabel  "Personalabteilung " .
+
+itcat:Hochschulbibliothek
+        a               itcat:Provider ;
+        skos:prefLabel  "FHB Hochschulbibliothek" .
+
+itcat:UniversitätRegensburg
+        a               itcat:Provider ;
+        skos:prefLabel  "Universität Regensburg " .
+
+<http://th-brandenburg.de/ns/itcat#Schulz&Thiele>
+        a               itcat:Provider ;
+        skos:prefLabel  "Hr. Dieter Schulz & Hr. Dieter Thiele" .
+
+itcat:FBWirtschaft  a   itcat:Provider ;
+        skos:prefLabel  "FB Wirtschaft" .
+
+<http://th-brandenburg.de/ns/itcat#DHCP/DNS/Gateways>
+        a               schema:Service ;
+        skos:prefLabel  "DHCP/DNS/Gateways" .

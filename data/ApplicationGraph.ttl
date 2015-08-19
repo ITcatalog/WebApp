@@ -1,0 +1,15 @@
+<http://th-brandenburg.de/ns/itcat#Bibliotheksdienste>
+        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
+                "green" .
+
+<http://th-brandenburg.de/ns/itcat#NetzwerkDienste>
+        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
+                "purple" .
+
+<http://th-brandenburg.de/ns/itcat#Lehrportale>
+        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
+                "orange" .
+
+<http://th-brandenburg.de/ns/itcat#HIS>
+        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
+                "cyan" .
