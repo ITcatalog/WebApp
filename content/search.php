@@ -3,7 +3,7 @@ $searchTerm = $_GET['search'];
 
 $sparql = '
 SELECT *
-FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
+FROM NAMED <'.$dataGraphs['applicationGraph'].'>
 WHERE {
     ?s skos:prefLabel ?label.
     ?s dcterms:description ?serviceDescription.

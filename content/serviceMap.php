@@ -30,7 +30,7 @@ $service = urldecode($_GET['service']);
 
 $sparql = '
   SELECT *
-  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
+  FROM NAMED <'.$dataGraphs['applicationGraph'].'>
   WHERE {
     <'.$service.'> (^schema:isRelatedTo | schema:isRelatedTo)+ ?service.
     ?service schema:isRelatedTo ?serviceX.
