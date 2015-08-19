@@ -7,7 +7,14 @@ if($_SERVER["SERVER_ADDR"] == '::1' || $_SERVER["SERVER_ADDR"] == '127.0.0.1') {
 }
 else{
 
-  $output = exec('cd /var/www/html/git/WebApp/ && git pull origin master');
+  if(!isset($_GET['branch'])){
+      $branch = 'master';
+  }
+  else{
+    $branch = $_GET['branch'];
+  }
+
+  $output = exec('cd /var/www/html/git/WebApp/ && git pull origin ' . $branch .'');
   #echo '' . json_encode($output) . '';
   echo $output;
 
