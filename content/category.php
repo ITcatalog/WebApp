@@ -5,7 +5,7 @@ if(isset($_GET['cat'])){
 	$category = urldecode($_GET['cat']);
 	$sparql = '
 	SELECT *
-  FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
+  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
   WHERE {
     <'.$category.'> a itcat:ServiceKategorie;
 		itcat:hasITService ?service.
