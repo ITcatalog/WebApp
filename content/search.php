@@ -68,35 +68,3 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
   }
 
   ?>
-
-<!--
-<div class="mdl-cell mdl-cell--8-col mdl-grid">
-
-  <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
-
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text mdl-badge" data-badge="5">Ergebnis</h2>
-    </div>
-
-    <div class="mdl-card__supporting-text">
-
-    </div>
-  </div>
-
-</div>
-
-<div class="mdl-cell mdl-cell--4-col mdl-grid">
-
-  <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
-
-    <div class="mdl-card__title">
-      <h2 class="mdl-card__title-text">Optionen</h2>
-    </div>
-
-    <div class="mdl-card__supporting-text">
-
-    </div>
-  </div>
-
-</div>
--->
