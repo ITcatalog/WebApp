@@ -24,9 +24,8 @@
     <a class="mdl-navigation__link" href="?c=catalog"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_library</i>Kataloge</a>
     <a class="mdl-navigation__link" href="?c=list"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_list</i>Liste</a>
     <a class="mdl-navigation__link" href="?c=map"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">share</i>Landkarte</a>
-    <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">report</i>Reports</a>
-    <a class="mdl-navigation__link" href="?c=help"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">forum</i>HelpDesk</a>
+    <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">insert_chart</i>Reports</a>
     <div class="mdl-layout-spacer"></div>
-    <a class="mdl-navigation__link" href=""><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+    <a class="mdl-navigation__link" href="?c=help"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
   </nav>
 </div>
