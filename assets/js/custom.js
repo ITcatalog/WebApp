@@ -37,6 +37,6 @@ $.ajax({
   else {
     console.log( data );
     console.log( 'App updated. Reload.');
-    //location.reload();
+    location.reload();
   }
 });
