@@ -80,7 +80,7 @@ else{
  ?>
 
 
-<div class="mdl-cell mdl-cell--6-col mdl-grid">
+<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-grid">
 
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
 
@@ -185,10 +185,7 @@ else{
 
 </div>
 
-
-
-
-<div class="mdl-cell mdl-cell--6-col mdl-grid">
+<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-grid">
 
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
     <div class="mdl-card__title">

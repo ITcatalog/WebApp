@@ -34,7 +34,7 @@ while( $row = $result->fetch_array() ){
 
 
 
-<div class="itcat-category mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid mdl-grid--no-spacing">
+<div class="itcat-category mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-grid mdl-grid--no-spacing">
     <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $row['bgColor']; ?>-300">
       <h2 class="mdl-card__title-text mdl-badge badge-btn" data-badge="<?php echo $numberOfServices; ?>">
         <?php echo $row['catLabel']; ?>
