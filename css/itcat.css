@@ -17,7 +17,7 @@ html, body {
 
 
 .itcat-service > .mdl-card__supporting-text{
-  height:130px;
+  height: 122px;
 
 }
 
@@ -32,5 +32,11 @@ html, body {
 }
 
 .service-attribute__value{
+
+}
+
+.mdl-card__supporting-text{
+  color: rgba(0,0,0,.7);
+  line-height:19px;
 
 }
