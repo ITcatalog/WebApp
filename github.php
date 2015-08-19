@@ -13,8 +13,6 @@ else{
 
 }
 
-
-
 function version() {
     exec('git describe --always',$version_mini_hash);
     exec('git rev-list HEAD | wc -l',$version_number);
