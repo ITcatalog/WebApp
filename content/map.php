@@ -4,7 +4,7 @@
 
 $sparql = '
   SELECT *
-  FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
+  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
   WHERE {
     ?service rdf:type schema:Service;
     skos:prefLabel ?labelX.

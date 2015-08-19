@@ -1,6 +1,9 @@
 <?php
 require_once( "lib/sparqllib.php" );
 
+
+$dataGraphs['ApplicationGraph'] = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph';
+
 $db = sparql_connect( "http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/query" );
 if( !$db ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 

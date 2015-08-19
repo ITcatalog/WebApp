@@ -5,12 +5,16 @@ if(isset($_GET['cat'])){
 	$category = urldecode($_GET['cat']);
 	$sparql = '
 	SELECT *
-	WHERE {
-		<'.$category.'> a itcat:ServiceKategorie;
+  FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
+  WHERE {
+    <'.$category.'> a itcat:ServiceKategorie;
 		itcat:hasITService ?service.
 		?service skos:prefLabel ?label;
-    dcterms:description ?serviceDescription
-	}
+    dcterms:description ?serviceDescription.
+  	GRAPH ?g {
+    	<'.$category.'> itcat_app:hasBGColor ?bgColor.
+    }.
+  }
 	';
 
 	$result = $db->query( $sparql );
@@ -20,7 +24,7 @@ if(isset($_GET['cat'])){
 	while( $row = $result->fetch_array() ){
 	?>
   <div class="itcat-service mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid mdl-grid--no-spacing">
-      <div class="mdl-card__title mdl-card--expand mdl-color--orange-300">
+      <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $row['bgColor']; ?>-300">
         <h2 class="mdl-card__title-text">
           <?php echo $row['label']; ?>
         </h2>

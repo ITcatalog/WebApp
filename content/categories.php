@@ -4,7 +4,7 @@
 <?php
 $sparql = "
 SELECT *
-FROM NAMED <http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/testDataSet/data/ApplicationGraph>
+FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
 {
 	?cat a itcat:ServiceKategorie;
 	skos:prefLabel ?catLabel.
