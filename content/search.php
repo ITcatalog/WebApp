@@ -1,13 +1,20 @@
 <?php
 $searchTerm = $_GET['search'];
 
-
 $sparql = '
 SELECT *
+FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
 WHERE {
     ?s skos:prefLabel ?label.
     ?s dcterms:description ?serviceDescription.
     FILTER regex(lcase(str(?label)), lcase("'.$searchTerm.'")) .
+    OPTIONAL{
+      ?cat itcat:hasITService ?s.
+      GRAPH ?g {
+        ?cat itcat_app:hasBGColor ?bgColor.
+      }
+    }
+
 }
 ';
 
@@ -15,26 +22,24 @@ $result = $db->query( $sparql );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 ?>
-
-
-<div class="mdl-cell mdl-cell--12-col mdl-grid mdl-color--white mdl-shadow--2dp">
+<div class="mdh-expandable-search mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--6dp">
+  <i class="material-icons mdl-color-text--black">search</i>
   <form name="" action="" method="get">
-    <div class="mdl-textfield mdl-js-textfield searchBoxDiv ">
-      <input class="mdl-textfield__input" type="text" id="searchBox" name="search" />
-      <label class="mdl-textfield__label" for="searchBox"><?php echo $_GET['search']; ?></label>
-    </div>
+    <input type="text" placeholder="<?php echo $_GET['search']; ?>" size="1" name="search">
   </form>
 </div>
-
 
   <?php
 
   while( $row = $result->fetch_array() ){
+    if(!isset($row['bgColor'])){
+      $row['bgColor'] = 'gray';
+    }
 
     ?>
 
-    <div class="itcat-service mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-grid mdl-grid--no-spacing">
-        <div class="mdl-card__title mdl-card--expand mdl-color--orange-300">
+    <div class="itcat-service mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-grid mdl-grid--no-spacing">
+        <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $row['bgColor']; ?>-300">
           <h2 class="mdl-card__title-text">
             <?php echo $row['label']; ?>
           </h2>
@@ -62,14 +67,7 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
   ?>
 
-
-
-<div class="mdl-cell mdl-cell--12-col mdl-grid mdl-color--white mdl-shadow--2dp searchBoxDiv">
-
-  <input name="" type="text" style="width:100%">
-
-</div>
-
+<!--
 <div class="mdl-cell mdl-cell--8-col mdl-grid">
 
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
@@ -99,3 +97,4 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
   </div>
 
 </div>
+-->
