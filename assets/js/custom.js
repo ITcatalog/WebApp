@@ -18,3 +18,25 @@ $('.mdl-card__title-text').truncate({
     side: 'right',
     multiline: false
 });
+
+
+$.ajax({
+  url: "github.php",
+  beforeSend: function(){
+    console.log ('Checking for update ...');
+  }
+})
+.done(function( data ) {
+
+  if ( data == 'Already up-to-date.' ) {
+    console.log( 'App is up-to-date');
+  }
+  else if(data == 'Running on localhost.'){
+    console.log( data)
+  }
+  else {
+    console.log( data );
+    console.log( 'App updated. Reload.');
+    //location.reload();
+  }
+});
