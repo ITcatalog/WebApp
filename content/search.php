@@ -7,14 +7,16 @@ FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
 WHERE {
     ?s skos:prefLabel ?label.
     ?s dcterms:description ?serviceDescription.
-    FILTER regex(lcase(str(?label)), lcase("'.$searchTerm.'")) .
+    FILTER (
+      (regex(lcase(str(?serviceDescription)), lcase("'.$searchTerm.'"))) ||
+      (regex(lcase(str(?label)), lcase("'.$searchTerm.'")))
+    ).
     OPTIONAL{
       ?cat itcat:hasITService ?s.
       GRAPH ?g {
         ?cat itcat_app:hasBGColor ?bgColor.
       }
     }
-
 }
 ';
 
