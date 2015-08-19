@@ -1,15 +1,51 @@
-<http://th-brandenburg.de/ns/itcat#Bibliotheksdienste>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "green" .
+@prefix itcat: <http://th-brandenburg.de/ns/itcat#> .
+@prefix itcat_app: <http://th-brandenburg.de/ns/itcat_app#> .
 
-<http://th-brandenburg.de/ns/itcat#NetzwerkDienste>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "purple" .
+###  http://th-brandenburg/ns/itcat#LibraryService
 
-<http://th-brandenburg.de/ns/itcat#Lehrportale>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "orange" .
+itcat:LibraryService itcat_app:hasBgColor "lime".
 
-<http://th-brandenburg.de/ns/itcat#HIS>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "cyan" .
+###  http://th-brandenburg/ns/itcat#HISService
+
+itcat:HISService itcat_app:hasBgColor "cyan".
+
+###  http://th-brandenburg/ns/itcat#TeachingPlatform
+
+itcat:TeachingPlatform itcat_app:hasBgColor "green".
+
+###  http://th-brandenburg/ns/itcat#CommunicationService
+
+itcat:CommunicationService itcat_app:hasBgColor "blue".
+
+###  http://th-brandenburg/ns/itcat#InformationService
+
+itcat:InformationService itcat_app:hasBgColor "light-blue".
+
+###  http://th-brandenburg/ns/itcat#MiscService
+
+itcat:MiscService itcat_app:hasBgColor "brown".
+
+###  http://th-brandenburg/ns/itcat#NetworkService
+
+itcat:NetworkService itcat_app:hasBgColor "purple".
+
+###  http://th-brandenburg/ns/itcat#InfrastructureService
+
+itcat:InfrastructureService itcat_app:hasBgColor "deep-purple".
+
+
+###  http://th-brandenburg/ns/itcat#BusinessCatalog
+
+itcat:BusinessCatalog  itcat_app:hasBgColor "red" .
+
+###  http://th-brandenburg/ns/itcat#PublicCatalog
+
+itcat:PublicCatalog  itcat_app:hasBgColor "blue" .
+
+###  http://th-brandenburg/ns/itcat#OperationalCatalog
+
+itcat:OperationalCatalog  itcat_app:hasBgColor "purple" .
+
+###  http://th-brandenburg/ns/itcat#InfrastructureCatalog
+
+itcat:InfrastructureCatalog  itcat_app:hasBgColor "deep-purple" .
