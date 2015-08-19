@@ -21,13 +21,12 @@ $('.mdl-card__title-text').truncate({
 
 
 $.ajax({
-  url: "github.php",
+  url: "github2.php",
   beforeSend: function(){
     console.log ('Checking for update ...');
   }
 })
 .done(function( data ) {
-
   if ( data == 'Already up-to-date.' ) {
     console.log( 'App is up-to-date');
   }
@@ -39,4 +38,8 @@ $.ajax({
     console.log( 'App updated. Reload.');
     location.reload();
   }
-});
+})
+.fail(function() {
+  console.log( "Can't check for updates" );
+})
+;
