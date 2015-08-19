@@ -1,8 +1,5 @@
-
-
-
 <?php
-$sparql = "
+$sparql = '
 SELECT *
 FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
 {
@@ -13,7 +10,7 @@ FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
     	?cat itcat_app:hasBGColor ?bgColor.
   	}.
 }
-";
+';
 
 $result = $db->query( $sparql );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
