@@ -39,9 +39,9 @@
     <link href="bower_components/vis/dist/vis.css" rel="stylesheet" type="text/css" />
 
     <!-- ITcat styles -->
-    <link rel="stylesheet" href="./css/styles.css">
-    <link rel="stylesheet" href="./css/itcat.css">
-    <link rel="stylesheet" href="./css/custom.css">
+    <link rel="stylesheet" href="assets/css/styles.css">
+    <link rel="stylesheet" href="assets/css/itcat.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
 
   </head>
   <body>
