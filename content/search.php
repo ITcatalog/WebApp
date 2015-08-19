@@ -37,8 +37,7 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
     if(!isset($row['bgColor'])){
       $row['bgColor'] = 'gray';
     }
-
-    ?>
+  ?>
 
     <div class="itcat-service mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-grid mdl-grid--no-spacing">
         <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $row['bgColor']; ?>-300">
