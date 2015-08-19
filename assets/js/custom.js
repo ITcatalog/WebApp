@@ -21,7 +21,7 @@ $('.mdl-card__title-text').truncate({
 
 
 $.ajax({
-  url: "github2.php",
+  url: "github.php",
   beforeSend: function(){
     console.log ('Checking for update ...');
   }
