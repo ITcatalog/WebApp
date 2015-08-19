@@ -41,3 +41,37 @@
   -webkit-transition: all 1s cubic-bezier(.4,0,1,1);
   transition: all 1s cubic-bezier(.4,0,1,1);
 }
+
+.category-badge{
+  margin:auto;
+  padding:0px;
+  margin-left:5px;
+  clear:both;
+}
+
+
+.category-badge li{
+  display: inline-block;
+  margin: 0px 0px;
+  padding: 0px 10px;
+  line-height:14px;
+  height:14px;
+  list-style:none;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size:9px;
+  color:#fff;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+}
+
+.category-badge li a{
+  color:#fff;
+  text-decoration:none;
+  font-weight:400;
+}
+
+.category-badge li:hover{
+  color:#fff;
+  text-decoration:underline;
+}

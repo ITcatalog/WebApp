@@ -84,8 +84,34 @@ else{
 
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
 
-    <div class="mdl-card__title">
+    <div class="mdl-card__title" style="display:block;">
       <h2 class="mdl-card__title-text"><?php echo $serviceLiteral['prefLabel']; ?></h2>
+
+			<?php
+			$sparql = '
+			SELECT *
+		  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
+		  WHERE {
+		    ?cat itcat:hasITService <'.$service.'>;
+				skos:prefLabel ?catLabel.
+		  	GRAPH ?g {
+		    	?cat itcat_app:hasBGColor ?bgColor.
+		    }
+		  }
+			';
+
+			$result = $db->query( $sparql );
+			if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
+
+			if($result->num_rows() > 0){
+				echo '<ul class="category-badge">';
+				while( $row = $result->fetch_array() ){
+					echo '<li class="mdl-color--'.$row['bgColor'].'-300"><a href="?c=category&cat='.urlencode($row['cat']).'" class="">'.$row['catLabel'].'</a></li>';
+				}
+				echo '</ul>';
+			}
+
+			?>
     </div>
 
     <div class="mdl-card__supporting-text">
