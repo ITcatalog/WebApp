@@ -89,15 +89,17 @@ else{
 
 			<?php
 			$sparql = '
-			SELECT *
-		  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
-		  WHERE {
-		    ?cat itcat:hasITService <'.$service.'>;
-				skos:prefLabel ?catLabel.
-		  	GRAPH ?g {
-		    	?cat itcat_app:hasBGColor ?bgColor.
-		    }
-		  }
+			SELECT ?subjectCategory ?prefLabel ?bgColor
+			WHERE {
+				<'.$service.'> itcat:inCategory ?subjectCategory.
+			  ?subjectCategory a itcat:SubjectCategory;
+			  skos:prefLabel ?prefLabelLang;
+			  FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'"))
+				BIND (str(?prefLabelLang) AS ?prefLabel)
+			  GRAPH ?g {
+			    ?subjectCategory itcat_app:hasBgColor ?bgColor
+			  }
+			}
 			';
 
 			$result = $db->query( $sparql );
@@ -106,11 +108,10 @@ else{
 			if($result->num_rows() > 0){
 				echo '<ul class="category-badge">';
 				while( $row = $result->fetch_array() ){
-					echo '<li class="mdl-color--'.$row['bgColor'].'-300"><a href="?c=category&cat='.urlencode($row['cat']).'" class="">'.$row['catLabel'].'</a></li>';
+					echo '<li class="mdl-color--'.$row['bgColor'].'-300"><a href="?c=category&cat='.urlencode($row['subjectCategory']).'" class="">'.$row['prefLabel'].'</a></li>';
 				}
 				echo '</ul>';
 			}
-
 			?>
     </div>
 

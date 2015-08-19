@@ -4,17 +4,21 @@ if(isset($_GET['cat'])){
 
 	$category = urldecode($_GET['cat']);
 	$sparql = '
-	SELECT *
-  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
-  WHERE {
-    <'.$category.'> a itcat:ServiceKategorie;
-		itcat:hasITService ?service.
-		?service skos:prefLabel ?label;
-    dcterms:description ?serviceDescription.
-  	GRAPH ?g {
-    	<'.$category.'> itcat_app:hasBGColor ?bgColor.
-    }.
-  }
+
+	SELECT ?service ?prefLabel ?abstract ?bgColor
+	{
+		?service itcat:inCategory <'.$category.'>;
+	  skos:prefLabel ?prefLabelLang;
+		dcterms:abstract ?abstractLang.
+
+		GRAPH ?g {
+			<'.$category.'> itcat_app:hasBgColor ?bgColor
+		}
+	  	FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'"))
+		FILTER (langMatches(lang(?abstractLang),"'.LANG.'"))
+		BIND (str(?prefLabelLang) AS ?prefLabel)
+		BIND (str(?abstractLang) AS ?abstract)
+	}
 	';
 
 	$result = $db->query( $sparql );
@@ -26,13 +30,13 @@ if(isset($_GET['cat'])){
   <div class="itcat-service mdl-card mdl-shadow--2dp mdl-cell mdl-cell--4-col mdl-cell--12-col-phone mdl-grid mdl-grid--no-spacing">
       <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $row['bgColor']; ?>-300">
         <h2 class="mdl-card__title-text">
-          <?php echo $row['label']; ?>
+          <?php echo $row['prefLabel']; ?>
         </h2>
       </div>
       <?php
       echo '<div class="mdl-card__supporting-text">';
-      if(isset($row['serviceDescription'])){
-          echo $row['serviceDescription'];
+      if(isset($row['abstract'])){
+          echo $row['abstract'];
       }
       else {
         echo 'keine Beschreibung vorhanden';
