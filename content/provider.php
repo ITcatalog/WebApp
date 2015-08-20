@@ -26,7 +26,7 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 while( $row = $result->fetch_array() ){
   if(!isset($row['bgColor'])){
-    $row['bgColor'] = 'gray';
+    $row['bgColor'] = 'grey';
   }
 	showCardTemplate ($row['provider'], $row['prefLabel'], $row['title'], $row['numberOfServices'], $row['bgColor'], '?c=category&cat=', 4);
 }
