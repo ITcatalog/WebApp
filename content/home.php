@@ -5,7 +5,6 @@ if(!isset($_GET['action'])){
  ?>
 
 <div class="mdl-cell mdl-cell--12-col mdl-grid">
-
   <div class="mdl-tabs">
     <div class="mdl-tabs__tab-bar">
       <a href="?c=home&action=categories" class="mdl-tabs__tab <?php if(isset($_GET['action']) && $_GET['action'] == 'categories'){echo 'homeTabBarActive';}?>">Kategorien</a>
@@ -13,7 +12,6 @@ if(!isset($_GET['action'])){
       <a href="?c=home&action=provider" class="mdl-tabs__tab <?php if(isset($_GET['action']) && $_GET['action'] == 'provider'){echo 'homeTabBarActive';}?>">Anbieter</a>
     </div>
   </div>
-
 </div>
 
 
