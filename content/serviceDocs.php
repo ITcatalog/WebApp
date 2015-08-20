@@ -10,12 +10,12 @@
     <tbody>
       <?php
 
-      $sparql = "
+      $sparql = '
       SELECT ?document
       WHERE {
-        itcat:CloudserviceFBW foaf:page ?document.
+        <'.$service.'> foaf:page ?document.
       }
-      ";
+      ';
 
       $result = $db->query( $sparql );
       if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
