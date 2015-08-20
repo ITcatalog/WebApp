@@ -74,6 +74,11 @@ class sparql_connection
 		$this->ns[$short] = $long;
 	}
 
+	/* Get Namespace short */
+	function getNs($short){
+		return $this->ns[$short];
+	}
+
 	function errno() { return $this->errno; }
 	function error() { return $this->error; }
 
