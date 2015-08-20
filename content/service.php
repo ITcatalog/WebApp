@@ -6,8 +6,6 @@ if(isset($_GET['service'])){
 include('./class/service.class.php');
 $serviceController = new serviceController($db, $service);
 
-
-
 ?>
 
 <div class="mdl-cell mdl-cell--12-col mdl-grid mdl-color--white mdl-shadow--2dp">
@@ -56,6 +54,7 @@ else{
 			    ?subjectCategory itcat_app:hasBgColor ?bgColor
 			  }
 			}
+			ORDER BY ?prefLabel
 			';
 
 			$result = $db->query( $sparql );
@@ -247,12 +246,10 @@ if($result['num'] > 0){
 
 					<div class="service-attribute__value">
 					<?php
-
 						$result = $serviceController->getObjectProperty('itcat:hasPriority');
 						while($row = $result['result']->fetch_array()){
 							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
-
 					?>
 					</div>
 
@@ -260,8 +257,6 @@ if($result['num'] > 0){
 
 			</div>
 	</div>
-
-
 </div>
 
 <?php } ?>

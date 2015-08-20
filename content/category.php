@@ -30,7 +30,7 @@ if(isset($_GET['cat'])){
 
 	while( $row = $result->fetch_array() ){
 		if(!isset($row['bgColor'])){
-	    $row['bgColor'] = 'brown';
+	    $row['bgColor'] = 'grey';
 	  }
 		showCardTemplate ($row['service'], $row['prefLabel'], $row['abstract'], '', $row['bgColor'], '?c=service&service=', 4);
 	}

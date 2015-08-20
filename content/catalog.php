@@ -20,7 +20,7 @@ SELECT ?catalog ?prefLabel ?definition ?bgColor (COUNT(?service) AS ?numberOfSer
 	BIND (str(?definitionLang) AS ?definition)
 }
 GROUP BY ?catalog ?prefLabel ?definition ?bgColor
-
+ORDER BY ?prefLabel
 ';
 
 $result = $db->query( $sparql );

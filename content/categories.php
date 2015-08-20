@@ -22,7 +22,7 @@ SELECT ?subjectCategory ?prefLabel ?definition ?bgColor (COUNT(?service) AS ?num
 	BIND (str(?definitionLang) AS ?definition)
 }
 GROUP BY ?subjectCategory ?prefLabel ?definition ?bgColor
-
+ORDER BY ?prefLabel
 ';
 
 $result = $db->query( $sparql );
