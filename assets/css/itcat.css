@@ -39,6 +39,9 @@ html, body {
 
 .service-attribute__value li{
   list-style:none;
+  color: rgba(0,0,0,.7);
+  line-height: 19px;
+  font-size: 13px;
 }
 
 .mdl-card__supporting-text{
