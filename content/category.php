@@ -22,6 +22,7 @@ if(isset($_GET['cat'])){
 		BIND (str(?prefLabelLang) AS ?prefLabel)
 		BIND (str(?abstractLang) AS ?abstract)
 	}
+	ORDER BY ?prefLabel
 	';
 
 	$result = $db->query( $sparql );
