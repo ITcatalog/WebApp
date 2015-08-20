@@ -12,6 +12,12 @@ html, body {
 
 
 .itcat-category > .mdl-card__supporting-text{
+  height:130px;
+}
+
+.categories > .itcat-category > .mdl-card__supporting-text,
+.provider > .itcat-category > .mdl-card__supporting-text,
+.catalog > .itcat-category > .mdl-card__supporting-text{
   height:110px;
 }
 

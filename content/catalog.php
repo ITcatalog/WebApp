@@ -1,3 +1,4 @@
+<div class="catalog mdl-cell--12-col mdl-grid">
 <?php
 
 include ('./template/categoryCard.php');
@@ -30,8 +31,5 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 while( $row = $result->fetch_array() ){
 	showCardTemplate ($row['catalog'], $row['prefLabel'], $row['definition'], $row['numberOfServices'], $row['bgColor'], '?c=category&cat=', 6);
 }
-
-
-
-
 ?>
+</div>

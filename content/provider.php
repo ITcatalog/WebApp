@@ -1,3 +1,4 @@
+<div class="provider mdl-cell--12-col mdl-grid">
 <?php
 
 include ('./template/categoryCard.php');
@@ -32,3 +33,4 @@ while( $row = $result->fetch_array() ){
 }
 
 ?>
+</div>
