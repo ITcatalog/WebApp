@@ -32,6 +32,10 @@ class serviceController{
 			?prop skos:prefLabel ?propLabelLang.
 			FILTER (langMatches(lang(?propLabelLang),"'.LANG.'"))
 			BIND (str(?propLabelLang) AS ?prefLabel)
+			FILTER (
+				langMatches(lang(?valueLang),"'.LANG.'") ||
+				langMatches(lang(?valueLang),"")
+			)
 			BIND (str(?valueLang) AS ?value)
 		}
 		';
@@ -50,18 +54,27 @@ class serviceController{
 		return $this->literalArray[$this->db->getNs($n).$p][$property];
 	}
 
+	public function checkForValuegetLiteralProperty ($type){
+		if(trim($this->getLiteralProperty ($type, 'value')) == '' || $this->getLiteralProperty ($type, 'value') == ' '){
+			return false;
+		}
+		else{
+			return true;
+		}
+	}
+
 	public function showLiteralItem($property){
+		if($this->checkForValuegetLiteralProperty($property) == true){
+			echo '<div class="service-attribute">';
+				echo '<div class="service-attribute__title">';
+					echo $this->getLiteralProperty ($property, 'prefLabel');
+				echo '</div>';
 
-		echo '<div class="service-attribute">';
-			echo '<div class="service-attribute__title">';
-				echo $this->getLiteralProperty ($property, 'prefLabel');
+				echo '<div class="service-attribute__value">';
+					echo $this->getLiteralProperty ($property, 'value');
+				echo '</div>';
 			echo '</div>';
-
-			echo '<div class="service-attribute__value">';
-				echo $this->getLiteralProperty ($property, 'value');
-			echo '</div>';
-		echo '</div>';
-
+		}
 	}
 
   public function getObjectProperty ($property){
