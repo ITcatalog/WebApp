@@ -1,4 +1,3 @@
-
 <div class="categories mdl-cell--12-col mdl-grid">
 <?php
 
