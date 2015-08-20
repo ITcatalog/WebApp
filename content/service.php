@@ -8,23 +8,23 @@ $serviceController = new serviceController($db, $service);
 
 ?>
 
-<div class="mdl-cell mdl-cell--12-col mdl-grid mdl-color--white mdl-shadow--2dp">
+<div class="mdl-cell mdl-cell--12-col mdl-grid">
 
-  <ul>
-    <li class="mdl-button mdl-js-button <?php if(!isset($_GET['action'])){echo 'mdl-button--raised';}?>"><a href="?c=service&service=<?php echo urlencode($service)?>">Steckbrief</a></li>
-    <?php $result = $serviceController->getObjectProperty('schema:isRelatedTo'); if($result['num'] > 0){?>
-        <li class="mdl-button mdl-js-button <?php if(isset($_GET['action']) && $_GET['action'] == 'map'){echo 'mdl-button--raised';}?>"><a href="?c=service&action=map&service=<?php echo urlencode($service)?>">Landkarte</a></li>
-    <?php } ?>
-
-		<?php
-    $result = $db->query( "SELECT (COUNT(?document) AS ?numberOfDocuments) WHERE { itcat:CloudserviceFBW foaf:page ?document.}" );
-    if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
-    $row = $result->fetch_array();
-		if($row['numberOfDocuments'] > 0){
-		?>
-    	<li class="mdl-button mdl-js-button  mdl-badge badge-header <?php if(isset($_GET['action']) && $_GET['action'] == 'docs'){echo 'mdl-button--raised';}?>" data-badge="<?php echo $row['numberOfDocuments'] ?>"><a href="?c=service&action=docs&service=<?php echo urlencode($service)?>">Dokumente</a></li>
-		<?php } ?>
-  </ul>
+  <div class="mdl-tabs">
+    <div class="mdl-tabs__tab-bar">
+			<a href="?c=service&service=<?php echo urlencode($service)?>" class="mdl-tabs__tab <?php if(!isset($_GET['action'])){echo 'homeTabBarActive';}?>">Steckbrief</a>
+			<?php
+	    $result = $db->query('SELECT (COUNT(?document) AS ?numberOfDocuments) WHERE { <'.$service.'> foaf:page ?document.   FILTER (?document != "")}' );
+	    if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
+	    $row = $result->fetch_array();
+			if($row['numberOfDocuments'] > 0){?>
+			<a href="?c=service&action=docs&service=<?php echo urlencode($service)?>" class="mdl-tabs__tab <?php if($_GET['action'] == 'docs'){echo 'homeTabBarActive';}?>">Dokumente</a>
+			<?php } ?>
+			<?php $result = $serviceController->getObjectProperty('schema:isRelatedTo'); if($result['num'] > 0){?>
+			<a href="?c=service&action=map&service=<?php echo urlencode($service)?>" class="mdl-tabs__tab <?php if($_GET['action'] == 'map'){echo 'homeTabBarActive';}?>">Landkarte</a>
+			<?php } ?>
+    </div>
+  </div>
 
 </div>
 
@@ -39,6 +39,7 @@ elseif(isset($_GET['action']) && $_GET['action'] == 'docs'){
 	include ('content/serviceDocs.php');
 }
 else{
+
  ?>
 
 
@@ -48,7 +49,6 @@ else{
 
     <div class="mdl-card__title" style="display:block;">
       <h2 class="mdl-card__title-text"><?php echo $serviceController->getLiteralProperty ('skos:prefLabel', 'value'); ?></h2>
-
 			<?php
 			$sparql = '
 			SELECT ?subjectCategory ?prefLabel ?bgColor
@@ -86,6 +86,10 @@ else{
 
 				$serviceController->showLiteralItem('dcterms:description');
 			?>
+			<?php
+			if($serviceController->checkForValuegetLiteralProperty('schema:url') == true){
+
+			 ?>
         <div class="service-attribute">
           <div class="service-attribute__title">
 							<?php echo $serviceController->getLiteralProperty('schema:url', 'prefLabel'); ?>
@@ -94,9 +98,38 @@ else{
             <a href="<?php echo $serviceController->getLiteralProperty('schema:url', 'value'); ?>" target="_blank"><?php echo $serviceController->getLiteralProperty('schema:url', 'value'); ?></a>
           </div>
         </div>
+				<?php } ?>
     </div>
   </div>
-  <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
+
+	<?php
+	$result = $serviceController->getObjectProperty('schema:isRelatedTo');
+	if($result['num'] > 0){
+
+	?>
+
+	  <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
+	    <div class="mdl-card__title">
+
+	      <h2 class="mdl-card__title-text">
+	        Relevante Dienste
+	      </h2>
+	    </div>
+	    <div class="mdl-card__supporting-text">
+				<?php
+					while($row = $result['result']->fetch_array()){
+						echo '<a class="mdl-button mdl-js-button mdl-button--colored" href="?c=service&service='.urlencode($row['uri']).'">' . $row['prefLabel'] . '</a><br />';
+					}
+				?>
+	    </div>
+	  </div>
+	  <?php } ?>
+
+</div>
+
+<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-grid">
+
+	<div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
 
     <div class="mdl-card__title">
       <h2 class="mdl-card__title-text">Ansprechpartner</h2>
@@ -146,11 +179,11 @@ else{
 					?>
 				</div>
 			</div>
+			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width:100%">
+        Hilfe Anfordern
+      </button>
     </div>
   </div>
-</div>
-
-<div class="mdl-cell mdl-cell--6-col mdl-cell--12-col-phone mdl-cell--12-col-tablet mdl-grid">
 
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
     <div class="mdl-card__title">
@@ -189,53 +222,15 @@ else{
     </div>
   </div>
 
-  <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
-    <div class="mdl-card__title">
-
-      <h2 class="mdl-card__title-text">
-
-      </h2>
-      <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width:100%">
-        Hilfe Anfordern
-      </button>
-    </div>
-    <div class="mdl-card__supporting-text">
-
-    </div>
-  </div>
-
-<?php
-$result = $serviceController->getObjectProperty('schema:isRelatedTo');
-if($result['num'] > 0){
-
-?>
-
-  <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
-    <div class="mdl-card__title">
-
-      <h2 class="mdl-card__title-text">
-        Relevante Dienste
-      </h2>
-    </div>
-    <div class="mdl-card__supporting-text">
-			<?php
-				while($row = $result['result']->fetch_array()){
-					echo '<a class="mdl-button mdl-js-button mdl-button--colored" href="?c=service&service='.urlencode($row['uri']).'">' . $row['prefLabel'] . '</a><br />';
-				}
-			?>
-    </div>
-  </div>
-  <?php } ?>
-
 	<div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
 		<div class="mdl-card__title">
-			<h2 class="mdl-card__title-text">Monitoring</h2>
+			<h2 class="mdl-card__title-text">Service-Bewertung</h2>
 		</div>
 
 
 			<div class="mdl-card__supporting-text">
 				<div class="service-attribute">
-					<div class="service-attribute__title">itcat:hasCriticality</div>
+					<div class="service-attribute__title">Kritikalität </div>
 
 					<div class="service-attribute__value">
 					<?php
@@ -250,7 +245,7 @@ if($result['num'] > 0){
 
 				</div>
 				<div class="service-attribute">
-					<div class="service-attribute__title">itcat:hasPriority</div>
+					<div class="service-attribute__title">Priorität</div>
 
 					<div class="service-attribute__value">
 					<?php
