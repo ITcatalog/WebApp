@@ -15,7 +15,15 @@ $serviceController = new serviceController($db, $service);
     <?php $result = $serviceController->getObjectProperty('schema:isRelatedTo'); if($result['num'] > 0){?>
         <li class="mdl-button mdl-js-button <?php if(isset($_GET['action']) && $_GET['action'] == 'map'){echo 'mdl-button--raised';}?>"><a href="?c=service&action=map&service=<?php echo urlencode($service)?>">Landkarte</a></li>
     <?php } ?>
-    <li class="mdl-button mdl-js-button  mdl-badge badge-header <?php if(isset($_GET['action']) && $_GET['action'] == 'docs'){echo 'mdl-button--raised';}?>" data-badge="10"><a href="?c=service&action=docs&service=<?php echo urlencode($service)?>">Dokumente</a></li>
+
+		<?php
+    $result = $db->query( "SELECT (COUNT(?document) AS ?numberOfDocuments) WHERE { itcat:CloudserviceFBW foaf:page ?document.}" );
+    if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
+    $row = $result->fetch_array();
+		if($row['numberOfDocuments'] > 0){
+		?>
+    	<li class="mdl-button mdl-js-button  mdl-badge badge-header <?php if(isset($_GET['action']) && $_GET['action'] == 'docs'){echo 'mdl-button--raised';}?>" data-badge="<?php echo $row['numberOfDocuments'] ?>"><a href="?c=service&action=docs&service=<?php echo urlencode($service)?>">Dokumente</a></li>
+		<?php } ?>
   </ul>
 
 </div>
@@ -39,7 +47,7 @@ else{
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
 
     <div class="mdl-card__title" style="display:block;">
-      <h2 class="mdl-card__title-text"><?php echo $serviceController->getLiteralProperty ('dcterms:title', 'value'); ?></h2>
+      <h2 class="mdl-card__title-text"><?php echo $serviceController->getLiteralProperty ('skos:prefLabel', 'value'); ?></h2>
 
 			<?php
 			$sparql = '
@@ -72,7 +80,7 @@ else{
 
     <div class="mdl-card__supporting-text">
 			<?php
-				#$serviceController->showLiteralItem('dcterms:title');
+				$serviceController->showLiteralItem('dcterms:title');
 
 				$serviceController->showLiteralItem('dcterms:abstract');
 
@@ -103,7 +111,7 @@ else{
 
 						$result = $serviceController->getObjectProperty('itcat:supporter');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
 
 					?>
@@ -118,7 +126,7 @@ else{
 
 						$result = $serviceController->getObjectProperty('schema:provider');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
 
           ?>
@@ -132,7 +140,7 @@ else{
 
 						$result = $serviceController->getObjectProperty('schema:customer');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
 
 					?>
@@ -159,7 +167,7 @@ else{
 
 						$result = $serviceController->getObjectProperty('itcat:user');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
 
           ?>
@@ -173,7 +181,7 @@ else{
 
 						$result = $serviceController->getObjectProperty('itcat:usableWith');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
           ?>
         </div>
@@ -234,7 +242,7 @@ if($result['num'] > 0){
 
 						$result = $serviceController->getObjectProperty('itcat:hasCriticality');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
 
 					?>
@@ -248,7 +256,7 @@ if($result['num'] > 0){
 					<?php
 						$result = $serviceController->getObjectProperty('itcat:hasPriority');
 						while($row = $result['result']->fetch_array()){
-							echo '<a href="?item='.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 						}
 					?>
 					</div>
