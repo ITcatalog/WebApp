@@ -1,631 +1,1369 @@
-#ITcat v.025
-
-@prefix : <http://th-brandenburg/ns/itcat#> .
-@prefix owl: <http://www.w3.org/2002/07/owl#> .
-@prefix rdf: <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
-@prefix xml: <http://www.w3.org/XML/1998/namespace> .
-@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
-@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
-@prefix skos: <http://www.w3.org/2004/02/skos/core#>.
-@prefix dcterms: <http://www.purl.org/dc/terms/>.
-@prefix gr: <http://purl.org/goodrelations/v1#>.
-@prefix foaf: <http://xmlns.com/foaf/0.1/>.
-@prefix prov: <http://www.w3.org/ns/prov#> .
-@prefix schema: <http://schema.org/> .
-@prefix itcat: <http://th-brandenburg/ns/itcat#> .
+@prefix :      <http://th-brandenburg.de/ns/itcat#> .
+@prefix prov:  <http://www.w3.org/ns/prov#> .
+@prefix foaf:  <http://xmlns.com/foaf/0.1/> .
+@prefix xml:   <http://www.w3.org/XML/1998/namespace> .
 @prefix usdl-core: <http://www.linked-usdl.org/ns/usdl-core#> .
+@prefix dcterms: <http://www.purl.org/dc/terms/> .
+@prefix schema: <http://schema.org/> .
+@prefix rdfs:  <http://www.w3.org/2000/01/rdf-schema#> .
 @prefix usdl-agreement: <http://www.linked-usdl.org/ns/usdl-agreement#> .
-@base <http://th-brandenburg.de/ns/itcat#> .
-
-<http://th-brandenburg/ns/itcat#> rdf:type owl:Ontology ;
-
-                                  skos:prefLabel "ITCat Schema" ;
-
-                                  rdfs:comment "Schema-Ontologie für den IT-Dienste-Katalog einer Organisation, die sowohl externe IT-Dienste nutzt, als auch eigene IT-Dienste bereitstellt. "@de ;
-
-                                  owl:versionInfo "v 0.25 - im Vergleich zu v 0.2 ohne Kosten und ohne Service-Optionen (incl. der entsprechenden Object Properties) aber mit Rolle als weiterer Agent und Instanzen für Qualitative Values." .
-
-
-#################################################################
-#
-#    Classes
-#
-#################################################################
-
-
-###  Spezifikation der Standardklasse schema:Service
-
-schema:Service rdf:type owl:Class ;
-             skos:related usdl-core:Service ;
-
-             skos:prefLabel "Dienst"@de ;
-             skos:prefLabel "service"@en ;
-             rdfs:comment "Gegenstand dieser Ontologie sind IT-Dienste, klassifiziert nach Katalogen und Sachkategorien sowie die Relationen zwischen IT-Diensten, Empfängern, Anbietern sowie Technologiekomponenten." ;
-             skos:definition "Ein IT-Dienst ist eine abgrenzbare Dienstleistung, die auf dem Einsatz von Informationstechnologie basiert. Sie wird von einem Leistungsanbieter (IT Service Provider) für interne und/oder externe Leistungsempfänger bereitgestellt."@de .
-
-
-###  Spezifikation von prov:Agent als Oberklasse für alle Akteure
-
-prov:Agent rdf:type owl:Class ;
-			skos:prefLabel "agent"@en ;
-            skos:prefLabel "Akteur"@de ;
-            skos:definition "Ein Akteur ist eine Person, Organisation oder eine Rolle, die als Leistungsanbieter, Leistungsempfänger, Nutzer oder sonstiger Verantwortlicher im Rahmen eines IT-Dienstes auftritt."@de .
-
-### Deklaration von Unterklassen für die Klasse Agent
-
-foaf:Organization rdfs:subClassOf prov:Agent .
-foaf:Person rdfs:subClassOf prov:Agent .
-schema:Role rdfs:subClassOf prov:Agent .
-
-
-###  Spezifikation von prov:Entity als Oberklasse für diverse Gegenstände und Artefakte
-
-prov:Entity rdf:type owl:Class ;
-			skos:prefLabel "entity"@en ;
-            skos:prefLabel "Entität"@de ;
-            skos:definition "Eine Entität ist ein Gegenstand oder ein immaterieller Artefakt, der durch Akteure beeinflusst, verändert wird, z. B. im Rahmen von IT-Diensten ."@de .
-
-
-###  Spezifikation der Klasse foaf:Document
-
-foaf:Document rdfs:subClassOf prov:Entity;
-
-            skos:prefLabel "Dokument"@de ;
-            skos:prefLabel "document"@en ;
-            skos:definition "Dokumente beinhalten unstrukturierte bzw. schwach strukturierte Informationen in elektronischer oder papiergebundener Form. Sie sind primär darauf ausgerichtet, von Menschen gelesen zu werden. Durch den Einsatz semantischer Technologien kann die maschinelle Auswertbarkeit von elektronischen Dokumenten signifikant erhöht werden."@de ;
-			rdfs:comment "Dokumente können Beschreibungen, Benutzerhilfen, Regeln, Richtlinien, Prozessmodelle, vertragliche Vereinbarungen o. ä. sein."@de .
-
-
-###  http://th-brandenburg/ns/itcat#ITAsset
-
-itcat:ITAsset rdf:type owl:Class ;
-            rdfs:subClassOf prov:Entity ;
-
-            skos:prefLabel "IT-Asset"@de ;
-            skos:prefLabel "IT asset"@en ;
-            skos:definition "IT-Assets sind die im Rahmen eines IT-Dienstes eingesetzten Systeme und Komponenten der Informations- und Kommunikationstechnologie. Dazu zählen u. a. PCs, Server, Drucker, Netzwerkkomponenten, Software(-Pakete)."@de ;
-			rdfs:comment "Die IT-Assets gelten im Rahmen des IT-Service-Managements als Configuration Items. Da dieser Begriff jedoch viel weiter gefasst ist und neben technischen Komponenten auch Dokumente, Prozesse, Rollen und auch Dienste umfasst, soll hier der engere Begriff IT-Assets verwendet werden."@de .
-
-
-###  Spezifikation der Standardklasse schema:QualitativeValue
-
-schema:QualitativeValue rdf:type owl:Class ;
-
-             skos:prefLabel "qualitativer Wert"@de ;
-             skos:prefLabel "qualitative value"@en ;
-             skos:definition "Qualitative Werte erlauben die Beurteilung eines Dienstes oder einer Entität im Hinblick auf ihren Wert/ihre Bedeutung für die Organisation."@de ;
-             rdfs:comment "In dieser Ontologie stehen IT-Dienste im Fokus. Qualitative Werte beziehen sich hauptsächlich auf IT-Dienste und ihren Wert/ihre Bedeutung für die Organisation." .
-
-###  http://th-brandenburg/ns/itcat#Priority
-
-itcat:Priority rdfs:subClassOf schema:QualitativeValue ;
-
-             skos:prefLabel "Priorität"@de ;
-             skos:prefLabel "priority"@en ;
-             skos:definition "Die Priorität eines Dienstes gibt an, welcher Wert ihm im Rahmen des Dienste-Portfolios einer Organisation beigemessen wird."@de ;
-             rdfs:comment "Prioritäten werden nach Prioritätskategorien eingeteilt."@de .
-
-###  http://th-brandenburg/ns/itcat#Criticality
-
-itcat:Criticality rdfs:subClassOf schema:QualitativeValue ;
-
-             skos:prefLabel "Kritikalität"@de ;
-             skos:prefLabel "criticality"@en ;
-             skos:definition "Die Kritikalität eines Dienstes gibt an, wie kritisch eine Störung oder der Ausfall eines Dienstes für die IT-Versorgung einer Organisation eingeschätzt wird."@de ;
-             rdfs:comment "Kritikalitäten werden nach Kritikalitätskategorien eingeteilt."@de .
-
-
-###  Spezifikation der Klasse usdl-agreement:ServiceProperty
-
-usdl-agreement:ServiceProperty rdf:type owl:Class ;
-			skos:prefLabel "Dienstmerkmal"@de ;
-            skos:prefLabel "service property"@en ;
-            skos:definition "Dienstmerkmale sind charakteristische Eigenschaften eines IT-Dienstes, die seinen Nutzen/seine Funktionalität sowie seine zugesicherten Qualitätsmerkmale darstellen."@de .
-
-
-###  http://th-brandenburg/ns/itcat#Utility
-
-itcat:Utility rdf:type owl:Class ;
-            rdfs:subClassOf usdl-agreement:ServiceProperty ;
-
-            skos:prefLabel "Funktion"@de ;
-            skos:prefLabel "utility"@en ;
-            skos:altLabel "Nutzen"@de ;
-            skos:definition "Der Nutzen/die Funktion eines Dienstes stellt die Art der Leistung dar, die der IT-Dienst dem Nutzer bietet, z. B. Mails senden und empfangen, Kalender und Aufgaben verwalten, Lehrvideos bereitstellen, Dokumente austauschen."@de ;
-            rdfs:comment "Der Nutzen/die Funktion eines Dienstes beantwortet die Frage: 'Was leistet der Dienst für den Nutzer?'"@de ;
-            rdfs:comment "Der Nutzen kann in Form einer informellen Beschreibung, einer formalen (technischen) Spezifikation oder in Form eines juristischen Dokumentes (Vertrag) niedergelegt sein."@de .
-
-
-###  http://th-brandenburg/ns/itcat#UserAssetSupport
-
-itcat:UserAssetSupport rdf:type owl:Class ;
-			rdfs:subClassOf itcat:Utility ;
-
-			skos:prefLabel "Unterstützung für Endgeräte"@de ;
-			skos:prefLabel "user asset support"@en ;
-			skos:definition "Dienstmerkmalsklasse zur Spezifikation der von einem Dienst unterstützten Endgeräte."@de ;
-			rdfs:comment "Diese Dienstmerkmalsklasse ist relevant für nutzerorientierte Dienste (Dienste für Fachanwender oder für externe Stakeholder). Es definiert, für welche Endgeräte der Dienst zugänglich sein soll."@de ;
-			rdfs:comment "Diese Dienstmerkmalsklasse wird in Verbindung mit der Object Property 'itcat:usableWith', die eine Unterproperty von 'itcat:hasUtility' ist, verwendet."@de .
-
-
-###  http://th-brandenburg/ns/itcat#Warranty
-
-itcat:Warranty rdf:type owl:Class ;
-            rdfs:subClassOf usdl-agreement:ServiceProperty ;
-
-            skos:prefLabel "Gewährleistung"@de ;
-            skos:prefLabel "warranty"@en ;
-            skos:definition "Die Gewährleistung umfasst alle Zusicherungen des Dienste-Anbieters in Bezug auf Qualitätsdimensionen des Dienstes, z. B. Verfügbarkeit, Bandbreite, Geschwindigkeit, Transfervolumen, Verschlüsselungsgrad."@de ;
-            rdfs:comment "Gewährleistungen sollten in einer Vereinbarung zwischen Dienste-Anbieter und Kunde festgehalten werden. Solche Vereinbarungen werden im IT-Service-Management als Service Level Agreement (SLA, für externe Kunden) bzw. Operational Level Agreement (OLA, für interne Kunden) bezeichnet."@de .
-
-
-###  http://th-brandenburg/ns/itcat#ServiceCategory
-
-itcat:ServiceCategory  rdf:type owl:Class ;
-			skos:prefLabel "Dienstekategorie"@de ;
-            skos:prefLabel "service category"@en ;
-            skos:definition "Dienstkategorien werden verwendet, um die IT-Dienste nach geeigneten Unterscheidungskriterien zu klassifizieren."@de .
-
-
-###  http://th-brandenburg/ns/itcat#SubjectCategory
-
-itcat:SubjectCategory rdf:type owl:Class ;
-			rdfs:subClassOf itcat:ServiceCategory ;
-
-            skos:prefLabel "Sachkategorie"@de ;
-            skos:prefLabel "subject category"@en ;
-            skos:definition "Sachkategorien helfen bei der sachlichen Einordnung von IT-Diensten. Ein IT-Dienst kann mehreren Sachkategorien angehören."@de .
-
-
-###  http://th-brandenburg/ns/itcat#CatalogCategory
-
-itcat:CatalogCategory rdf:type owl:Class ;
-			rdfs:subClassOf itcat:ServiceCategory ;
-
-            skos:prefLabel "Katalogkategorie"@de ;
-            skos:prefLabel "catalog category"@en ;
-            skos:definition "Katalogkategorien helfen bei der Einordnung von IT-Diensten in verschiedene Dienstekataloge."@de ;
-            rdfs:comment "Wie IT-Dienste in Katalogkategorien eingruppiert werden, ist noch nicht abschließend geklärt."@de .
-
-
-#################################################################
-#
-#    Object Properties
-#
-#################################################################
-
-
-###  Spezifition der Standardrelation schema:agent
-
-schema:agent rdf:type owl:ObjectProperty ;
-			skos:prefLabel "Akteur"@de ;
-			skos:prefLabel "agent"@en ;
-			skos:definition "Abstrakte Objektrelation zwischen einem IT-Dienst und einem Akteur (Instanz der Klasse 'Agent'), der eine handelnde Rolle in Bezug zu diesem IT-Dienst einnimmt, z. B. als Anbieter, Kunde, Nutzer oder Supporter."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range prov:Agent .
-
-
-###  Spezifikation der Standardrelation schema:customer
-
-schema:customer rdf:type owl:ObjectProperty ;
-			skos:prefLabel "bestellt von"@de ;
-			rdfs:subPropertyOf schema:agent ;
-			skos:prefLabel "has customer"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und (einem) seinem(r) Kunden. Der Kunde hat für die Kosten des IT-Dienstes aufzukommen, entweder indem er die Rechnungen des Anbieters begleicht (externer Kunde) oder indem er dem (internen) Anbieter ein Budget zur Verfügung stellt."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range prov:Agent .
-
-
-###  Spezifikation der Standardrelation schema:provider
-
-schema:provider rdf:type owl:ObjectProperty ;
-			skos:prefLabel "hat Anbieter"@de ;
-			rdfs:subPropertyOf schema:agent ;
-			skos:prefLabel "has provider"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und seinem Anbieter."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range prov:Agent .
-
-
-###  http://th-brandenburg/ns/itcat#user
-
-itcat:user rdf:type owl:ObjectProperty ;
-			rdfs:subPropertyOf schema:agent ;
-			skos:prefLabel "hat Nutzer"@de ;
-			skos:prefLabel "has user"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und (einem) seinem(r) Nutzer."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range prov:Agent .
-
-
-###  http://th-brandenburg/ns/itcat#supporter
-
-itcat:supporter rdf:type owl:ObjectProperty ;
-			rdfs:subPropertyOf schema:agent ;
-			skos:prefLabel "hat Betreuer"@de ;
-			skos:prefLabel "has supporter"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und (einem) seinem(r) Supporter."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range prov:Agent .
-
-
-###  Spezifikation der Standardrelation schema:isRelatedTo
-
-schema:isRelatedTo rdf:type owl:ObjectProperty ;
-			skos:prefLabel "in Beziehung zu"@de ;
-			skos:prefLabel "is related to"@en ;
-			skos:definition "Objektrelation zwischen zwei Ressourcen (Instanzen), die zueinander in Beziehung stehen."@de ;
-			rdfs:comment "Diese Standardrelation kann sehr vielfältig verwendet werden. Zwei Hauptanwendungen in dieser Ontologie sind: 1) die Beziehung zwischen zwei unterschiedlichen Diensten und 2) die Beziehung zwischen Instanzen der Diensmerkmalsklasse 'itcat:UserAssetSupport' und den entsprechenden Instanzen der Klasse 'IT Asset'."@de .
-
-
-###  Spezifikation der Standardrelation skos:related
-
-skos:related rdf:type owl:ObjectProperty ;
-			skos:prefLabel "Beziehung zwischen Klassen"@de ;
-			skos:prefLabel "related"@en ;
-			skos:definition "Objektrelation zwischen zwei Klassen, die zueinander in Beziehung stehen."@de ;
-			rdfs:comment "Diese Standardrelation wird hier verwendet um nicht näher spezifizierbare Beziehungen zwischen proprietären itcat-Klassen und Standardklassen zu erklären."@de .
-
-### Bei den folgenden beiden Standardrelationen werden die Labels bewusst etwas abgewandelt verwendet
-
-###  Spezifikation der Standardrelation schema:isPartOf
-
-schema:isPartOf rdf:type owl:ObjectProperty ;
-			skos:prefLabel "wird eingesetzt in"@de ;
-			skos:prefLabel "ist Teil von"@de ;
-			skos:prefLabel "is part of"@en ;
-			skos:definition "Objektrelation zwischen zwei Ressourcen, wobei das Subjekt im Vergleich zum Objekt eine untergeordnete Rolle spielt. " ;
-			rdfs:comment "In dieser Ontologie wird diese Objektrelation vorwiegend verwendet, um eine Verflechtung zwischen einem IT-Asset und einem diese Komponente einsetzenden IT-Dienst, oder zwischen mehreren Diensten abzubilden."@de .
-
-
-###  Spezifikation der Standardrelation schema:hasPart
-
-schema:hasPart rdf:type owl:ObjectProperty ;
-			skos:prefLabel "setzt ein"@de ;
-			skos:prefLabel "has part"@en ;
-			skos:prefLabel "hat Teil"@de ;
-			skos:definition "Objektrelation zwischen zwei Ressourcen, wobei das Subjekt im Vergleich zum Objekt eine übergeordnete Rolle spielt. " ;
-			rdfs:comment "In dieser Ontologie wird diese Objektrelation vorwiegend verwendet, um eine Verflechtung zwischen einem IT-Asset und einem diese Komponente einsetzenden IT-Dienst, oder zwischen mehreren Diensten abzubilden."@de ;
-			owl:inverseOf schema:isPartOf .
-
-
-###  Spezifikation der Standardrelation foaf:topic
-
-foaf:topic rdf:type owl:ObjectProperty ;
-			skos:prefLabel "hat Thema"@de ;
-			skos:prefLabel "has topic"@en ;
-			skos:definition "Objektrelation zwischen einem Dokument und einer anderen Ressource. Dokumente können Beschreibungen, Benutzerhilfen, Regeln, Richtlinien, Prozessmodelle, Verträge o. ä. sein bzw. enthalten, die einen Bezug zu einem IT-Dienst haben."@de ;
-			rdfs:domain foaf:Document .
-
-
-###  Spezifikation der Standardrelation foaf:page
-
-foaf:page rdf:type owl:ObjectProperty ;
-			skos:prefLabel "hat Dokument"@de ;
-			skos:prefLabel "has page"@en ;
-			skos:definition "Objektrelation zwischen einer Ressource, z. B. einem IT-Dienst und einem Dokument, das Informationen für oder über diesen IT-Dienst enthält."@de ;
-			owl:inverseOf foaf:topic .
-
-
-### Es ist noch zu untersuchen, auf welche Standardkonzepte die folgenden zwei Objektrelationen gemappt werden können.
-
-###  http://th-brandenburg/ns/itcat#hasCriticality
-
-itcat:hasCriticality rdf:type owl:ObjectProperty ;
-			skos:prefLabel "hat Kritikalität"@de ;
-			skos:prefLabel "has criticality"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und seiner Kritikalitätskategorie. "@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range schema:QualitativeValue .
-
-
-###  http://th-brandenburg/ns/itcat#hasPriority
-
-itcat:hasPriority rdf:type owl:ObjectProperty ;
-			skos:prefLabel "hat Priorität"@de ;
-			skos:prefLabel "has priority"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und seiner Prioritätskategorie. "@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range schema:QualitativeValue .
-
-
-###  http://th-brandenburg/ns/itcat#hasUtitily
-
-itcat:hasUtility rdf:type owl:ObjectProperty ;
-			owl:equivalentProperty gr:hasBusinessFunction ;
-			skos:prefLabel "hat Nutzen"@de ;
-			skos:prefLabel "has utility"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und einer Dienstmerkmalsklasse, die der Beschreibung/Spezifikation seines Nutzens dient."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range usdl-agreement:ServiceProperty .
-
-
-###  http://th-brandenburg/ns/itcat#usableWith
-
-itcat:usableWith rdf:type owl:ObjectProperty ;
-			rdfs:subPropertyOf itcat:hasUtility ;
-			skos:prefLabel "nutzbar mit"@de ;
-			skos:prefLabel "usable with"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und der Dienstmerkmalsklasse 'Unterstützung für Endgeräte'."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range itcat:UserAssetSupport .
-
-
-###  http://th-brandenburg/ns/itcat#hasWarranty
-
-itcat:hasWarranty rdf:type owl:ObjectProperty ;
-			rdfs:subPropertyOf gr:hasWarrantyPromise ;
-			skos:prefLabel "hat Gewährleistung"@de ;
-			skos:prefLabel "has warranty"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und und einer Dienstmerkmalsklasse, die der Beschreibung/Spezifikation seiner zugesicherten Qualitätsdimensionen (Gewährleistung) dient."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range usdl-agreement:ServiceProperty .
-
-
-###  http://th-brandenburg/ns/itcat#inCategory
-
-itcat:inCategory rdf:type owl:ObjectProperty ;
-			skos:prefLabel "gehört zu Kategorie"@de ;
-			skos:prefLabel "belongs to category"@en ;
-			skos:definition "Objektrelation zwischen einem IT-Dienst und einer Dienstekategorie. "@de ;
-			rdfs:comment "Aktuell werden zwei Kategorieklassen unterschieden: Sachkategorien und Katalogkategorien."@de ;
-			rdfs:comment "Jeder IT-Dienst muss mindestens einer Kategorie in jeder Kategorieklasse zugeordnet sein."@de ;
-			rdfs:comment "Ein IT-Dienst kann gleichzeitig mehreren Dienstekategorien innerhalb einer Kategorieklasse angehören."@de ;
-			rdfs:domain schema:Service ;
-			rdfs:range schema:ServiceCategory .
-
-
-#################################################################
-#
-#    Data Properties
-#
-#################################################################
-
-### Spezifikation der Standardrelation schema:url
-
-schema:url rdf:type owl:DatatypeProperty ;
-			skos:prefLabel "URL"@de ;
-			skos:prefLabel "url"@en ;
-			skos:definition "Referenziert eine URL zu einer Ressource. Verweist auf weiterführende Informationen, Dokumente, Zugänge etc."@de ;
-			rdfs:comment "Diese Standardrelation wird in dieser Ontologie verwendet, um die bereits vorhandenen Webseiten zu den IT-Diensten zu referenzieren."@de .
-
-
-###  http://th-brandenburg/ns/itcat#status
-
-itcat:status rdf:type owl:DatatypeProperty ;
-			skos:prefLabel "Status"@de ;
-			skos:prefLabel "status"@en ;
-			skos:definition "Gibt an in welcher Phase des Lebenszyklus sich ein IT-Dienst befindet."@de ;
-			rdfs:comment "Zu verwendende Status sind: 'in Planung', 'in Einführung', 'in Betrieb', 'außer Betrieb', 'abgeschaltet'."@de .
-
-
-#################################################################
-#
-#    Annotation Properties
-#
-#################################################################
-
-
-###  Spezifikation der Standardrelation dcterms:description
-
-dcterms:description rdf:type owl:AnnotationProperty ;
-			skos:prefLabel "Beschreibung"@de ;
-			skos:prefLabel "description"@en ;
-			skos:definition "Im engeren Sinne: Relation zu einer textuellen Beschreibung einer Ressource. Kann im weiteren Sinne auch für andere Formen von Beschreibungen genutzt werden: Grafiken, Inhaltsverzeichnissen etc."@de ;
-			rdfs:comment "Diese Standardrelation wird in dieser Ontologie verwendet, um Beschreibungen von IT-Diensten bereitzustellen."@de .
-
-
-###  Spezifikation der Standardrelation dcterms:abstract
-
-dcterms:abstract rdf:type owl:AnnotationProperty ;
-			skos:prefLabel "Kurzbeschreibung"@de ;
-			skos:prefLabel "abstract"@en ;
-			skos:definition "Relation zu einer textuellen Kurzbeschreibung einer Ressource."@de ;
-			rdfs:comment "Diese Standardrelation wird in dieser Ontologie verwendet, um Kurzbeschreibungen von IT-Diensten bereitzustellen, die als Teaser im IT-Katalog erscheinen."@de .
-
-
-###  Spezifikation der Standardrelation dcterms:title
-
-dcterms:title rdf:type owl:AnnotationProperty ;
-			skos:prefLabel "Bezeichnung"@de ;
-			skos:prefLabel "title"@en ;
-			skos:definition "Die vollständige (offizielle) Bezeichnung / der Name einer Ressource."@de ;
-			rdfs:comment "Diese Standardrelation wird in dieser Ontologie verwendet, um vollständige Bezeichnungen von IT-Diensten bereitzustellen."@de .
-
-
-###  Spezifikation der Standardrelation dcterms:subject
-
-dcterms:subject rdf:type owl:AnnotationProperty ;
-			skos:prefLabel "Gegenstand"@de ;
-			skos:prefLabel "subject"@en ;
-			skos:definition "Ein thematischer Gegenstand einer Ressource."@de ;
-			rdfs:comment "Diese Standardrelation wird in dieser Ontologie verwendet, um Schlüsselwörter zu IT-Diensten zu referenzieren."@de .
-
-
-#################################################################
-#
-#    Individuals
-#
-#################################################################
-
-
-###  http://th-brandenburg/ns/itcat#HighCriticality
-
-itcat:HighCriticality  rdf:type itcat:Criticality ;
-			skos:prefLabel "Hohe Kritikalität"@de ;
-			skos:prefLabel "high criticality"@en ;
-			skos:definition "Ein Dienst ist von hoher Kritikalität, wenn eine Störung oder der Ausfall dieses Dienstes als sehr kritisch für die IT-Versorgung einer Organisation eingeschätzt wird."@de ;
-			rdfs:comment "Kritikalitätskategorien sind: 'Hohe Kritikalität', 'Mittlere Kritikalität' und 'Geringe Kritikalität'."@de .
-
-
-###  http://th-brandenburg/ns/itcat#MediumCriticality
-
-itcat:MediumCriticality  rdf:type itcat:Criticality ;
-			skos:prefLabel "Mittlere Kritikalität"@de ;
-			skos:prefLabel "medium criticality"@en ;
-			skos:definition "Ein Dienst ist von mittlerer Kritikalität, wenn eine Störung oder der Ausfall dieses Dienstes die IT-Versorgung einer Organisation einschränkt, aber nicht in kritischen Bereichen."@de ;
-			rdfs:comment "Kritikalitätskategorien sind: 'Hohe Kritikalität', 'Mittlere Kritikalität' und 'Geringe Kritikalität'."@de .
-
-
-###  http://th-brandenburg/ns/itcat#LowCriticality
-
-itcat:LowCriticality  rdf:type itcat:Criticality ;
-			skos:prefLabel "Geringe Kritikalität"@de ;
-			skos:prefLabel "low criticality"@en ;
-			skos:definition "Ein Dienst ist von geringer Kritikalität, wenn eine Störung oder der Ausfall dieses Dienstes die IT-Versorgung einer Organisation nicht wesentlich einschränkt."@de ;
-			rdfs:comment "Kritikalitätskategorien sind: 'Hohe Kritikalität', 'Mittlere Kritikalität' und 'Geringe Kritikalität'."@de .
-
-
-###  http://th-brandenburg/ns/itcat#HighPriority
-
-itcat:HighPriority  rdf:type itcat:Priority ;
-			skos:prefLabel "Hohe Priorität"@de ;
-			skos:prefLabel "high priority"@en ;
-			skos:definition "Ein Dienst ist von hoher Priortät, wenn ihm im Rahmen des Dienste-Portfolios einer Organisation ein hoher Wert beigemessen wird."@de ;
-			rdfs:comment "Prioritätskategorien sind: 'Hohe Priorität', 'Mittlere Priorität' und 'Geringe Priorität'."@de .
-
-
-###  http://th-brandenburg/ns/itcat#MediumPriority
-
-itcat:MediumPriority  rdf:type itcat:Priority ;
-			skos:prefLabel "Mittlere Priorität"@de ;
-			skos:prefLabel "medium priority"@en ;
-			skos:definition "Ein Dienst ist von mittlerer Priortät, wenn ihm im Rahmen des Dienste-Portfolios einer Organisation ein mittlerer Wert beigemessen wird."@de ;
-			rdfs:comment "Prioritätskategorien sind: 'Hohe Priorität', 'Mittlere Priorität' und 'Geringe Priorität'."@de .
-
-
-###  http://th-brandenburg/ns/itcat#LowPriority
-
-itcat:LowPriority  rdf:type itcat:Priority ;
-			skos:prefLabel "Geringe Priorität"@de ;
-			skos:prefLabel "low priority"@en ;
-			skos:definition "Ein Dienst ist von geringer Priortät, wenn ihm im Rahmen des Dienste-Portfolios einer Organisation ein geringer Wert beigemessen wird."@de ;
-			rdfs:comment "Prioritätskategorien sind: 'Hohe Priorität', 'Mittlere Priorität' und 'Geringe Priorität'."@de .
-
-
-###  http://th-brandenburg/ns/itcat#LibraryService
-
-itcat:LibraryService  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Bibliotheksdienst"@de ;
-			skos:prefLabel "library service"@en ;
-			skos:definition "Zu den Bibliotheksdiensten gehören alle IT-Dienste, die den Zugang zu Fachliteratur in der Hochschulbibliothek sowie über zentrale Datenbanken, Dienste und Systeme unterstützen bzw. ermöglichen."@de .
-
-
-###  http://th-brandenburg/ns/itcat#HISService
-
-itcat:HISService   rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "HIS-Dienst"@de ;
-			skos:prefLabel "HIS service"@en ;
-			skos:definition "Zu den HIS-Diensten gehören alle Anwendungen im Rahmen der Hochschulinformationssysteme HIS und HISinOne."@de .
-
-
-###  http://th-brandenburg/ns/itcat#TeachingPlatform
-
-itcat:TeachingPlatform  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Lehrportal"@de ;
-			skos:prefLabel "teaching platform"@en ;
-			skos:definition "Lehrplattformen unterstützen bzw. ermöglichen die Hochschullehre sowohl in der klassischen Präsenzlehre als auch im E-Learning."@de .
-
-
-###  http://th-brandenburg/ns/itcat#CommunicationService
-
-itcat:CommunicationService  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Kommunikationsdienst"@de ;
-			skos:prefLabel "communication service"@en ;
-			skos:definition "Kommunikationsdienste unterstützen bzw. ermöglichen die synchrone und asynchrone Kommunikation von Gruppen und Individuen."@de .
-
-
-###  http://th-brandenburg/ns/itcat#InformationService
-
-itcat:InformationService  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Informationsdienst"@de ;
-			skos:prefLabel "information service"@en ;
-			skos:definition "Informationsdienste stellen für die Benutzer strukturierte, regelmäßig aktualisierte Informationen über verschiedene Medien bereit."@de .
-
-
-###  http://th-brandenburg/ns/itcat#MiscService
-
-itcat:MiscService  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Sonstige Anwendung"@de ;
-			skos:prefLabel "miscellaneous application"@en ;
-			skos:definition "Unter sonstigen Anwendungen werden alle Fachanwendungen (IT-Dienste) zusammengefasst, die in keine der anderen Sachkategorien schlüssig einordenbar sind."@de .
-
-
-###  http://th-brandenburg/ns/itcat#NetworkService
-
-itcat:NetworkService  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Netzwerkdienst"@de ;
-			skos:prefLabel "network service"@en ;
-			skos:definition "Netzwerkdienste nutzen ein oder mehrere Netzwerkprotokolle (HTTP, DNS, NTP, DHCP ...) um über ein Computernetzwerk bestimmte Funktionen bereitzustellen."@de .
-
-
-###  http://th-brandenburg/ns/itcat#InfrastructureService
-
-itcat:InfrastructureService  rdf:type itcat:SubjectCategory ;
-			skos:prefLabel "Infrastrukturdienst"@de ;
-			skos:prefLabel "infrastructure service"@en ;
-			skos:definition "Infrastrukturdienste sind grundlegende Dienste zur Bereitstellung, Pflege und Wartung einer IT-Versorgungsstruktur."@de .
-
-
-###  http://th-brandenburg/ns/itcat#BusinessCatalog
-
-itcat:BusinessCatalog  rdf:type itcat:CatalogCategory ;
-			skos:prefLabel "Fachanwenderkatalog"@de ;
-			skos:prefLabel "business catalog"@en ;
-			skos:definition "Der Fachanwenderkatalog umfasst alle für Fachanwender bereitgestellten Dienste einer Organisation. Sprache und Design des Katalogs orientieren sich an der Sprache der Fachanwender."@de .
-
-
-###  http://th-brandenburg/ns/itcat#PublicCatalog
-
-itcat:PublicCatalog  rdf:type itcat:CatalogCategory ;
-			skos:prefLabel "Öffentlicher Dienstekatalog"@de ;
-			skos:prefLabel "public catalog"@en ;
-			skos:definition "Der Öffentliche Dienstekatalog umfasst alle für die interessierte Öffentlichkeit bereitgestellten Dienste einer Organisation. Sprache und Design des Katalogs orientieren sich an der Sprache der Zielgruppen."@de .
-
-
-###  http://th-brandenburg/ns/itcat#OperationalCatalog
-
-itcat:OperationalCatalog  rdf:type itcat:CatalogCategory ;
-			skos:prefLabel "IT-Betriebskatalog"@de ;
-			skos:prefLabel "operational catalog"@en ;
-			skos:definition "Der IT-Betriegskatalog umfasst alle für die Sicherung des IT-Betriebs einer Organisation relevanten Dienste. Sprache und Design des Katalogs orientieren sich an der Sprache der IT-Betriebsverantwortlichen."@de .
-
-
-###  http://th-brandenburg/ns/itcat#InfrastructureCatalog
-
-itcat:InfrastructureCatalog  rdf:type itcat:CatalogCategory ;
-			skos:prefLabel "IT-Infrastrukturkatalog"@de ;
-			skos:prefLabel "infrastructure catalog"@en ;
-			skos:definition "Der IT-Infrastrukturkatalog umfasst alle für die Sicherung des IT-Betriebs einer Organisation relevanten IT-Systeme bzw. -Komponenten. Sprache und Design des Katalogs orientieren sich an der Sprache der IT-Administratoren."@de .
-
-
-#################################################################
-#
-#    IT-Dienste
-#
-#################################################################
-
-
-itcat:BSCW  a                   schema:Service ;
-        #Annotation Properties
-        skos:prefLabel            "BSCW Groupware"@de ;
-        skos:prefLabel            "BSCW Groupware"@en ;
-        dcterms:title            "BSCW Groupware"@de ;
-        dcterms:abstract        "BSCW ist ein bewährtes Werkzeug für effiziente Kooperation, insbesondere für firmen- oder standortübergreifende Projekte."@de ;
-        dcterms:description     "BSCW ist ein Projekt- und Dokumentenmanagementsystem (Basic Support for Cooperative Work). Es wurde vor 20 Jahren vom Fraunhofer Institut FIT entwickelt. Inzwischen zeichnet die OrbiTeam Software GmbH & Co. KG für die Pflege, Weiterentwicklung und den Support des Systems verantwortlich. Der FB Wirtschaft hat eine Lizenz für Forschung und Lehre erworben und bietet die Nutzung auf einem eigenen Server an. BSCW ist das ideale Werkzeug für effiziente Kooperation, insbesondere für firmen- oder standortübergreifende Projekte. Es ermöglicht - ohne Softwareinstallation bei den Endbenutzern - die Zusammenarbeit von beliebig großen Benutzergruppen. Die Anmeldung erfolgt mit softwareeigenen Nutzerdaten, eine Intgration in des zentrale IDM ist nicht umgesetzt."@de ;
-        dcterms:subject         "" ;
-        rdfs:comment            "" ;
-        #Data Properties
-        schema:url              "http://bscw.fh-brandenburg.de" ;
-        itcat:status             "in Betrieb" ;
-        #Object Properties
-        itcat:user                itcat:Mitarbeiter , itcat:Student ;
-        schema:customer            itcat:FBW ;
-        schema:provider            itcat:TLSO ;
-        itcat:supporter            itcat:MLangerwisch ;
-        itcat:hasCriticality    itcat:MediumCriticality ;
-        itcat:hasPriority        itcat:LowPriority ;
-        itcat:usableWith          itcat:Smartphone , itcat:Laptop , itcat:Computer ;
-        schema:isRelatedTo        itcat:WebHosting ;
-        foaf:page                 "" ;
-        itcat:inCategory        itcat:TeachingPlatform , itcat:CommunicationService , itcat:BusinessCatalog .
+@prefix owl:   <http://www.w3.org/2002/07/owl#> .
+@prefix xsd:   <http://www.w3.org/2001/XMLSchema#> .
+@prefix rdf:   <http://www.w3.org/1999/02/22-rdf-syntax-ns#> .
+@prefix gr:    <http://purl.org/goodrelations/v1#> .
+@prefix skos:  <http://www.w3.org/2004/02/skos/core#> .
+@prefix itcat: <http://th-brandenburg.de/ns/itcat#> .
+
+<http://th-brandenburg/ns/itcat#>
+        a                owl:Ontology ;
+        rdfs:comment     "Schema-Ontologie für den IT-Dienste-Katalog einer Organisation, die sowohl externe IT-Dienste nutzt, als auch eigene IT-Dienste bereitstellt. "@de ;
+        owl:versionInfo  "v 0.25 - im Vergleich zu v 0.2 ohne Kosten und ohne Service-Optionen (incl. der entsprechenden Object Properties) aber mit Rolle als weiterer Agent und Instanzen für Qualitative Values." ;
+        skos:prefLabel   "ITCat Schema" .
+
+skos:related  a          owl:ObjectProperty ;
+        rdfs:comment     "Diese Standardrelation wird hier verwendet um nicht näher spezifizierbare Beziehungen zwischen proprietären itcat-Klassen und Standardklassen zu erklären."@de ;
+        skos:definition  "Objektrelation zwischen zwei Klassen, die zueinander in Beziehung stehen."@de ;
+        skos:prefLabel   "Beziehung zwischen Klassen"@de , "related"@en .
+
+skos:prefLabel  a        owl:AnnotationProperty ;
+        rdfs:comment     "In jeder Sprache kann es immer nur ein skos:prefLabel geben."@de , "Diese Standardrelation wird in dieser Ontologie verwendet, um primäre Bezeichnungen von Ressourcen bereitzustellen."@de ;
+        skos:definition  "Standardrelation zur Auszeichnung einer Bevorzugten Bezeichnung einer Ressource."@de ;
+        skos:prefLabel   "Hauptbezeichnung"@de , "preferred label"@en .
+
+prov:Agent  a            owl:Class ;
+        skos:definition  "Ein Akteur ist eine Person, Organisation oder eine Rolle, die als Leistungsanbieter, Leistungsempfänger, Nutzer oder sonstiger Verantwortlicher im Rahmen eines IT-Dienstes auftritt."@de ;
+        skos:prefLabel   "Akteur"@de , "agent"@en .
+
+schema:Service  a        owl:Class ;
+        rdfs:comment     "Gegenstand dieser Ontologie sind IT-Dienste, klassifiziert nach Katalogen und Sachkategorien sowie die Relationen zwischen IT-Diensten, Empfängern, Anbietern sowie Technologiekomponenten." ;
+        skos:definition  "Ein IT-Dienst ist eine abgrenzbare Dienstleistung, die auf dem Einsatz von Informationstechnologie basiert. Sie wird von einem Leistungsanbieter (IT Service Provider) für interne und/oder externe Leistungsempfänger bereitgestellt."@de ;
+        skos:prefLabel   "Dienst"@de , "service"@en ;
+        skos:related     usdl-core:Service .
+
+foaf:Organization  rdfs:subClassOf  prov:Agent .
+
+foaf:Person  rdfs:subClassOf  prov:Agent .
+
+schema:Role  rdfs:subClassOf  prov:Agent .
+
+prov:Entity  a           owl:Class ;
+        skos:definition  "Eine Entität ist ein Gegenstand oder ein immaterieller Artefakt, der durch Akteure beeinflusst, verändert wird, z. B. im Rahmen von IT-Diensten ."@de ;
+        skos:prefLabel   "entity"@en , "Entität"@de .
+
+foaf:Document  rdfs:comment  "Dokumente können Beschreibungen, Benutzerhilfen, Regeln, Richtlinien, Prozessmodelle, vertragliche Vereinbarungen o. ä. sein."@de ;
+        rdfs:subClassOf  prov:Entity ;
+        skos:definition  "Dokumente beinhalten unstrukturierte bzw. schwach strukturierte Informationen in elektronischer oder papiergebundener Form. Sie sind primär darauf ausgerichtet, von Menschen gelesen zu werden. Durch den Einsatz semantischer Technologien kann die maschinelle Auswertbarkeit von elektronischen Dokumenten signifikant erhöht werden."@de ;
+        skos:prefLabel   "Dokument"@de , "document"@en .
+
+schema:QualitativeValue
+        a                owl:Class ;
+        rdfs:comment     "In dieser Ontologie stehen IT-Dienste im Fokus. Qualitative Werte beziehen sich hauptsächlich auf IT-Dienste und ihren Wert/ihre Bedeutung für die Organisation." ;
+        skos:definition  "Qualitative Werte erlauben die Beurteilung eines Dienstes oder einer Entität im Hinblick auf ihren Wert/ihre Bedeutung für die Organisation."@de ;
+        skos:prefLabel   "qualitativer Wert"@de , "qualitative value"@en .
+
+usdl-agreement:ServiceProperty
+        a                owl:Class ;
+        skos:definition  "Dienstmerkmale sind charakteristische Eigenschaften eines IT-Dienstes, die seinen Nutzen/seine Funktionalität sowie seine zugesicherten Qualitätsmerkmale darstellen."@de ;
+        skos:prefLabel   "Dienstmerkmal"@de , "service property"@en .
+
+schema:agent  a          owl:ObjectProperty ;
+        rdfs:domain      schema:Service ;
+        rdfs:range       prov:Agent ;
+        skos:definition  "Abstrakte Objektrelation zwischen einem IT-Dienst und einem Akteur (Instanz der Klasse 'Agent'), der eine handelnde Rolle in Bezug zu diesem IT-Dienst einnimmt, z. B. als Anbieter, Kunde, Nutzer oder Supporter."@de ;
+        skos:prefLabel   "Akteur"@de , "agent"@en .
+
+schema:customer  a          owl:ObjectProperty ;
+        rdfs:domain         schema:Service ;
+        rdfs:range          prov:Agent ;
+        rdfs:subPropertyOf  schema:agent ;
+        skos:definition     "Objektrelation zwischen einem IT-Dienst und (einem) seinem(r) Kunden. Der Kunde hat für die Kosten des IT-Dienstes aufzukommen, entweder indem er die Rechnungen des Anbieters begleicht (externer Kunde) oder indem er dem (internen) Anbieter ein Budget zur Verfügung stellt."@de ;
+        skos:prefLabel      "bestellt von"@de , "has customer"@en .
+
+schema:provider  a          owl:ObjectProperty ;
+        rdfs:domain         schema:Service ;
+        rdfs:range          prov:Agent ;
+        rdfs:subPropertyOf  schema:agent ;
+        skos:definition     "Objektrelation zwischen einem IT-Dienst und seinem Anbieter."@de ;
+        skos:prefLabel      "hat Anbieter"@de , "has provider"@en .
+
+schema:isRelatedTo  a    owl:ObjectProperty ;
+        rdfs:comment     "Diese Standardrelation kann sehr vielfältig verwendet werden. Zwei Hauptanwendungen in dieser Ontologie sind: 1) die Beziehung zwischen zwei unterschiedlichen Diensten und 2) die Beziehung zwischen Instanzen der Diensmerkmalsklasse 'itcat:UserAssetSupport' und den entsprechenden Instanzen der Klasse 'IT Asset'."@de ;
+        skos:definition  "Objektrelation zwischen zwei Ressourcen (Instanzen), die zueinander in Beziehung stehen."@de ;
+        skos:prefLabel   "in Beziehung zu"@de , "is related to"@en .
+
+schema:isPartOf  a       owl:ObjectProperty ;
+        rdfs:comment     "In dieser Ontologie wird diese Objektrelation vorwiegend verwendet, um eine Verflechtung zwischen einem IT-Asset und einem diese Komponente einsetzenden IT-Dienst, oder zwischen mehreren Diensten abzubilden."@de ;
+        skos:definition  "Objektrelation zwischen zwei Ressourcen, wobei das Subjekt im Vergleich zum Objekt eine untergeordnete Rolle spielt. " ;
+        skos:prefLabel   "wird eingesetzt in"@de , "ist Teil von"@de , "is part of"@en .
+
+schema:hasPart  a        owl:ObjectProperty ;
+        rdfs:comment     "In dieser Ontologie wird diese Objektrelation vorwiegend verwendet, um eine Verflechtung zwischen einem IT-Asset und einem diese Komponente einsetzenden IT-Dienst, oder zwischen mehreren Diensten abzubilden."@de ;
+        owl:inverseOf    schema:isPartOf ;
+        skos:definition  "Objektrelation zwischen zwei Ressourcen, wobei das Subjekt im Vergleich zum Objekt eine übergeordnete Rolle spielt. " ;
+        skos:prefLabel   "setzt ein"@de , "has part"@en , "hat Teil"@de .
+
+foaf:topic  a            owl:ObjectProperty ;
+        rdfs:domain      foaf:Document ;
+        skos:definition  "Objektrelation zwischen einem Dokument und einer anderen Ressource. Dokumente können Beschreibungen, Benutzerhilfen, Regeln, Richtlinien, Prozessmodelle, Verträge o. ä. sein bzw. enthalten, die einen Bezug zu einem IT-Dienst haben."@de ;
+        skos:prefLabel   "hat Thema"@de , "has topic"@en .
+
+foaf:page  a             owl:ObjectProperty ;
+        owl:inverseOf    foaf:topic ;
+        skos:definition  "Objektrelation zwischen einer Ressource, z. B. einem IT-Dienst und einem Dokument, das Informationen für oder über diesen IT-Dienst enthält."@de ;
+        skos:prefLabel   "hat Dokument"@de , "has page"@en .
+
+schema:url  a            owl:DatatypeProperty ;
+        rdfs:comment     "Diese Standardrelation wird in dieser Ontologie verwendet, um die bereits vorhandenen Webseiten zu den IT-Diensten zu referenzieren."@de ;
+        skos:definition  "Referenziert eine URL zu einer Ressource. Verweist auf weiterführende Informationen, Dokumente, Zugänge etc."@de ;
+        skos:prefLabel   "URL"@de , "url"@en .
+
+dcterms:description  a   owl:AnnotationProperty ;
+        rdfs:comment     "Diese Standardrelation wird in dieser Ontologie verwendet, um Beschreibungen von IT-Diensten bereitzustellen."@de ;
+        skos:definition  "Im engeren Sinne: Relation zu einer textuellen Beschreibung einer Ressource. Kann im weiteren Sinne auch für andere Formen von Beschreibungen genutzt werden: Grafiken, Inhaltsverzeichnissen etc."@de ;
+        skos:prefLabel   "Beschreibung"@de , "description"@en .
+
+dcterms:abstract  a      owl:AnnotationProperty ;
+        rdfs:comment     "Diese Standardrelation wird in dieser Ontologie verwendet, um Kurzbeschreibungen von IT-Diensten bereitzustellen, die als Teaser im IT-Katalog erscheinen."@de ;
+        skos:definition  "Relation zu einer textuellen Kurzbeschreibung einer Ressource."@de ;
+        skos:prefLabel   "Kurzbeschreibung"@de , "abstract"@en .
+
+dcterms:title  a         owl:AnnotationProperty ;
+        rdfs:comment     "Diese Standardrelation wird in dieser Ontologie verwendet, um vollständige Bezeichnungen von IT-Diensten bereitzustellen."@de ;
+        skos:definition  "Die vollständige (offizielle) Bezeichnung / der Name einer Ressource."@de ;
+        skos:prefLabel   "Bezeichnung"@de , "title"@en .
+
+dcterms:subject  a       owl:AnnotationProperty ;
+        rdfs:comment     "Diese Standardrelation wird in dieser Ontologie verwendet, um Schlüsselwörter zu IT-Diensten zu referenzieren."@de ;
+        skos:definition  "Ein thematischer Gegenstand einer Ressource."@de ;
+        skos:prefLabel   "Gegenstand"@de , "subject"@en .
+
+itcat:Utility  a         owl:Class ;
+        rdfs:comment     "Der Nutzen/die Funktion eines Dienstes beantwortet die Frage: 'Was leistet der Dienst für den Nutzer?'"@de , "Der Nutzen kann in Form einer informellen Beschreibung, einer formalen (technischen) Spezifikation oder in Form eines juristischen Dokumentes (Vertrag) niedergelegt sein."@de ;
+        rdfs:subClassOf  usdl-agreement:ServiceProperty ;
+        skos:altLabel    "Nutzen"@de ;
+        skos:definition  "Der Nutzen/die Funktion eines Dienstes stellt die Art der Leistung dar, die der IT-Dienst dem Nutzer bietet, z. B. Mails senden und empfangen, Kalender und Aufgaben verwalten, Lehrvideos bereitstellen, Dokumente austauschen."@de ;
+        skos:prefLabel   "Funktion"@de , "utility"@en .
+
+itcat:Warranty  a        owl:Class ;
+        rdfs:comment     "Gewährleistungen sollten in einer Vereinbarung zwischen Dienste-Anbieter und Kunde festgehalten werden. Solche Vereinbarungen werden im IT-Service-Management als Service Level Agreement (SLA, für externe Kunden) bzw. Operational Level Agreement (OLA, für interne Kunden) bezeichnet."@de ;
+        rdfs:subClassOf  usdl-agreement:ServiceProperty ;
+        skos:definition  "Die Gewährleistung umfasst alle Zusicherungen des Dienste-Anbieters in Bezug auf Qualitätsdimensionen des Dienstes, z. B. Verfügbarkeit, Bandbreite, Geschwindigkeit, Transfervolumen, Verschlüsselungsgrad."@de ;
+        skos:prefLabel   "Gewährleistung"@de , "warranty"@en .
+
+itcat:ITAsset  a         owl:Class ;
+        rdfs:comment     "Die IT-Assets gelten im Rahmen des IT-Service-Managements als Configuration Items. Da dieser Begriff jedoch viel weiter gefasst ist und neben technischen Komponenten auch Dokumente, Prozesse, Rollen und auch Dienste umfasst, soll hier der engere Begriff IT-Assets verwendet werden."@de ;
+        rdfs:subClassOf  prov:Entity ;
+        skos:definition  "IT-Assets sind die im Rahmen eines IT-Dienstes eingesetzten Systeme und Komponenten der Informations- und Kommunikationstechnologie. Dazu zählen u. a. PCs, Server, Drucker, Netzwerkkomponenten, Software(-Pakete)."@de ;
+        skos:prefLabel   "IT-Asset"@de , "IT asset"@en .
+
+itcat:Priority  rdfs:comment  "Prioritäten werden nach Prioritätskategorien eingeteilt."@de ;
+        rdfs:subClassOf  schema:QualitativeValue ;
+        skos:definition  "Die Priorität eines Dienstes gibt an, welcher Wert ihm im Rahmen des Dienste-Portfolios einer Organisation beigemessen wird."@de ;
+        skos:prefLabel   "Priorität"@de , "priority"@en .
+
+itcat:Criticality  rdfs:comment  "Kritikalitäten werden nach Kritikalitätskategorien eingeteilt."@de ;
+        rdfs:subClassOf  schema:QualitativeValue ;
+        skos:definition  "Die Kritikalität eines Dienstes gibt an, wie kritisch eine Störung oder der Ausfall eines Dienstes für die IT-Versorgung einer Organisation eingeschätzt wird."@de ;
+        skos:prefLabel   "Kritikalität"@de , "criticality"@en .
+
+itcat:UserAssetSupport
+        a                owl:Class ;
+        rdfs:comment     "Diese Dienstmerkmalsklasse ist relevant für nutzerorientierte Dienste (Dienste für Fachanwender oder für externe Stakeholder). Es definiert, für welche Endgeräte der Dienst zugänglich sein soll."@de , "Diese Dienstmerkmalsklasse wird in Verbindung mit der Object Property 'itcat:usableWith', die eine Unterproperty von 'itcat:hasUtility' ist, verwendet."@de ;
+        rdfs:subClassOf  itcat:Utility ;
+        skos:definition  "Dienstmerkmalsklasse zur Spezifikation der von einem Dienst unterstützten Endgeräte."@de ;
+        skos:prefLabel   "Unterstützung für Endgeräte"@de , "user asset support"@en .
+
+itcat:ServiceCategory
+        a                owl:Class ;
+        skos:definition  "Dienstkategorien werden verwendet, um die IT-Dienste nach geeigneten Unterscheidungskriterien zu klassifizieren."@de ;
+        skos:prefLabel   "Dienstekategorie"@de , "service category"@en .
+
+itcat:SubjectCategory
+        a                owl:Class ;
+        rdfs:subClassOf  itcat:ServiceCategory ;
+        skos:definition  "Sachkategorien helfen bei der sachlichen Einordnung von IT-Diensten. Ein IT-Dienst kann mehreren Sachkategorien angehören."@de ;
+        skos:prefLabel   "Sachkategorie"@de , "subject category"@en .
+
+itcat:CatalogCategory
+        a                owl:Class ;
+        rdfs:comment     "Wie IT-Dienste in Katalogkategorien eingruppiert werden, ist noch nicht abschließend geklärt."@de ;
+        rdfs:subClassOf  itcat:ServiceCategory ;
+        skos:definition  "Katalogkategorien helfen bei der Einordnung von IT-Diensten in verschiedene Dienstekataloge."@de ;
+        skos:prefLabel   "Katalogkategorie"@de , "catalog category"@en .
+
+itcat:user  a               owl:ObjectProperty ;
+        rdfs:domain         schema:Service ;
+        rdfs:range          prov:Agent ;
+        rdfs:subPropertyOf  schema:agent ;
+        skos:definition     "Objektrelation zwischen einem IT-Dienst und (einem) seinem(r) Nutzer."@de ;
+        skos:prefLabel      "hat Nutzer"@de , "has user"@en .
+
+itcat:supporter  a          owl:ObjectProperty ;
+        rdfs:domain         schema:Service ;
+        rdfs:range          prov:Agent ;
+        rdfs:subPropertyOf  schema:agent ;
+        skos:definition     "Objektrelation zwischen einem IT-Dienst und (einem) seinem(r) Supporter."@de ;
+        skos:prefLabel      "hat Betreuer"@de , "has supporter"@en .
+
+itcat:hasCriticality  a  owl:ObjectProperty ;
+        rdfs:domain      schema:Service ;
+        rdfs:range       schema:QualitativeValue ;
+        skos:definition  "Objektrelation zwischen einem IT-Dienst und seiner Kritikalitätskategorie. "@de ;
+        skos:prefLabel   "hat Kritikalität"@de , "has criticality"@en .
+
+itcat:hasPriority  a     owl:ObjectProperty ;
+        rdfs:domain      schema:Service ;
+        rdfs:range       schema:QualitativeValue ;
+        skos:definition  "Objektrelation zwischen einem IT-Dienst und seiner Prioritätskategorie. "@de ;
+        skos:prefLabel   "hat Priorität"@de , "has priority"@en .
+
+itcat:hasUtility  a             owl:ObjectProperty ;
+        rdfs:domain             schema:Service ;
+        rdfs:range              usdl-agreement:ServiceProperty ;
+        owl:equivalentProperty  gr:hasBusinessFunction ;
+        skos:definition         "Objektrelation zwischen einem IT-Dienst und einer Dienstmerkmalsklasse, die der Beschreibung/Spezifikation seines Nutzens dient."@de ;
+        skos:prefLabel          "hat Nutzen"@de , "has utility"@en .
+
+itcat:usableWith  a         owl:ObjectProperty ;
+        rdfs:domain         schema:Service ;
+        rdfs:range          itcat:UserAssetSupport ;
+        rdfs:subPropertyOf  itcat:hasUtility ;
+        skos:definition     "Objektrelation zwischen einem IT-Dienst und der Dienstmerkmalsklasse 'Unterstützung für Endgeräte'."@de ;
+        skos:prefLabel      "nutzbar mit"@de , "usable with"@en .
+
+itcat:hasWarranty  a        owl:ObjectProperty ;
+        rdfs:domain         schema:Service ;
+        rdfs:range          usdl-agreement:ServiceProperty ;
+        rdfs:subPropertyOf  gr:hasWarrantyPromise ;
+        skos:definition     "Objektrelation zwischen einem IT-Dienst und und einer Dienstmerkmalsklasse, die der Beschreibung/Spezifikation seiner zugesicherten Qualitätsdimensionen (Gewährleistung) dient."@de ;
+        skos:prefLabel      "hat Gewährleistung"@de , "has warranty"@en .
+
+itcat:inCategory  a      owl:ObjectProperty ;
+        rdfs:comment     "Aktuell werden zwei Kategorieklassen unterschieden: Sachkategorien und Katalogkategorien."@de , "Jeder IT-Dienst muss mindestens einer Kategorie in jeder Kategorieklasse zugeordnet sein."@de , "Ein IT-Dienst kann gleichzeitig mehreren Dienstekategorien innerhalb einer Kategorieklasse angehören."@de ;
+        rdfs:domain      schema:Service ;
+        rdfs:range       itcat:ServiceCategory ;
+        skos:definition  "Objektrelation zwischen einem IT-Dienst und einer Dienstekategorie. "@de ;
+        skos:prefLabel   "gehört zu Kategorie"@de , "belongs to category"@en .
+
+itcat:HighCriticality
+        a                itcat:Criticality ;
+        rdfs:comment     "Kritikalitätskategorien sind: 'Hohe Kritikalität', 'Mittlere Kritikalität' und 'Geringe Kritikalität'."@de ;
+        skos:definition  "Ein Dienst ist von hoher Kritikalität, wenn eine Störung oder der Ausfall dieses Dienstes als sehr kritisch für die IT-Versorgung einer Organisation eingeschätzt wird."@de ;
+        skos:prefLabel   "Hohe Kritikalität"@de , "high criticality"@en .
+
+itcat:MediumCriticality
+        a                itcat:Criticality ;
+        rdfs:comment     "Kritikalitätskategorien sind: 'Hohe Kritikalität', 'Mittlere Kritikalität' und 'Geringe Kritikalität'."@de ;
+        skos:definition  "Ein Dienst ist von mittlerer Kritikalität, wenn eine Störung oder der Ausfall dieses Dienstes die IT-Versorgung einer Organisation einschränkt, aber nicht in kritischen Bereichen."@de ;
+        skos:prefLabel   "Mittlere Kritikalität"@de , "medium criticality"@en .
+
+itcat:LowCriticality  a  itcat:Criticality ;
+        rdfs:comment     "Kritikalitätskategorien sind: 'Hohe Kritikalität', 'Mittlere Kritikalität' und 'Geringe Kritikalität'."@de ;
+        skos:definition  "Ein Dienst ist von geringer Kritikalität, wenn eine Störung oder der Ausfall dieses Dienstes die IT-Versorgung einer Organisation nicht wesentlich einschränkt."@de ;
+        skos:prefLabel   "Geringe Kritikalität"@de , "low criticality"@en .
+
+itcat:HighPriority  a    itcat:Priority ;
+        rdfs:comment     "Prioritätskategorien sind: 'Hohe Priorität', 'Mittlere Priorität' und 'Geringe Priorität'."@de ;
+        skos:definition  "Ein Dienst ist von hoher Priortät, wenn ihm im Rahmen des Dienste-Portfolios einer Organisation ein hoher Wert beigemessen wird."@de ;
+        skos:prefLabel   "Hohe Priorität"@de , "high priority"@en .
+
+itcat:MediumPriority  a  itcat:Priority ;
+        rdfs:comment     "Prioritätskategorien sind: 'Hohe Priorität', 'Mittlere Priorität' und 'Geringe Priorität'."@de ;
+        skos:definition  "Ein Dienst ist von mittlerer Priortät, wenn ihm im Rahmen des Dienste-Portfolios einer Organisation ein mittlerer Wert beigemessen wird."@de ;
+        skos:prefLabel   "Mittlere Priorität"@de , "medium priority"@en .
+
+itcat:LowPriority  a     itcat:Priority ;
+        rdfs:comment     "Prioritätskategorien sind: 'Hohe Priorität', 'Mittlere Priorität' und 'Geringe Priorität'."@de ;
+        skos:definition  "Ein Dienst ist von geringer Priortät, wenn ihm im Rahmen des Dienste-Portfolios einer Organisation ein geringer Wert beigemessen wird."@de ;
+        skos:prefLabel   "Geringe Priorität"@de , "low priority"@en .
+
+itcat:BusinessCatalog
+        a                itcat:CatalogCategory ;
+        skos:definition  "Der Fachanwenderkatalog umfasst alle für Fachanwender bereitgestellten Dienste einer Organisation. Sprache und Design des Katalogs orientieren sich an der Sprache der Fachanwender."@de ;
+        skos:prefLabel   "Fachanwenderkatalog"@de , "business catalog"@en .
+
+itcat:PublicCatalog  a   itcat:CatalogCategory ;
+        skos:definition  "Der Öffentliche Dienstekatalog umfasst alle für die interessierte Öffentlichkeit bereitgestellten Dienste einer Organisation. Sprache und Design des Katalogs orientieren sich an der Sprache der Zielgruppen."@de ;
+        skos:prefLabel   "Öffentlicher Dienstekatalog"@de , "public catalog"@en .
+
+itcat:OperationalCatalog
+        a                itcat:CatalogCategory ;
+        skos:definition  "Der IT-Betriegskatalog umfasst alle für die Sicherung des IT-Betriebs einer Organisation relevanten Dienste. Sprache und Design des Katalogs orientieren sich an der Sprache der IT-Betriebsverantwortlichen."@de ;
+        skos:prefLabel   "IT-Betriebskatalog"@de , "operational catalog"@en .
+
+itcat:InfrastructureCatalog
+        a                itcat:CatalogCategory ;
+        skos:definition  "Der IT-Infrastrukturkatalog umfasst alle für die Sicherung des IT-Betriebs einer Organisation relevanten IT-Systeme bzw. -Komponenten. Sprache und Design des Katalogs orientieren sich an der Sprache der IT-Administratoren."@de ;
+        skos:prefLabel   "IT-Infrastrukturkatalog"@de , "infrastructure catalog"@en .
+
+itcat:BSCW  a                 schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:DBM ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:TLSO ;
+        schema:url            "http://bscw.fh-brandenburg.de" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:LowPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:TeachingPlatforms , itcat:CommunicationServices ;
+        itcat:supporter       itcat:MLangerwisch ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:Staff , itcat:Students ;
+        dcterms:abstract      "BSCW ist ein bewährtes Werkzeug für effiziente Kooperation, insbesondere für firmen- oder standortübergreifende Projekte."@de ;
+        dcterms:description   "BSCW ist ein Projekt- und Dokumentenmanagementsystem (Basic Support for Cooperative Work). Es wurde vor 20 Jahren vom Fraunhofer Institut FIT entwickelt. Inzwischen zeichnet die OrbiTeam Software GmbH & Co. KG für die Pflege, Weiterentwicklung und den Support des Systems verantwortlich. Der FB Wirtschaft hat eine Lizenz für Forschung und Lehre erworben und bietet die Nutzung auf einem eigenen Server an. BSCW ist das ideale Werkzeug für effiziente Kooperation, insbesondere für firmen- oder standortübergreifende Projekte. Es ermöglicht - ohne Softwareinstallation bei den Endbenutzern - die Zusammenarbeit von beliebig großen Benutzergruppen. Die Anmeldung erfolgt mit softwareeigenen Nutzerdaten, eine Intgration in des zentrale IDM ist nicht umgesetzt."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "BSCW Groupware"@de ;
+        skos:prefLabel        "BSCW Groupware"@de , "BSCW Groupware"@en .
+
+itcat:WebHosting  a           schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:provider       itcat:DFN ;
+        schema:url            "http://www.fh-brandenburg.de/www.html" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:OperationalCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:user            itcat:TLSO , itcat:THB , itcat:DataCenter , itcat:HISProject , itcat:LSCS ;
+        dcterms:abstract      "Die TH Brandenburg betreibt eigene Web-Server im Rahmen des DFN (Deutsches Forschungsnetz). Damit können sämtliche webbasierten Dienste der Hochschule mit hoher Performanz und Verfügbarkeit betrieben werden."@de ;
+        dcterms:description   "Der Web-Hosting-Dienst ist die Grundlage für eine Fülle von webbasierten Diensten an der Hochschule."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Betrieb des zentralen Web-Servers an der TH Brandenburg"@de ;
+        skos:prefLabel        "Web-Hosting"@de , "web hosting"@en .
+
+itcat:TLSO  a            foaf:Organization ;
+        schema:isPartOf  itcat:DBM ;
+        dcterms:title    "Team Labor Service und Organisation des FBW"@de ;
+        skos:prefLabel   "TLSO"@de , "TLSO"@en .
+
+itcat:MLangerwisch  a    foaf:Person ;
+        schema:employee  itcat:TLSO ;
+        skos:prefLabel   "Dipl. Wi-Inform.(FH) Marco Langerwisch" ;
+        foaf:mbox        "marco.langerwisch(at)th-brandenburg.de" ;
+        foaf:name        "Marco Langerwisch" ;
+        foaf:phone       "+49 3381 355 - 224" .
+
+itcat:Laptop  a          itcat:ITAsset ;
+        skos:definition  "Portable Computer. Diese können als Hochschuleigentum von Mitarbeitern genutzt werden. Auch die privaten portablen Computer der Mitarbeiter, Studierenden und externen Beschäftigten sind mit gemeint."@de ;
+        skos:prefLabel   "Laptop"@de , "laptop"@en .
+
+itcat:Computer  a        itcat:ITAsset ;
+        skos:definition  "Desktop-Computer, insbesondere die von Mitarbeitern genutzten Geräte sowie die Labor-PCs."@de ;
+        skos:prefLabel   "Computer"@de , "computer"@en .
+
+itcat:Smartphone  a      itcat:ITAsset ;
+        skos:definition  "Kleine mobile Endgeräte, die u. a. zum Telefonieren benutzt werden können. Diese Endgeräte sind überwiegend im Privatbesitz der Mitarbeiter, Studierenden und der externen Beschäftigten."@de ;
+        skos:prefLabel   "Smartphone"@de , "smart phone"@en .
+
+itcat:LibraryServices
+        a                itcat:SubjectCategory ;
+        skos:definition  "Zu den Bibliotheksdiensten gehören alle IT-Dienste, die den Zugang zu Fachliteratur in der Hochschulbibliothek sowie über zentrale Datenbanken, Dienste und Systeme unterstützen bzw. ermöglichen."@de ;
+        skos:prefLabel   "Bibliotheksdienste"@de , "library services"@en .
+
+itcat:HISServices  a     itcat:SubjectCategory ;
+        skos:definition  "Zu den HIS-Diensten gehören alle Anwendungen im Rahmen der Hochschulinformationssysteme HIS und HISinOne."@de ;
+        skos:prefLabel   "HIS-Dienste"@de , "HIS services"@en .
+
+itcat:TeachingPlatforms
+        a                itcat:SubjectCategory ;
+        skos:definition  "Lehrplattformen unterstützen bzw. ermöglichen die Hochschullehre sowohl in der klassischen Präsenzlehre als auch im E-Learning."@de ;
+        skos:prefLabel   "Lehrportale"@de , "teaching platforms"@en .
+
+itcat:CommunicationServices
+        a                itcat:SubjectCategory ;
+        skos:definition  "Kommunikationsdienste unterstützen bzw. ermöglichen die synchrone und asynchrone Kommunikation von Gruppen und Individuen."@de ;
+        skos:prefLabel   "Kommunikationsdienste"@de , "communication services"@en .
+
+itcat:InformationServices
+        a                itcat:SubjectCategory ;
+        skos:definition  "Informationsdienste stellen für die Benutzer strukturierte, regelmäßig aktualisierte Informationen über verschiedene Medien bereit."@de ;
+        skos:prefLabel   "Informationsdienste"@de , "information services"@en .
+
+itcat:MiscServices  a    itcat:SubjectCategory ;
+        skos:definition  "Unter sonstigen Anwendungen werden alle Fachanwendungen (IT-Dienste) zusammengefasst, die in keine der anderen Sachkategorien schlüssig einordenbar sind."@de ;
+        skos:prefLabel   "Sonstige Anwendungen"@de , "miscellaneous applications"@en .
+
+itcat:NetworkServices
+        a                itcat:SubjectCategory ;
+        skos:definition  "Netzwerkdienste nutzen ein oder mehrere Netzwerkprotokolle (HTTP, DNS, NTP, DHCP ...) um über ein Computernetzwerk bestimmte Funktionen bereitzustellen."@de ;
+        skos:prefLabel   "Netzwerkdienste"@de , "network services"@en .
+
+itcat:InfrastructureServices
+        a                itcat:SubjectCategory ;
+        skos:definition  "Infrastrukturdienste sind grundlegende Dienste zur Bereitstellung, Pflege und Wartung einer IT-Versorgungsstruktur."@de ;
+        skos:prefLabel   "Infrastrukturdienste"@de , "infrastructure services"@en .
+
+itcat:DBM  a             foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Fachbereich Wirtschaft"@de ;
+        skos:prefLabel   "FBW"@de , "DBM - Department of Business and Management"@en .
+
+itcat:Staff  a           schema:Role ;
+        skos:definition  "Zum aktuellen Zeitpunkt an der Hochschule festangestellte Mitarbeiter."@de ;
+        skos:prefLabel   "Mitarbeiter"@de , "staff"@en .
+
+itcat:Students  a        schema:Role ;
+        skos:definition  "Zum aktuellen Zeitpunkt an der Hochschule eingeschriebene Studierende."@de ;
+        skos:prefLabel   "Studierende"@de , "students"@en .
+
+itcat:DCS  a             foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Fachbereich Informatik und Medien"@de ;
+        skos:prefLabel   "FBI"@de , "DCS - Department of Computer Science and Media"@en .
+
+itcat:THB  a            foaf:Organization ;
+        dcterms:title   "Technische Hochschule Brandenburg an der Havel - University of Applied Sciences"@de ;
+        skos:prefLabel  "TH Brandenburg"@de , "UAS Brandenburg"@en .
+
+itcat:CloudserviceFBW
+        a                     schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:DBM ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:TLSO ;
+        schema:url            "https://cloud.fh-brandenburg.de" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:LowPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:MiscServices , itcat:NetworkServices ;
+        itcat:supporter       itcat:TJacob ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:StaffDBM , itcat:StaffADM ;
+        dcterms:abstract      "Den Mitarbeiterinnen und Mítarbeitern des Fachbereichs Wirtschaft und der Verwaltung steht nunmehr auch ein Cloud-Service der Firma Novel zur Verfügung. Der Hersteller bewirbt diesen Dienst mit den Worten 'Ähnlich wie Dropbox. Sicher wie Fort Knox.'."@de ;
+        dcterms:description   "<p>Unseren Cloud-Service (Filr) erreichen Sie am besten mit einem Browser über die u. a. URL. Bitte loggen Sie sich dort mit Ihrem FHB-Account ein. Die Startseite zeigt nur den Mitarbeiterinnen und Mitarbeitern des Fachbereichs Wirtschaft das vom Novell-Client bekannte Home-Laufwerk, welches Sie als Arbeitsbereich nutzen können. Des Weiteren sehen Sie unter dem Menüpunkt Netzlaufwerke, die Ihnen zugewiesenen Laufwerke (z.B. Projekte, Lehre etc.).</p><p>Über die Weboberfläche unseres Cloud-Services können Sie sich zusätzlich einen Client für Ihren PC/MAC herunterladen. Dieser Client besitzt erweiterte Funktionalitäten, z.B. auch Synchronisationsmöglichkeiten, wie Sie sie vom iFolder her kennen. (Klicken Sie in der Webanwendung oben rechts auf Ihren Namen. Es öffnet sich ein Tooltip mit einem Link zum Download.) Für Smartphones und Tablets gibt es im Apple App Store bzw. Google Play Store eine kostenlose App mit dem Namen 'Filr'.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Cloudservice des Fachbereichs Wirtschaft"@de ;
+        skos:prefLabel        "Cloudservice des FBW"@de , "Cloudservice DBM"@en ;
+        foaf:page             itcat:CloudserviceFBW_DocDL001 , itcat:CloudserviceFBW_DocWP001 .
+
+itcat:TJacob  a          foaf:Person ;
+        schema:employee  itcat:TLSO ;
+        skos:prefLabel   "Dipl. Wi.-Inform.(FH) Thomas Jacob" ;
+        foaf:mbox        "thomas.jacob(at)th-brandenburg.de" ;
+        foaf:name        "Thomas Jacob" ;
+        foaf:phone       "+49 3381 355 - 222" .
+
+itcat:StaffDBM  a        schema:Role ;
+        skos:definition  "Mitarbeiter des Fachbereichs Wirtschaft."@de ;
+        skos:prefLabel   "Mitarbeiter FBW"@de , "staff of DBM"@en .
+
+itcat:Tablet  a          itcat:ITAsset ;
+        skos:definition  "Größere mobile Endgeräte. Diese Endgeräte sind überwiegend im Privatbesitz der Mitarbeiter, Studierenden und der externen Beschäftigten."@de ;
+        skos:prefLabel   "Tablet"@de , "tablet"@en .
+
+itcat:StaffDCS  a        schema:Role ;
+        skos:definition  "Mitarbeiter des Fachbereichs Informatik und Medien."@de ;
+        skos:prefLabel   "Mitarbeiter FBI"@de , "staff of DCS"@en .
+
+itcat:StaffDTE  a        schema:Role ;
+        skos:definition  "Mitarbeiter des Fachbereichs Technik."@de ;
+        skos:prefLabel   "Mitarbeiter FBT"@de , "staff of DTE"@en .
+
+itcat:StaffADM  a        schema:Role ;
+        skos:definition  "Mitarbeiter der Hochschulverwaltung oder der Zentren."@de ;
+        skos:prefLabel   "Mitarbeiter Verwaltung/Zentren"@de , "staff of administration or centers"@en .
+
+itcat:Enrollees  a       schema:Role ;
+        skos:definition  "Personen, die sich an der Hochschule bewerben oder beworben haben, über deren Bewerbung jedoch aktuell noch nicht entschieden wurde."@de ;
+        skos:prefLabel   "Studienbewerber"@de , "enrollees"@en .
+
+itcat:Public  a          schema:Role ;
+        skos:definition  "Personen, die ein berufliches oder privates Interesse an der Hochschule haben."@de ;
+        skos:prefLabel   "Öffentlichkeit"@de , "public"@en .
+
+itcat:DTE  a             foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Fachbereich Technik"@de ;
+        skos:prefLabel   "FBT"@de , "DTE - Department of Technology and Engineering"@en .
+
+itcat:DataCenter  a      foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Rechenzentrum der TH Brandenburg"@de ;
+        skos:prefLabel   "Rechenzentrum"@de , "data center"@en .
+
+itcat:Library  a         foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Hochschulbibliothek der TH Brandenburg"@de ;
+        skos:prefLabel   "Hochschulbibliothek"@de , "university library"@en .
+
+itcat:BRZUR  a          foaf:Organization ;
+        dcterms:title   "Bibliotheksrechenzentrum der Universität Regensburg"@de ;
+        skos:prefLabel  "BRZ Uni Regensburg"@de , "University Data Center Regensburg"@en .
+
+itcat:WWeidner  a        foaf:Person ;
+        schema:employee  itcat:DCS ;
+        skos:prefLabel   "Wolfram Weidner, B.Sc." ;
+        foaf:mbox        "wolfram.weidner(at)th-brandenburg.de" ;
+        foaf:name        "Wolfram Weidner" ;
+        foaf:phone       "+49 3381 355 - 437" .
+
+itcat:RDoletzki  a       foaf:Person ;
+        schema:employee  itcat:DCS ;
+        skos:prefLabel   "Dipl.-Ing. Ralf Doletzki" ;
+        foaf:mbox        "ralf.doletzki(at)th-brandenburg.de" ;
+        foaf:name        "Ralf Doletzki" ;
+        foaf:phone       "+49 3381 355 - 414" .
+
+itcat:DSchulz  a         foaf:Person ;
+        schema:employee  itcat:DTE ;
+        skos:prefLabel   "Dipl.-Ing. (FH) Dieter Schulz" ;
+        foaf:mbox        "dieter.schulz(at)th-brandenburg.de" ;
+        foaf:name        "Dieter Schulz" ;
+        foaf:phone       "+49 3381 355 - 325" .
+
+itcat:DThiele  a         foaf:Person ;
+        schema:employee  itcat:DTE ;
+        skos:prefLabel   "Dipl.-Ing. (FH) Dieter Thiele" ;
+        foaf:mbox        "dieter.thiele(at)th-brandenburg.de" ;
+        foaf:name        "Dieter Thiehle" ;
+        foaf:phone       "+49 3381 355 - 538" , "+49 3381 355 - 508" .
+
+itcat:RFahl  a           foaf:Person ;
+        schema:employee  itcat:TLSO ;
+        skos:prefLabel   "René Fahl" ;
+        foaf:mbox        "rene.fahl(at)th-brandenburg.de" ;
+        foaf:name        "René Fahl" ;
+        foaf:phone       "+49 3381 355 - 279" .
+
+itcat:MHeinrich  a       foaf:Person ;
+        schema:employee  itcat:DCS ;
+        skos:prefLabel   "Marcus Heinrich" ;
+        foaf:mbox        "marcus.heinrich(at)th-brandenburg.de" ;
+        foaf:name        "Marcus Heinrich" ;
+        foaf:phone       "+49 3381 355 - 164" .
+
+itcat:ExtWorkers  a      schema:Role ;
+        rdfs:comment     "Externe Beschäftigte erhalten einen Hochschulaccount und haben damit auch Zugriff auf viele interne IT-Dienste der Hochschule."@de ;
+        skos:definition  "Lehrbeauftragte, Gastprofessoren, Honorarprofessoren u. a. externe Beschäftigten, z. B. in Projekten."@de ;
+        skos:prefLabel   "Externe Beschäftigte"@de , "external workers"@en .
+
+itcat:Datensicherung  a       schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:provider       itcat:TLSO , itcat:DataCenter ;
+        schema:url            "" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:InfrastructureCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:user            itcat:Staff ;
+        dcterms:abstract      ""@de ;
+        dcterms:description   ""@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Backup- und Restoreservice der THB"@de ;
+        skos:prefLabel        "Datensicherung"@de , "backup service"@en .
+
+itcat:DBIS  a                 schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:Library ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:BRZUR ;
+        schema:url            "http://rzblx10.uni-regensburg.de/dbinfo/dbliste.php?bib_id=fhbrb&colors=31&ocolors=40&lett=a" ;
+        itcat:hasCriticality  itcat:LowCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:LibraryServices , itcat:InformationServices ;
+        itcat:supporter       itcat:MHeinrich ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Das Datenbank-Infosystem (DBIS) ist ein kooperativer Service zur Nutzung wissenschaftlicher Datenbanken, der vom Rechenzentrum der Universitätsbibliothek Regensburg bereitgestellt wird."@de ;
+        dcterms:description   "<p>Das Datenbank-Infosystem (DBIS) wurde mit finanzieller Unterstützung des Bayerischen Staatsministeriums für Wissenschaft, Forschung und Kunst und der Deutschen Forschungsgemeinschaft (DFG) von der Universitätsbibliothek Regensburg entwickelt. Inzwischen wird das Datenbank-Infosystem als Nutzerservice in 299 Bibliotheken genutzt.</p><p> Momentan umfasst das Datenbank-Infosystem 11429 Einträge. Davon sind 4718 Datenbanken frei über das Internet verfügbar. In DBIS werden Datenbanken verzeichnet, deren Inhalte über eine Suchfunktionalität gezielt durchsucht werden können. Die Datenbanken werden nach Fächern sortiert angeboten. Daneben gibt es auch eine erweiterte Suche, in der unter anderem eine Stichwortsuche möglich ist oder nach Datenbanken mit geographischem Bezug gesucht werden kann.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Datenbank-Infosystem der Universität Regensburg"@de ;
+        skos:prefLabel        "Datenbank-Infosystem"@de , "databased information system"@en .
+
+itcat:IDM  a                  schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://www.idm.fh-brandenburg.de/IDMProv/jsps/login/Login.jsp" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:OperationalCatalog , itcat:MiscServices , itcat:NetworkServices ;
+        itcat:supporter       itcat:TLSO , itcat:DataCenter , itcat:WWeidner , itcat:RDoletzki , itcat:DSchulz , itcat:DThiele ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Das IdM beinhaltet die zentrale Benutzerverwaltung der Fachhochschule Brandenburg. Hier werden die wichtigsten Daten aller Angehörigen der FHB in einem zentralen Verzeichnisdienst (LDAP) gespeichert und verwaltet, die für den Zugang zur IT-Infrastruktur und der angeschlossenen Systeme notwendig sind."@de ;
+        dcterms:description   "<p>Die Benutzerkennung wird u. a. für die folgenden Dienste verwendet: E-Mail, Lernplattform Moodle, Anmeldung in Computerlaboren, Verbindung zu Netzlaufwerken, Zugang zum WLAN, Nutzung VPN-Zugang, Antrag zur Nutzung Internet im Studentenwohnheim.</p><p>Ein neuer Benutzer muss zunächst seine Benutzerkennung über das IDM-Portal aktivieren. Aktivierte Nutzer haben die Möglichkeit Ihr Passwort zu ändern. Für die Wahl des Passwortes finden sich Tipps auf der Hilfeseite des Rechenzentrums. Sollte ein Benutzer sein Passwort vergessen, so kann er sich ein neues Passwort an seine private E-Mail-Adresse zusenden lassen. Das IDM-Portal kann auch genutzt werden, um ein Foto für die CampusCard hochzuladen. </p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Identity Management"@de ;
+        skos:prefLabel        "Identity Management"@de , "identity management"@en ;
+        foaf:page             itcat:IDM_DocWP001 , itcat:IDM_DocWP002 .
+
+itcat:DFN  a            foaf:Organization ;
+        dcterms:title   "DFN Verein zur Förderung eines Deutschen Forschungsnetzes e. V."@de ;
+        skos:prefLabel  "DFN Verein"@de , "DFN association"@en .
+
+itcat:WLAN  a                 schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.fh-brandenburg.de/1347.html" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:InRelief ;
+        itcat:inCategory      itcat:InfrastructureCatalog , itcat:NetworkServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Die Nutzung des hochschuleigenen WLANs 'fhb-wlan' steht allen Angehörigen der Fachhochschule Brandenburg frei. Die Anmeldung an diesem WLAN erfolgt mit den IDM-Login-Daten. In der Regel genügt die Eingabe ihrer Zugangsdaten um sich im WLAN der Fachhochschule Brandenburg anzumelden."@de ;
+        dcterms:description   "<p>Sollte es Probleme bei der Verbindung geben, nutzen Sie zunächst bitte die unter Dokumente abgelegte Anleitung um die Verbindung neu einzurichten.</p><p>Mit dem Beginn des Wintersemester 2015 kann das eduroam - WLAN auch durch Studierende und Mitarbeitende der FHB genutzt werden. Mit der einmaligen Einrichtung von eduroam auf ihrem mobilen Gerät haben Sie dann die Möglichkeit, kostenlosen Zugang zum Internet an der FHB und eben auch allen wissenschaftlichen Einrichtungen weltweit zu erhalten.</p><p>Das 'fhb-wlan' wird zunächst noch parallel zur Verfügung stehen, jedoch zum Beginn des Sommersemester 2016 abgeschaltet werden.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Hochschuleigenes WLAN"@de ;
+        skos:prefLabel        "WLAN"@de , "WLAN"@en ;
+        foaf:page             itcat:WLAN_DocDL001 .
+
+itcat:WebMail  a              schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:IDM , itcat:CentralMail ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://webmail.fh-brandenburg.de/" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:CommunicationServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Für alle Studierenden und Lehrkräfte bietet die Hochschule einen Webmailer auf Basis von Zimbra an. Der Dienst ist innerhalb und außerhalb des Hochschulnetzes zugänglich. Die Authentifizierung erfolgt mit den IDM-Login-Daten."@de ;
+        dcterms:description   "<p>Der Webmail-Service ist plattformunabhängig mit jedem Gerät abrufbar. Verwendet wird zentral die Software „Zimbra“, welche neben dem E-Mail-Dienst weitere Funktionen einer Groupware wie einen Kalender, Kontaktbuch und Aufgabenbereich beinhaltet. Des Weiteren kann man online Dateien hochladen und freigeben.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "WebMail-Dienst Zimbra der TH Brandenburg"@de ;
+        skos:prefLabel        "WebMail-Dienst"@de , "webmail service"@en ;
+        foaf:page             itcat:WebMail_DocWP001 .
+
+itcat:EZB  a                  schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:Library ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:BRZUR ;
+        schema:url            "http://rzblx1.uni-regensburg.de/ezeit/" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:LibraryServices , itcat:InformationServices ;
+        itcat:supporter       itcat:MHeinrich ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Die Elektronische Zeitschriftenbibliothek ist ein Service zur effektiven Nutzung wissenschaftlicher Volltextzeitschriften im Internet. Sie umfasst 80.186 Titel, davon 15.231 reine Online-Zeitschriften, zu allen Fachgebieten."@de ;
+        dcterms:description   "<p>Die Elektronische Zeitschriftenbibliothek ist ein Service zur effektiven Nutzung wissenschaftlicher Volltextzeitschriften im Internet. Sie umfasst 80.186 Titel, davon 15.231 reine Online-Zeitschriften, zu allen Fachgebieten. Zudem werden 83.449 Zeitschriften von Aggregatoren verzeichnet. 48.859 Fachzeitschriften sind im Volltext frei zugänglich. Die Anwenderbibliotheken bieten ihren Benutzern zusätzlich den Zugriff auf die Volltexte der von ihnen abonnierten E-Journals.</p> <p>Die Elektronische Zeitschriftenbibliothek wurde 1997 im Rahmen eines Projekts von der Universitätsbibliothek Regensburg, in Kooperation mit der Bibliothek der Technischen Universität München, gegründet. Das Ziel war es, allen Bibliotheksnutzern elektronische Zeitschriften übersichtlich zu präsentieren und den teilnehmenden Bibliotheken ein schnelles und effektives Verwalten ihrer wissenschaftlichen E-Journale zu ermöglichen. Derzeit nutzen 609 Teilnehmereinrichtungen die Elektronische Zeitschriftenbibliothek, darunter auch die Technische Hochschule Brandenburg.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Elektronische Zeitschriftenbibliothek"@de ;
+        skos:prefLabel        "EZB"@de , "EZB"@en .
+
+itcat:Fernleihe  a            schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:Library ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:DBIS , itcat:IDM , itcat:OPAC ;
+        schema:provider       itcat:KOBV ;
+        schema:url            "https://fh-brandenburg.de/bibfernleihe.3.html" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:LibraryServices ;
+        itcat:supporter       itcat:KOBV ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Im Rahmen des Deutschen und Internationalen Leihverkehrs haben Sie die Möglichkeit, Medien (Bücher, Zeitschriftenartikel, usw.), die sich nicht im Bestand der Hochschulbibliothek befinden, aus anderen Bibliotheken zu bestellen."@de ;
+        dcterms:description   "<p>Im Rahmen des Deutschen und Internationalen Leihverkehrs haben Sie die Möglichkeit, Medien (Bücher, Zeitschriftenartikel, usw.), die sich nicht im Bestand der Hochschulbibliothek befinden, aus anderen Bibliotheken zu bestellen. Die Realisierung einer Fernleihbestellung dauert in der Regel 2-4 Wochen. Bevor Sie eine Fernleihbestellung aufgeben, führen Sie bitte stets eine Bestandskontrolle im Online-Katalog durch. Sind die gewünschten Medien nicht vorhanden, können Sie eine gebührenpflichtige Fernleihbestellung aufgeben.</p><p>Wenn die bestellten Medien in der Hochschulbibliothek eingegangen sind, werden Sie per E-Mail oder schriftlich benachrichtigt. Leihfrist und Ausleihbedingungen werden von der verleihenden Bibliothek festgelegt und sind streng einzuhalten. Kann Ihre Fernleihbestellung aus keiner deutschen Bibliothek beschafft werden, besteht die Möglichkeit einer internationalen Fernleihe.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Kooperativer Bibliotheksverbund Berlin-Brandenburg, Fernleihe"@de ;
+        skos:prefLabel        "KOBV Fernleihe"@de , "inter-library loan"@en ;
+        foaf:page             itcat:Fernleihe_DocWP001 .
+
+itcat:KOBV  a           foaf:Organization ;
+        dcterms:title   "Kooperativer Bibliotheksverbund Berlin-Brandenburg"@de ;
+        skos:prefLabel  "KOBV Berlin-Brandenburg"@de , "KOBV Berlin-Brandenburg"@en .
+
+itcat:OPAC  a                 schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:Library ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:CentralMail ;
+        schema:provider       itcat:OCLC ;
+        schema:url            "https://opac.fh-brandenburg.de" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:PublicCatalog , itcat:LibraryServices , itcat:InformationServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:Public ;
+        dcterms:abstract      "Der Medienbestand der Hochschulbibliothek ist im Online-Katalog (OPAC) nachgewiesen. Hier sind ind sowohl die physischen als auch der größte Teil der E-Medien verzeichnet. Für die physikalischen Medien ist der Status (verliehen / nicht verliehen) einsehbar."@de ;
+        dcterms:description   "<p>Der Online-Katalog erlaubt verschieden Suchstrategien: die einfache, die erweiterte und die systematische Suche. Darüber hinaus kann ein Benutzer Merklisten anlegen, die Neuerwerbungen einsehen, Auskünfte einholen sowie Anschaffungswünsche platzieren.</p><p>Die Anmeldung erfolgt mit der Benutzernummer und einem Passwort. Nach Anmeldung kann der Benutzer sein Konto einsehen und verwalten. Damit sind auch Vormerkungen und Verlängerungen online realisierbar.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Online-Katalog der Hochschulbibliothek (OPAC)"@de ;
+        skos:prefLabel        "Online-Katalog OPAC"@de , "online catalog OPAC"@en ;
+        foaf:page             itcat:OPAC_DocWP001 , itcat:OPAC_DocWP002 .
+
+itcat:DeviceRental  a         schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:Moodle ;
+        schema:provider       itcat:DCS ;
+        schema:url            "https://moodle.fh-brandenburg.de/course/view.php?id=199" ;
+        itcat:hasCriticality  itcat:LowCriticality ;
+        itcat:hasPriority     itcat:LowPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:APrenzlow , itcat:TRanglack ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Students ;
+        dcterms:abstract      "Die TH Brandenburg bietet ihren Studierenden die Möglichkeit verschiedenste Geräte für den Gebrauch in der Hochschule zur Verfügung zu stellen. Bei den Geräten sind, soweit verfügbar,auch Anleitungen verlinkt. Sie liegen teilweise ind Deutsch und teilweise in Englisch vor. Es sind auch einige weitere Materialien, die hilfreich sein könnten, hinterlegt."@de ;
+        dcterms:description   "<p>Die TH Brandenburg bietet ihren Studierenden die Möglichkeit verschiedenste Geräte für den Gebrauch in der Hochschule zur Verfügung zu stellen. Bei den Geräten sind, soweit verfügbar, auch Anleitungen verlinkt. Sie liegen teilweise in Deutsch und teilweise in Englisch vor. Es sind auch einige weitere Materialien, die hilfreich sein könnten, hinterlegt.</p><p> <b>Modalitäten des Geräteverleihs:</b> Der Geräteverleih an Studenten ist nur im Rahmen des Unterrichts an der THB möglich. Bedingung ist, das vom Studenten eine Haftpflichversicherung abgeschlossen wurde. Nähere Informationen hierzu sind am Schwarzen Brett in der Nähe des Raumes InfZ 108 zu finden. Es ist ein Leihschein auszufüllen und von dem verantwortlichen Professor zu unterschreiben. Diese Scheine sind bei Fr. Prenzlow zu bekommen. Hier wird dann auch gleich das Vorhandensein einer Versicherung (MLP) geprüft. Auf dem Schein sind die gewünschten Geräte anzukreuzen. Aufgrund der begrenzten Resourcen sollten die Geräte rechtzeitig reserviert werden. Andernfalls kann die Verfügbarkeit zum gewünschten Zeitraum nicht gewährleistet werden.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         ""@de ;
+        skos:prefLabel        "Geräteverleih"@de , "device rental"@en ;
+        foaf:page             itcat:DeviceRental_DocDL001 , itcat:DeviceRental_DocWP001 .
+
+itcat:APrenzlow  a       foaf:Person ;
+        schema:employee  itcat:DCS ;
+        skos:prefLabel   "Andrea Prenzlow" ;
+        foaf:mbox        "andrea.prenzlow(at)th-brandenburg.de" ;
+        foaf:name        "Andrea Prenzlow" ;
+        foaf:phone       "+49 3381 355 - 401" .
+
+itcat:TRanglack  a       foaf:Person ;
+        schema:employee  itcat:DCS ;
+        skos:prefLabel   "Thomas Ranglack" ;
+        foaf:mbox        "thomas.ranglack(at)th-brandenburg.de" ;
+        foaf:name        "Thomas Ranglack" ;
+        foaf:phone       "+49 3381 355 - 445" .
+
+itcat:Moodle  a               schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM , itcat:CentralMail ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.fh-brandenburg.de/moodle" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:TeachingPlatforms , itcat:InformationServices ;
+        itcat:supporter       itcat:DataCenter , itcat:RWietusch ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Moodle dient als Plattform für Kurse an der Fachhochschule Brandenburg. Diese Kurse können Vorlesungen oder andere organisatorische Einheiten, Dienste u. ä. sein."@de ;
+        dcterms:description   "In den moodle-Kursen können u.a. Dokumente und Dateien hoch- und runtergeladen werden, Tests veröffentlicht, Aufgaben verteilt, Foren eröffnet, oder Wikis erstellt/bereitgestellt werden. In moodle können Kurse für bestimmte Nutzergruppen gesperrt, bzw. geöffnet werden. Die Authentifizierung erfolgt mit den IDM-Login-Daten"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Kurs-/Lernmanagementsystem Moodle"@de ;
+        skos:prefLabel        "Lehrplattform moodle"@de , "teaching platform moodle"@en .
+
+itcat:HISinOneAPP  a          schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:RegOffice ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:DataCenter , itcat:RegOffice ;
+        schema:url            "https://his1-ws.fh-brandenburg.de/qisserver/pages/cs/sys/portal/hisinoneStartPage.faces" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Implementation ;
+        itcat:inCategory      itcat:PublicCatalog , itcat:HISServices ;
+        itcat:supporter       itcat:DataCenter , itcat:HISProject ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Enrollees ;
+        dcterms:abstract      "Über das Online-Bewerbungsportal können sich Studieninteressierte für einen Studienplatz an der Fachhochschule Brandenburg bewerben. Das Portal richtet sich an Personen, die ihre Hochschulzugangsberechtigung in Deutschland erworben haben. "@de ;
+        dcterms:description   "<p>Über das Online-Bewerbungsportal können sich Studieninteressierte für einen Studienplatz an der Fachhochschule Brandenburg bewerben. Das Portal richtet sich an Personen, die ihre Hochschulzugangsberechtigung in Deutschland erworben haben.</p> <p>Die Bewerbung auf Studiengänge an der Fachhochschule Brandenburg erfolgt grundsätzlich online. Generell werden verschiedene Unterlagen für eine Immatrikulation benötigt, die gemeinsam mit dem Bewerbungsformular aus dem Online-Bewerberportal an der Fachhochschule Brandenburg einzureichen sind. Unsere Checkliste zur Unterstützung von Einschreibung bzw. Bewerbung beantwortet Fragen.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "HISinOne Bewerberportal - Zulassungsservice"@de ;
+        skos:prefLabel        "Zulassungsservice"@de , "application service"@en ;
+        foaf:page             itcat:HISInOneAPP_DocWP001 , itcat:HISInOneAPP_DocWP002 .
+
+itcat:RegOffice  a       foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Studierendensekretariat der TH Brandenburg"@de ;
+        skos:prefLabel   "Studierendesekretariat"@de , "registrar's office"@en .
+
+itcat:HISProject  a      foaf:Organization ;
+        schema:isPartOf  itcat:THB ;
+        dcterms:title    "Projekt zur Einführung des integrierten Hoschschulinformationssystems HISinOne"@de ;
+        skos:prefLabel   "HISinOne-Projekt"@de , "HISinOne project"@en .
+
+itcat:HISQIS  a               schema:Service ;
+        rdfs:comment          "Dieser Dienst wird baldmöglichst vom HISinOne-Modul EXA abgelöst."@de ;
+        schema:customer       itcat:RegOffice ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM , itcat:QISPOS ;
+        schema:provider       itcat:DataCenter , itcat:RegOffice ;
+        schema:url            "https://hisqis.fh-brandenburg.de/qisserver/rds?state=user&type=0" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:InRelief ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:HISServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:Students ;
+        dcterms:abstract      "Über dieses Online-Portal können Studierende Einsicht in ihre Noten nehmen, den Notenspiegel abrufen, ihre Stammdaten ändern, den RückmeldehasStage sowie den Gebührenstand einsehen und Studienbescheinigungen ausdrucken."@de ;
+        dcterms:description   "Neben der Noteneinsicht sind auch Prüfungsanmeldungen, Prüfungsversuche sowie das Prüfungsdatum einsehbar. Zu den änderbaren Stammdaten gehören: Heimatanschrift, Semesteranschrift, Telefonnummer und E-Mail-Adresse. Studienbescheinigungen können generiert, verifiziert und ausgedruckt werden."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Online-Portal des Studierendensekretariat der TH Brandenburg für Studenten"@de ;
+        skos:prefLabel        "Studierenden-Portal"@de , "student's portal"@en ;
+        foaf:page             itcat:HISQIS_DocWP001 .
+
+itcat:Eduroam  a              schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:IDM , itcat:WLAN ;
+        schema:provider       itcat:DFN ;
+        schema:url            "http://www.fh-brandenburg.de/eduroam.html" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:PublicCatalog , itcat:NetworkServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "eduroam ist ein weltweites WLAN, welches Mitgliedern von wissenschaftlichen Einrichtungen kostenlosen Zugang zum Internet ermöglicht. Die TH Brandenburg betreibt diesen Zugang in Zusammenarbeit mit dem DFN-Verein."@de ;
+        dcterms:description   "<p>eduroam ist ein weltweites WLAN, welches Mitgliedern von wissenschaftlichen Einrichtungen kostenlosen Zugang zum Internet ermöglicht. Die TH Brandenburg betreibt diesen Zugang in Zusammenarbeit mit dem DFN-Verein. Damit können Mitglieder der Hochschule bei angeschlossenen Einrichtungen im In- und Ausland WLAN-Dienste in Anspruch nehmen. Zum anderen haben Mitglieder anderer Einrichtungen, die unsere Hochschule besuchen, ihrerseits Zugriff auf das Web.</p> <p>Um den Dienst nutzen zu können, muss ein Installationsprogramm heruntergeladen werden. Das genaue Vorgehen für die Anmeldung und Nutzung des Dienstes ist unter der u. a. URL zu finden.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "eduroam - Internet über WLAN an wissenschaftlichen Einrichtungen weltweit"@de ;
+        skos:prefLabel        "eduroam"@de , "eduroam"@en ;
+        foaf:page             itcat:Eduroam_DocWP001 , itcat:Eduroam_DocWP002 .
+
+itcat:CentralMail  a          schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebMail ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.fh-brandenburg.de/email2.html" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:OperationalCatalog , itcat:InformationServices , itcat:NetworkServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:user            itcat:TLSO , itcat:DataCenter ;
+        dcterms:abstract      "Das Rechenzentrum betreibt zwei Mailserver (Mailrelay), die die Verteilung von E-Mails innerhalb der Domain fh-brandenburg.de sowie den Empfang und Versand nach aussen abwickeln."@de ;
+        dcterms:description   "<p>Das Rechenzentrum betreibt zwei Mailserver (Mailrelay), die die Verteilung von E-Mails innerhalb der Domain fh-brandenburg.de sowie den Empfang und Versand nach aussen abwickeln. Die Adressen dieser Server, in E-Mail-Clients als SMTP-Server oder Server für ausgehende Nachrichten bezeichnet, lauten:</p><ul><li>mail.fh-brandenburg.de:25</li><li>mail-auth.fh-brandenburg.de:25 (StartTLS)</li></ul><p>Eingehende Nachrichten können mittels POP3- oder IMAP-Protokoll abgerufen werden. Die Adressen dieser Server, in E-Mail-Clients als POP3-/IMAP-Server oder Server für eingehende Nachrichten bezeichnet, lauten:</p><ul><li>pop3-server: pop3.fh-brandenburg.de port: 995</li><li>imap-server: imap.fh-brandenburg.de port: 143/starttls</li><li>imap-server: imap.fh-brandenburg.de port: 993/ssl</li></ul><p>Die Größe einer E-Mail ist begrenzt auf 10 MB. Für den Austausch von größeren Dateien benutzen Sie bitte den Dienst <a href=\"VolumeTransfer\">Volumendatentransfer</a></p>."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Zentraler Maildienst der TH Brandenburg"@de ;
+        skos:prefLabel        "Zentraler Maildienst"@de , "central mail service"@en ;
+        foaf:page             itcat:CentralMail_DocWP001 .
+
+itcat:QISPOS  a               schema:Service ;
+        rdfs:comment          "Dieser Dienst wird baldmöglichst vom HISinOne-Modul EXA abgelöst." ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM , itcat:HISQIS ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://hisqis.fh-brandenburg.de/qisserver/rds?state=user&type=0" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:InRelief ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:HISServices ;
+        itcat:supporter       itcat:DataCenter , itcat:RegOffice ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:Staff , itcat:ExtWorkers ;
+        dcterms:abstract      "Über dieses Online-Portal können Prüfende Einsicht von ihnen zu verantwortende Prüfungen nehmen, Zulassungslisten ausdrucken und Noten eingeben."@de ;
+        dcterms:description   "Die Anmeldung an diesem Portal erfolgt über die IDM-Login-Daten. Neben der aktuellen Prüfungsperiode können auch Nachprüfungen aus vergangenen Semestern bearbeitet werden. Die Prüfenden geben die Noten nach dem üblichen Raster ein. Nach Verarbeitung vom System können Notenlisten ausgedruckt und weiterverarbeitet werden."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Online-Portal des Studierendensekretariat der TH Brandenburg für Prüfer (QISPOS)"@de ;
+        skos:prefLabel        "Prüferportal"@de , "examinator's portal"@en ;
+        foaf:page             itcat:QISPOS_DocWP001 .
+
+itcat:InfoDisplay  a          schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:BSNeV ;
+        schema:url            "http://www.bsn-infodisplay.de/mobil/fhbfbwi" ;
+        itcat:hasCriticality  itcat:LowCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:InformationServices ;
+        itcat:supporter       itcat:TLSO ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet , itcat:Screen ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:Public ;
+        dcterms:abstract      "Über das Display in den 2. Etage des WWZ werden Studenten und Mitarbeiter über aktuelle Veranstaltungen, Ausfälle von Vorlesungen, den tagesaktuellen Mensaplan oder Raumänderungen informiert."@de ;
+        dcterms:description   "Wenn Sie Informationen auf dem Display veröffentlichen wollen, schicken Sie eine Mail mit den Veranstaltungsdaten an: fbw-infodisplay(at)fh-brandenburg.de "@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Informationsdienst Info-Display des Fachbereichs Wirtschaft"@de ;
+        skos:prefLabel        "Info-Display FBW"@de , "information display DBM"@en ;
+        foaf:page             itcat:InfoDisplay_DocWP001 .
+
+itcat:BSNeV  a          foaf:Organization ;
+        dcterms:title   "BSN e. V - E-Government und E-Health an der FH Brandenburg"@de ;
+        skos:prefLabel  "BürgerServiceNetz e.V."@de , "BSN e. V."@en .
+
+itcat:Screen  a          itcat:ITAsset ;
+        skos:definition  "In öffentlich zugänglichen Bereichen der Hochschulgebäude fest installierte Bildschirme, z. B. als Info-Displays genutzt."@de ;
+        skos:prefLabel   "Bildschirm"@de , "screen"@en .
+
+itcat:EduDrive  a             schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:DBM ;
+        schema:isRelatedTo    itcat:IDM ;
+        schema:provider       itcat:TLSO ;
+        schema:url            "https://fhs-w7.fh-brandenburg.de/lehre/" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:TeachingPlatforms , itcat:NetworkServices ;
+        itcat:supporter       itcat:TLSO ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:Staff , itcat:Students ;
+        dcterms:abstract      "Im Hochschulnetz haben Lehrende des Fachbereichs Wirtschaft die Möglichkeit, elektronische Lehrskripte für Studierende bereitzustellen. Das Lehrelaufwerk erlaubt den lesenden Zugriff durch alle Lehrenden und Studierenden des Fachbereichs auf die Laufwerke der anderen Lehrenden."@de ;
+        dcterms:description   "Innerhalb der Fachhochschule ist der Portalserver des FB Wirtschaft nach erfolgreicher Anmeldung auf dem Netzwerklaufwerk L: (Lehre) auf den Desktops zugewiesen. Der Link zum browserbasierten Portalzugriff ist unten angegeben. Für den Zugang benötigen Sie einen gültigen Account und gegebenenfalls das Zertifikat für den WEB-Browser. Die Authentifizierung erfolgt mit den IDM-Login-Daten."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Lehrelaufwerk für Lehrende im Fachbereich Wirtschaft"@de ;
+        skos:prefLabel        "Lehrelaufwerk"@de , "educational drive"@en ;
+        foaf:page             itcat:EduDrive_DocWP001 .
+
+itcat:MapOnGo  a              schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:Library ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:OPAC ;
+        schema:provider       itcat:TLSO ;
+        schema:url            "http://fh-brandenburg.mapongo.de/viewer?language=de&project_id=1#" ;
+        itcat:hasCriticality  itcat:LowCriticality ;
+        itcat:hasPriority     itcat:LowPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:LibraryServices ;
+        itcat:supporter       itcat:TLSO ;
+        itcat:usableWith      itcat:Laptop , itcat:Smartphone ;
+        itcat:user            itcat:Staff , itcat:Students ;
+        dcterms:abstract      "Ein elektronisches Abbild des Gebäudeplans der Hochschulbibliothek einschließlich der Aufbewahrungsorte von Fachliteratur nach Themen geordnet. Dieser Dienst kann im Zusammenhang mit dem Online-Katalog (OPAC) verwendet werden."@de ;
+        dcterms:description   "Der interaktive Gebäudeplan der Bibliothek erlaubt den Nutzern, sich über die Anordnung der Ausstattung sowie der Fachliteratur in der Hochschulbibliothek zu informieren. Neben einer Anwahl der verschiedenen Gebäudeteile und Elemente über ein Menü, kann auch der Mouse-Over-Effekt des Gebäudeplans verwendet werden."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "MapOnGo - Gebäudeplan der Bibliothek"@de ;
+        skos:prefLabel        "Gebäudeplan Bibliothek"@de , "library map"@en ;
+        foaf:page             itcat:MapOnGo_DocWP001 .
+
+itcat:Monitoring  a           schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://www.nagios.org/" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:OperationalCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:Nagios ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:DataCenter ;
+        dcterms:abstract      "Für die Überwachung der IT-Systeme und -Komponenten nutzt das Rechenzentrum der Hochschule das Monitoring-System nagios."@de ;
+        dcterms:description   "<p>Nagios ist eine Software, die dem Monitoring komplexer IT-Infrastrukturen dient. Nagios bietet dazu eine Sammlung von Modulen zur Überwachung von Netzwerken, Hosts und speziellen Diensten sowie eine Web-Schnittstelle zum Abfragen der gesammelten Daten. 2007 wurde die Nagios Enterprises LLC von Ethan Galstad gegründet, welche Consulting und technische Unterstützung rund um das Thema Nagios als kommerzielle Dienstleistung anbietet. Die Kern-Software selbst bleibt weiterhin unter einer freien Lizenz.</p><p>An der TH Brandenburg wird Nagios vom Rechenzentrum eingesetzt, um die wesentlichen Elemente der IT-Infrastruktur sowie das Netzwerk zu überwachen.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Monitoring von IT-Systemen und -Komponenten"@de ;
+        skos:prefLabel        "IT-Monitoring"@de , "IT monitoring"@en .
+
+itcat:Nagios  a         foaf:Organization ;
+        dcterms:title   "Open Source Community zur Weiterentwicklung der IT-Monitoring-Software Nagios"@de ;
+        skos:prefLabel  "Nagios Community"@de , "Nagios community"@en .
+
+itcat:RWietusch  a       foaf:Person ;
+        schema:employee  itcat:TLSO ;
+        skos:prefLabel   "Dipl.-Chem. Renate Wietusch" ;
+        foaf:mbox        "renate.wietusch(at)th-brandenburg.de" ;
+        foaf:name        "Renate Wietusch" ;
+        foaf:phone       "+49 3381 355 - 213" .
+
+itcat:NTP  a                  schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:provider       itcat:TUBerlin , itcat:UniStuttgart ;
+        schema:url            "https://www.fh-brandenburg.de/zeitsynchronisation.html" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:LowPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:OperationalCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:TLSO ;
+        dcterms:abstract      "Um eine eindeutige und weitgehend einheitliche Systemzeit im gesamten Hochschulnetz zu erreichen, betreibt das Rechenzentrum einen Zeitserver."@de ;
+        dcterms:description   "Für die Synchronisation mit dem Zeitserver des Rechenzentrums ist erforderlich, den ntp-Dienst zu aktivieren. In Abhängigkeit vom Betriebssystem der Zielsysteme stehen dafür verschiedene Konfigurationsdateien bzw. Kommandozeilenbefehle zur Verfügung. Details finden sich unter der u. a. URL."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Zeitsynchronisationsdienst NTP - Network Time Protocol"@de ;
+        skos:prefLabel        "Steuerung Netzzeit"@de , "control network time"@en .
+
+itcat:TUBerlin  a       foaf:Organization ;
+        dcterms:title   "Technische Universität Berlin"@de ;
+        skos:prefLabel  "TU Berlin"@de , "Technical University Berlin"@en .
+
+itcat:UniStuttgart  a   foaf:Organization ;
+        dcterms:title   "Universität Stuttgart"@de ;
+        skos:prefLabel  "Uni Stuttgart"@de , "University of Stuttgart"@en .
+
+itcat:OnlineShop  a           schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:SpreadShirt ;
+        schema:url            "http://fh-brandenburg.spreadshirt.de/" ;
+        itcat:hasCriticality  itcat:LowCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:PublicCatalog , itcat:MiscServices ;
+        itcat:supporter       itcat:KLeipnitz ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:Public ;
+        dcterms:abstract      "Die TH Brandenburg betreibt einen Online-Shop unter dem Dach des Social-Commerce-Unternehmens Spreadshirt. Hier können Bekleidungsstücke, Tassen u. a. nette Sachen mit Motiven der Hochschule bestellt werden."@de ;
+        dcterms:description   "Im Onlineshop der TH Brandenburg können Sie folgende Gegenstände kaufen: <ul><li>Jacken</li><li>Kapuzenpullover</li><li>T-Shirts</li><li>Poloshirts</li> <li>Tassen</li><li>Kochschürzen</li><li>Badtücher</li></li>Baseballkappen</li><li>diverse Kleinteile</li></ul> Insgesamt stehen mehrere Farben und Motive zur Verfügung."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Onlineshop der TH Brandenburg"@de ;
+        skos:prefLabel        "THB-Onlineshop"@de , "online shop"@en .
+
+itcat:SpreadShirt  a    foaf:Organization ;
+        dcterms:title   "Spreadshirt sprd.net AG"@de ;
+        skos:prefLabel  "sprd.net AG"@de , "sprd.net AG"@en .
+
+itcat:KLeipnitz  a       foaf:Person ;
+        schema:employee  itcat:DCS ;
+        skos:prefLabel   "Stellvertretende Leitung Zentrum für Marketing und PR / Pressesprecherin Katharina Leipnitz" ;
+        foaf:mbox        "katharina.leipnitz(at)th-brandenburg.de" ;
+        foaf:name        "Katharina Leipnitz" ;
+        foaf:phone       "+49 3381 355 - 293" .
+
+itcat:OCLC  a           foaf:Organization ;
+        dcterms:title   "Deutsches Chapter des Online Computer Library Center (OCLC) - weltweit tätige Non-Profit-Organisation und Dienstleister für Bibliotheken"@de ;
+        skos:prefLabel  "OCLC Deutschland"@de , "OCLC Germany"@en .
+
+itcat:QISFSV  a               schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://qisfsv.fh-brandenburg.de/qisserver/rds?state=user&type=0" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:HISServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:StaffADM ;
+        dcterms:abstract      "Das Finanz- und Sachmittelverwaltungsmodul FSV ist mit den Untermodulen Beschaffung (BES), Mittelbewirtschaftung (MBS), Inventarisierung (IVS) und Materialwirtschaft (MAT) eine integrierte Lösung für die Verwaltung der Hochschulen. Auf dem Modul MBS setzt das Finanzbuchhaltungs-Modul FIBU auf."@de ;
+        dcterms:description   "An der TH Brandenburg wird FSV sowohl in der zentralen Verwaltung als auch bei der Steuerung von Drittmittelprojekten eingesetzt."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Finanz- und Sachmittelverwaltungsmodul der TH Brandenburg"@de ;
+        skos:prefLabel        "QISFSV"@de , "QISFSV"@en ;
+        foaf:page             itcat:QISFSV_DocWP001 .
+
+itcat:TravelMgt  a            schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:StaffADM ;
+        schema:url            "http://www.fh-brandenburg.de/2898.html?&MP=39-304" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:MiscServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Der Verwaltungsbereich Personal/Organisation der TH Brandenburg bietet zwei online bearbeitbare PDF-Formulare zur Beantragung und zur Abrechnung von Dienstreisen an."@de ;
+        dcterms:description   "Die Formulare stehen im Intranet zur Verfügung und können im Browser geöffnet und bearbeitet werden. Ein Speichern der ausgefüllten Formulare ist nicht möglich. Ausgefüllte Formulare müssen auf Papier ausgedruckt werden. (Ein Adobe-PDF-Ausdruck kann zur elektronischen Ablage verwendet werden). Die weitere Verarbeitung der Dokumente bedarf einer Reihe von Unterschriften und erfolgt somit papiergebunden."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Beantragung und Abrechnung von Dienstreisen"@de ;
+        skos:prefLabel        "Reisemanagement"@de , "travel management"@en .
+
+itcat:LifeCycleStage  a  owl:Class ;
+        rdfs:subClassOf  itcat:ServiceCategory ;
+        skos:definition  "Die Lebenzyklusphase gibt an, ob ein IT-Dienst aktuell in Planung ist, eingeführt wird, regulär angeboten und genutzt wir, sich in Ablösung befindet oder endgültig abgeschaltet ist. Ein IT-Dienst kann immer nur einer Lebenszyklusphase angehören."@de ;
+        skos:prefLabel   "Lebenszyklusphase"@de , "life cycle stage"@en .
+
+itcat:hasStage  a        owl:ObjectProperty ;
+        rdfs:comment     "Zu verwendende Phasen sind: 'in Planung', 'in Einführung', 'in Betrieb', 'in Ablösung', 'abgeschaltet'."@de ;
+        rdfs:domain      schema:Service ;
+        rdfs:range       itcat:LifeCycleStage ;
+        skos:definition  "Gibt an in welcher Phase des Lebenszyklus sich ein IT-Dienst befindet."@de ;
+        skos:prefLabel   "hat Lebenszyklusphase"@de , " has life cycle stage"@en .
+
+itcat:Planning  a        itcat:LifeCycleStage ;
+        skos:definition  "Ein IT-Dienst ist 'in Planung', wenn es konkrete Absichten, Konzepte oder Anträge in Bezug auf die Entwicklung und Einführung des Dienstes gibt."@de ;
+        skos:prefLabel   "in Planung"@de , "planning"@en .
+
+itcat:Implementation  a  itcat:LifeCycleStage ;
+        skos:definition  "Ein IT-Dienst ist 'in Einführung', wenn ein Projekt oder eine Maßnahme zur Einführung des Dienstes begonnen wurde."@de ;
+        skos:prefLabel   "in Einführung"@de , "implementation"@en .
+
+itcat:Operation  a       itcat:LifeCycleStage ;
+        skos:definition  "Ein IT-Dienst ist 'in Betrieb', wenn er aktuell von einem Anbieter betrieben wird und von Nutzern grundsätzlich in Anspruch genommen werden kann."@de ;
+        skos:prefLabel   "in Betrieb"@de , "operation"@en .
+
+itcat:InRelief  a        itcat:LifeCycleStage ;
+        skos:definition  "Ein IT-Dienst ist 'in Ablösung', wenn es konkrete Planungen gibt, ihn abzuschalten bzw. zu ersetzen."@de ;
+        skos:prefLabel   "in Ablösung"@de , "in relief"@en .
+
+itcat:Off  a             itcat:LifeCycleStage ;
+        rdfs:comment     "Ob und wie lange ein abgeschalteter Dienst im Katalog vorgehalten wird, ist noch zu bestimmen."@de ;
+        skos:definition  "Ein IT-Dienst ist 'abgeschaltet', wenn er von Nutzern grundsätzlich nicht mehr in Anspruch genommen werden kann."@de ;
+        skos:prefLabel   "abgeschaltet"@de , "off"@en .
+
+itcat:DSFWSamba  a            schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:IDM ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.fh-brandenburg.de/samba-faq.html" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:OperationalCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:WindowsPC ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Die Software Samba wird in der TH Brandenburg als Datei- und Druckserver verwendet. Sie basiert auf dem NetBIOS-Protokoll SMB von Microsoft. Sie gibt den Anwendern die Möglichkeit auf ihre Laufwerke über eine VPN-Verbindung zuzugreifen und auf ihnen lokal unabhängig zu interagieren. Die Authentifizierung erfolgt mit den IDM-Login-Daten."@de ;
+        dcterms:description   "Der Zugriff auf die Freigaben der DSFW-Server (Domain Service for Windows) ist nur innerhalb der Hochschule möglich. Sie müssen über eine entsprechende Berechtigung verfügen, damit Sie Zugriff erhalten. Diese wird aus ihrer Zugehörigkeit zu einer Organisationsabteilung abgeleitet und vom Rechenzentrum bei Beginn ihrer Tätigkeit angelegt.Sollten Sie weitere Netzlaufwerke benötigen, erfordert dies eine Benachrichtigung per Email durch ihren Vorgesetzten an das Rechenzentrum. Weitere Informationen sind den DSFW-/Samba-FAQ zu entnehmen."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "DSFW-Server (Netzlaufwerke) auf Basis der Samba-Software"@de ;
+        skos:prefLabel        "DSFW/Samba"@de , "DSFW/Samba"@en ;
+        foaf:page             itcat:DSFWSamba_DocWP001 .
+
+itcat:WindowsPC  a       itcat:ITAsset ;
+        skos:definition  "Deskotp-Computer und Laptops, die mit dem Betriebssystem MS Windows ausgestattet sind."@de ;
+        skos:prefLabel   "Windows PC"@de , "Windows PC"@en .
+
+itcat:ClassSchedule  a        schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:DCS ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:LSCS ;
+        schema:url            "http://zeus.fh-brandenburg.de/Stundenplan/Plan.htm" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:InRelief ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:InformationServices ;
+        itcat:supporter       itcat:DCS , itcat:RWietusch ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Die Webseite zur Auswahl und Anzeige der aktuellen Stundenpläne ist grundsätzlich aus dem öffentlichen Netz zugänglich, allerdings werden die Stundenpläne selbst nur im Hochschulnetz angezeigt."@de ;
+        dcterms:description   "Die Stundenplanung an der TH Brandenburg basiert auf der Eigenentwicklung CATT (Computer Aided Time Table). Neben dem aktuell gültigen Stundenplan ist ggf. der des gerade abgelaufenen bzw. des demnächst beginnenden Semesters einsehbar. Die Funktion 'Persönlicher Plan des Lehrenden' wird nicht mehr unterstützt. Nach vollumfänglicher Einführung des Hochschulinformationssystems HISinOne wird dieser Dienst abgelöst."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Stundenpläne für alle Studiengänge der TH Brandenburg"@de ;
+        skos:prefLabel        "Stundenplan"@de , "class schedule"@en .
+
+itcat:LSCS  a            foaf:Organization ;
+        schema:isPartOf  itcat:DBM ;
+        dcterms:title    "Labordienst des Fachbereichs Informatik und Medien"@de ;
+        skos:prefLabel   "Labordienst FBI"@de , "lab service DCS"@en .
+
+itcat:VolumeTransfer  a       schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://www.fh-brandenburg.de/exchange" ;
+        itcat:hasCriticality  itcat:LowCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:CommunicationServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:Public , itcat:ExtWorkers ;
+        dcterms:abstract      "Das Rechenzentrum bietet die Möglichkeit über ein Formular, Dateien für externe Partner zur Verfügung zu stellen bzw. große Dateien zu empfangen. Diese Option kann genutzt werden, wenn die zu übertragenden oder zu empfangenden Daten die Begrenzung von 10 MB für den Transfer von Dateien per E-Mail überschritten wird."@de ;
+        dcterms:description   "<p>Über das Formular können Dateien bis maximal 791 MB hochgeladen werden. Es wird ein Downloadlink generiert, der der Zielperson per E-Mail zugesandt wird. Standardmäßig ist eine Lebenszeit der Datei von 3 Tagen eingestellt, dieser Wert kann aber über das Formular geändert werden.</p><p> Alternativ bzw. ergänzend kann der Transfer über ein TAN abgesichert werden. Für die Erzeugung von TANs wird ein weiteres Online-Formular zur Verfügung gestellt. Bei der Gültigkeitsbegrenzung der TANs kann zwischen einer einmaligen und einer zeitlich befristeten Nutzung gewählt werden. Initiiert wird dieser Dienst immer von einer Person mit THB-Account (IDM-Login).</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Bereitstellung und Empfang großer Daten (> 10 MB)"@de ;
+        skos:prefLabel        "Volumendaten-Transfer"@de , "volume data transfer"@en ;
+        foaf:page             itcat:VolumeTransfer_DocWP001 .
+
+itcat:VPNService  a           schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.fh-brandenburg.de/vpnanleitung.html" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:NetworkServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:ExtWorkers ;
+        dcterms:abstract      "Der VPN-Dienst erlaubt Nutzern mit einem gültigen E-Mail-Account der TH Brandenburg auch außerhalb des Hochschulnetzes auf interne Webressourcen zuzugreifen. Das Rechenzentrum stellt zu diesem Zweck für alle relevanten Betriebssysteme VPN-Clients und Aleitungen zum Download zur Verfügung."@de ;
+        dcterms:description   "Aktuell werden an der TH Brandenburg VPN-Clients der Firma Fortinet eingesetzt. Die Clients müssen auf den Endgeräten installiert werden. Die Authentifizierung erfolgt über die IDM-Login-Daten."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Zugang zum Virtual Private Network (VPN) der TH Brandenburg"@de ;
+        skos:prefLabel        "VPN-Dienst"@de , "VPN service"@en .
+
+itcat:GroupWareADM  a         schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:IDM , itcat:CentralMail ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "https://zimbra.fh-brandenburg.de/" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:CommunicationServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:StaffADM ;
+        dcterms:abstract      "Für die Mitarbeiter der Verwaltung der TH Brandenburg steht eine lizensierte Groupware-Lösung auf Basis von Zimbra zur Verfügung. Der Dienst ist innerhalb und außerhalb des Hochschulnetzes zugänglich. Die Authentifizierung erfolgt mit den IDM-Login-Daten."@de ;
+        dcterms:description   "<p>Der Groupware-Dienst ist plattformunabhängig mit jedem Gerät abrufbar. Verwendet wird zentral die Software „Zimbra“, welche neben dem E-Mail-Dienst weitere Funktionen einer Groupware wie einen Kalender, Kontaktbuch und Aufgabenbereich beinhaltet. Des Weiteren kann man online Dateien hochladen und freigeben.</p><p>F Neben den oben genannten Funktionalitäten erlaubt dieser Dienst den Austausch von Aufgaben und Terminen."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Groupware-Lösung Zimbra für die Verwaltung der TH Brandenburg"@de ;
+        skos:prefLabel        "Groupware Verwaltung"@de , "groupware administration"@en ;
+        foaf:page             itcat:GroupWareADM_DocWP001 .
+
+itcat:ProxyServer  a          schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.fh-brandenburg.de/proxies.html" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:LowPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:InfrastructureCatalog , itcat:NetworkServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff , itcat:Students ;
+        dcterms:abstract      "Netzanschlüsse auf dem Campus TH Brandenburg bekommen gewöhnlich eine sogenannte 'private' IP-Adresse. Verbindungen zum Internet, d.h. ausserhalb der Domain fh-brandenburg.de, können über Proxies hergestellt werden."@de ;
+        dcterms:description   "<p>An Arbeitsstationen, bei denen im Browser 'Automatische Suche der Einstellungen' aktiviert wurde und die ihre IP-Adresse per DHCP erhalten, müssen keine Änderungen vorgenommen werden.</p> <p>Alle Arbeitsstationen und Server, deren IP-Adresse manuell eingestellt wurde und die demzufolge keine DHCP nutzen, können das automatische Proxy-Konfigurationsscript verwenden oder manuell die Einstellungen vornehmen. Anleigungen finden sich unter u. a. URL.</p>"@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Verwalten und Einrichten von Web-Filtern (Proxies) an der TH Brandenburg"@de ;
+        skos:prefLabel        "Proxy-Server"@de , "proxy server"@en .
+
+itcat:VirtualMachine  a       schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:DBM ;
+        schema:isRelatedTo    itcat:WebHosting , itcat:IDM ;
+        schema:provider       itcat:TLSO ;
+        schema:url            "https://fbwcms.fh-brandenburg.de/wirtschaft/vmantrag" ;
+        itcat:hasCriticality  itcat:MediumCriticality ;
+        itcat:hasPriority     itcat:MediumPriority ;
+        itcat:hasStage        itcat:Operation ;
+        itcat:inCategory      itcat:BusinessCatalog , itcat:InfrastructureServices ;
+        itcat:supporter       itcat:TLSO ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer ;
+        itcat:user            itcat:Staff ;
+        dcterms:abstract      "Der Fachbereich Wirtschaft bietet Lehrenden, Mitarbeitern und Studierenden die Möglichkeit zur Unterstützung der Lehre und bei Projektarbeiten Server mit verschiedenen Betriebssystemen in einer virtuellen Umgebung zur Verfügung zu stellen. "@de ;
+        dcterms:description   "Die Bereitstellung eines virtuellen Servers kann über ein Formular beantragt werden. Das Formular erfordert eine Anmeldung mit den IDM-Login-Daten. Der Antragsteller muss die 'Nutzungsbedingungen für virtuelle Maschinen' lesen und akzeptieren. Die Bearbeitung des Antrags erfolgt gewöhnlich innerhalb von 14 Tagen."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Bereitstellung virtueller Server durch den FBW"@de ;
+        skos:prefLabel        "Virtuelle Maschine"@de , "virtual machine"@en ;
+        foaf:page             itcat:VirtualMachine_DocWP001 .
+
+itcat:WebSite  a              schema:Service ;
+        rdfs:comment          "" ;
+        schema:customer       itcat:THB ;
+        schema:isRelatedTo    itcat:WebHosting ;
+        schema:provider       itcat:DataCenter ;
+        schema:url            "http://www.th-brandenburg.de" ;
+        itcat:hasCriticality  itcat:HighCriticality ;
+        itcat:hasPriority     itcat:HighPriority ;
+        itcat:hasStage        itcat:Implementation ;
+        itcat:inCategory      itcat:PublicCatalog , itcat:InformationServices ;
+        itcat:supporter       itcat:DataCenter ;
+        itcat:usableWith      itcat:Laptop , itcat:Computer , itcat:Smartphone , itcat:Tablet ;
+        itcat:user            itcat:Staff , itcat:Students , itcat:Enrollees , itcat:Public ;
+        dcterms:abstract      "Die Webseite der Hochschule ist das zentrale Informationsportal für alle Interessenten und die gesamte Öffentlichkeit. Darüber hinaus bietet die Webseite auch den Angehörigen der TH Brandenburg interessante Informationen zu Struktur, Aktivitäten und Diensten der Hochschule."@de ;
+        dcterms:description   "Aktuell betreiben die Fachbereiche, Zentren und Projekte eigene Webseiten, die unterhalb der Domain 'fh-brandenburg.de' gehostet werden. Ein Projekt zur Vereinheitlichung und Zusammenführung dieser Webseiten wurde 2014 gestartet und soll 2016 abgeschlossen werden."@de ;
+        dcterms:subject       "" ;
+        dcterms:title         "Zentrale Webseite der TH Brandenburg"@de ;
+        skos:prefLabel        "Webseite der THB"@de , "website of UASB"@en ;
+        foaf:page             itcat:WebSite_DocWP001 , itcat:WebSite_DocWP002 , itcat:WebSite_DocWP003 .
+
+itcat:CloudserviceFBW_DocDL001
+        a           foaf:Document ;
+        schema:url  "http://fbwcms.fh-brandenburg.de/sixcms/media.php/1127/filr1_qs_mobile.pdf" .
+
+itcat:CloudserviceFBW_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://itworks.fh-brandenburg.de/" .
+
+itcat:Eduroam_DocWP001
+        a           foaf:Document ;
+        schema:url  "https://www.dfn.de/dienstleistungen/dfnroaming/" .
+
+itcat:Eduroam_DocWP002
+        a           foaf:Document ;
+        schema:url  "https://edit.dfn.de/CAT-1.0.4/web/" .
+
+itcat:CentralMail_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/email.html" .
+
+itcat:Fernleihe_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://portal.kobv.de/?plv=2" .
+
+itcat:DeviceRental_DocDL001
+        a           foaf:Document ;
+        schema:url  "https://moodle.fh-brandenburg.de/brokenfile.php#/947/user/draft/799894076/MLP%20Haftpflicht%202013.pdf" .
+
+itcat:DeviceRental_DocWP001
+        a           foaf:Document ;
+        schema:url  "https://moodle.fh-brandenburg.de/mod/resource/view.php?id=44403" .
+
+itcat:HISQIS_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/online-portal.html" .
+
+itcat:IDM_DocWP001  a  foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/2261.html" .
+
+itcat:IDM_DocWP002  a  foaf:Document ;
+        schema:url  "https://www.idm.fh-brandenburg.de/IDMProv/portal/cn/GuestContainerPage/Passwort_vergessen" .
+
+itcat:InfoDisplay_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.buergerservicenetz.de/" .
+
+itcat:EduDrive_DocWP001
+        a           foaf:Document ;
+        schema:url  "https://fhs-w8.fh-brandenburg.de/NetStorage/" .
+
+itcat:MapOnGo_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/bibgebaeudeplan.html" .
+
+itcat:OPAC_DocWP001  a  foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/bibopac.html" .
+
+itcat:OPAC_DocWP002  a  foaf:Document ;
+        schema:url  "https://www.oclc.org/deutschland/de_de.html" .
+
+itcat:QISFSV_DocWP001
+        a           foaf:Document ;
+        schema:url  "https://www.his.de/produkte/gxqis/finanz-und-sachmittelverwaltung.html" .
+
+itcat:QISPOS_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/qispos.html" .
+
+itcat:DSFWSamba_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/laufwerksbezeichnung.html" .
+
+itcat:VolumeTransfer_DocWP001
+        a           foaf:Document ;
+        schema:url  "https://www.fh-brandenburg.de/exchange?tans=1" .
+
+itcat:WebMail_DocWP001
+        a           foaf:Document ;
+        schema:url  "https://webmail.fh-brandenburg.de/help/de/advanced/zimbra_user_help.htm" .
+
+itcat:GroupWareADM_DocWP001
+        owl:sameAs  itcat:WebMail_DocWP001 .
+
+itcat:WLAN_DocDL001  a  foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/uploads/media/Einrichten_des_fhb-wlan.pdf" .
+
+itcat:VirtualMachine_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://fbwcms.fh-brandenburg.de/wirtschaft/vmantragagb" .
+
+itcat:WebSite_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de" .
+
+itcat:WebSite_DocWP002
+        a           foaf:Document ;
+        schema:url  "http://fbwcms.fh-brandenburg.de" .
+
+itcat:WebSite_DocWP003
+        a           foaf:Document ;
+        schema:url  "http://informatik.fh-brandenburg.de/" .
+
+itcat:HISInOneAPP_DocWP001
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/bewerbung-portale.html" .
+
+itcat:HISInOneAPP_DocWP002
+        a           foaf:Document ;
+        schema:url  "http://www.fh-brandenburg.de/sts-bewerbung.html" .
