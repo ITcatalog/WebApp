@@ -68,7 +68,10 @@ html, body {
 .mdl-text-table {
    @extend .mdl-data-table;
    white-space: normal;
+}
 
+.mdl-text-table td{
+   padding-bottom:12px;
 }
 
 
@@ -117,3 +120,31 @@ html, body {
 
   .mdl-color--thb-dcs-300 {
     background-color: rgb(131,187,32) !important; }
+
+
+.navigation-card{
+  padding-bottom:30px;
+
+
+}
+
+.navigation-card > .mdl-card__navigation a {
+     display: block;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    padding: 16px 40px;
+    margin: 0;
+    
+    color: #757575;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+
+}
+
+.navigation-card > .mdl-card__navigation a:hover {
+    background-color: #eee;
+}
+
+    

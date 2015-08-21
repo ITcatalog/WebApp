@@ -3,12 +3,27 @@
 if(isset($_GET['input'])){
   $input = $_GET['input'];
 
-  $sparql = '
-  SELECT *
-  WHERE {
-    itcat:'.$input.' a ?type.
+  if (filter_var($input, FILTER_VALIDATE_URL)) {
+    $input = urldecode($input);
+    $sparql = '
+    SELECT *
+    WHERE {
+      <'.$input.'> a ?type.
+    }
+    ';
+    $uri = urlencode($input);
   }
-	';
+  else{
+    $sparql = '
+    SELECT *
+    WHERE {
+      itcat:'.$input.' a ?type.
+    }
+  	';
+    $uri = urlencode('http://th-brandenburg.de/ns/itcat#'.$input.'');
+  }
+
+
 
 	$result = $db->query( $sparql );
 	if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
@@ -16,7 +31,7 @@ if(isset($_GET['input'])){
   if($result->num_rows() == 1){
     $row = $result->fetch_array();
     $type = $row['type'];
-    $uri = urlencode('http://th-brandenburg.de/ns/itcat#'.$input.'');
+
     switch($row['type']){
       case 'http://schema.org/Service':
         $_GET['c'] = 'service';
