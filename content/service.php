@@ -117,7 +117,7 @@ else{
 
 
 			echo '<div class="mdl-card__menu">';
-				echo '<a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-color-text--'.$textColor.'" id="lifeCycleStage" href="?search=in:'.urlencode($row['uri']).'">';
+				echo '<a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-color-text--white mdl-color--'.$textColor.'-800" id="lifeCycleStage" href="?search=in:'.urlencode($row['uri']).'">';
 					echo '<i class="material-icons">cached</i>';
 				echo '</a>';
 				echo '<div class="mdl-tooltip" for="lifeCycleStage">';
