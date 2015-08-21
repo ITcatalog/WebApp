@@ -48,8 +48,13 @@ else{
   <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
 
     <div class="mdl-card__title" style="display:block;">
-      <h2 class="mdl-card__title-text"><?php echo $serviceController->getLiteralProperty ('skos:prefLabel', 'value'); ?></h2>
+      <h2 class="mdl-card__title-text">
+				<?php echo $serviceController->getLiteralProperty ('skos:prefLabel', 'value'); ?>
+			</h2>
 			<?php
+
+			/* Get categories */
+
 			$sparql = '
 			SELECT ?subjectCategory ?prefLabel ?bgColor
 			WHERE {
@@ -77,6 +82,52 @@ else{
 			}
 			?>
     </div>
+
+
+
+		<?php
+		$result = $serviceController->getObjectProperty('itcat:hasStage');
+		if($result['num'] == 1){
+			$row = $result['result']->fetch_array();
+
+			switch($row['uri']){
+				case 'http://th-brandenburg.de/ns/itcat#Planning':
+					$textColor = 'yellow';
+					break;
+
+				case 'http://th-brandenburg.de/ns/itcat#Implementation':
+					$textColor = 'lime';
+					break;
+
+				case 'http://th-brandenburg.de/ns/itcat#Operation':
+					$textColor = 'green';
+					break;
+
+				case 'http://th-brandenburg.de/ns/itcat#InRelief':
+					$textColor = 'deep_orange';
+					break;
+
+				case 'http://th-brandenburg.de/ns/itcat#Off':
+					$textColor = 'red';
+					break;
+
+				default:
+					$textColor = 'black';
+			}
+
+
+			echo '<div class="mdl-card__menu">';
+				echo '<a class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect mdl-color-text--'.$textColor.'" id="lifeCycleStage" href="?search=in:'.urlencode($row['uri']).'">';
+					echo '<i class="material-icons">cached</i>';
+				echo '</a>';
+				echo '<div class="mdl-tooltip" for="lifeCycleStage">';
+					echo $row['prefLabel'];
+				echo '</div>';
+			echo '</div>';
+
+		}
+	 ?>
+
 
     <div class="mdl-card__supporting-text">
 			<?php
