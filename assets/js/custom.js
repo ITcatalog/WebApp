@@ -41,5 +41,4 @@ $.ajax({
 })
 .fail(function() {
   console.log( "Can't check for updates" );
-})
-;
+});

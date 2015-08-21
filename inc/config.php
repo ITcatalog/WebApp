@@ -1,14 +1,28 @@
 <?php
 require_once( "lib/sparqllib.php" );
 
+
+/***************************************
+/*
+/*      CONFIG Parameters
+/*
+***************************************/
+
 define ('LANG', 'de');
 
+define ('SPARQL_ENDPOINT', 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/query');
+
+/***************************************/
+/***************************************/
 
 
-$dataGraphs['applicationGraph'] = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/data/ApplicationGraph';
+#$dataGraphs['applicationGraph'] = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/data/ApplicationGraph';
 #$dataGraphs['schemaGraph'] = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/data/SchemaGraph';
 
-$db = sparql_connect( "http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/query" );
+#Sparql Endpoint
+$db = sparql_connect( SPARQL_ENDPOINT );
+
+
 if( !$db ) { print $db->errno() . ": ". $db->error(). "\n"; exit; }
 
 $db->ns( "owl","http://www.w3.org/2002/07/owl#");

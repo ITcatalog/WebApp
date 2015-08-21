@@ -104,7 +104,7 @@ else{
 					break;
 
 				case 'http://th-brandenburg.de/ns/itcat#InRelief':
-					$textColor = 'deep_orange';
+					$textColor = 'deep-orange';
 					break;
 
 				case 'http://th-brandenburg.de/ns/itcat#Off':
