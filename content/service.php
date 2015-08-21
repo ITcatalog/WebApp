@@ -166,10 +166,10 @@ else{
 	        Relevante Dienste
 	      </h2>
 	    </div>
-	    <div class="mdl-card__supporting-text">
+	    <div class="mdl-card__supporting-text related-services">
 				<?php
 					while($row = $result['result']->fetch_array()){
-						echo '<a class="mdl-button mdl-js-button mdl-button--colored" href="?c=service&service='.urlencode($row['uri']).'">' . $row['prefLabel'] . '</a><br />';
+						echo '<a class="" style="text-align:left; min-width:8px;" href="?c=service&service='.urlencode($row['uri']).'">' . $row['prefLabel'] . '</a>';
 					}
 				?>
 	    </div>
