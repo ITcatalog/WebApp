@@ -80,6 +80,9 @@ html, body {
 .mdl-color--thb {
   background-color: rgb(204,10,47) !important; }
 
+.mdl-color--thb-300 {
+  background-color: rgb(204,10,47) !important; }
+
 /* Department of business and management */
 
 .mdl-color-text--thb-dbm {
@@ -87,6 +90,9 @@ html, body {
 
 .mdl-color--thb-dbm {
   background-color: rgb(241,132,0) !important; }
+
+  .mdl-color--thb-dbm-300 {
+    background-color: rgb(241,132,0) !important; }
 
 
   /* Department of computer sciences */
@@ -97,6 +103,10 @@ html, body {
 .mdl-color--thb-dcs {
   background-color: rgb(0,186,229) !important; }
 
+.mdl-color--thb-dcs-300 {
+  background-color: rgb(0,186,229) !important; }
+
+
 /* Department of technology & engineering */
 
 .mdl-color-text--thb-dcs {
@@ -104,3 +114,6 @@ html, body {
 
 .mdl-color--thb-dcs {
   background-color: rgb(131,187,32) !important; }
+
+  .mdl-color--thb-dcs-300 {
+    background-color: rgb(131,187,32) !important; }
