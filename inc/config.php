@@ -16,9 +16,6 @@ define ('SPARQL_ENDPOINT', 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat
 /***************************************/
 
 
-#$dataGraphs['applicationGraph'] = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/data/ApplicationGraph';
-#$dataGraphs['schemaGraph'] = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/data/SchemaGraph';
-
 #Sparql Endpoint
 $db = sparql_connect( SPARQL_ENDPOINT );
 
