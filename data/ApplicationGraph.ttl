@@ -1,15 +1,48 @@
-<http://th-brandenburg.de/ns/itcat#Bibliotheksdienste>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "green" .
+@prefix itcat_app: <http://th-brandenburg.de/ns/itcat_app#> .
+@prefix itcat: <http://th-brandenburg.de/ns/itcat#> .
 
-<http://th-brandenburg.de/ns/itcat#NetzwerkDienste>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "purple" .
+itcat:BusinessCatalog
+        itcat_app:hasBgColor  "red" .
 
-<http://th-brandenburg.de/ns/itcat#Lehrportale>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
-                "orange" .
+itcat:PublicCatalog  itcat_app:hasBgColor
+                "blue" .
 
-<http://th-brandenburg.de/ns/itcat#HIS>
-        <http://th-brandenburg.de/ns/itcat_app#hasBGColor>
+itcat:OperationalCatalog
+        itcat_app:hasBgColor  "purple" .
+
+itcat:InfrastructureCatalog
+        itcat_app:hasBgColor  "deep-purple" .
+
+itcat:TLSO  itcat_app:hasBgColor  "thb-dbm" .
+
+itcat:LibraryServices
+        itcat_app:hasBgColor  "lime" .
+
+itcat:HISServices  itcat_app:hasBgColor
                 "cyan" .
+
+itcat:TeachingPlatforms
+        itcat_app:hasBgColor  "green" .
+
+itcat:CommunicationServices
+        itcat_app:hasBgColor  "blue" .
+
+itcat:InformationServices
+        itcat_app:hasBgColor  "light-blue" .
+
+itcat:MiscServices  itcat_app:hasBgColor
+                "brown" .
+
+itcat:NetworkServices
+        itcat_app:hasBgColor  "purple" .
+
+itcat:InfrastructureServices
+        itcat_app:hasBgColor  "deep-purple" .
+
+itcat:DCS  itcat_app:hasBgColor  "thb-dcs" .
+
+itcat:DTE  itcat_app:hasBgColor  "thb-dte" .
+
+itcat:DataCenter  itcat_app:hasBgColor  "thb" .
+
+itcat:RegOffice  itcat_app:hasBgColor  "thb" .

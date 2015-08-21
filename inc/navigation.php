@@ -26,6 +26,6 @@
     <a class="mdl-navigation__link" href="?c=map"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">share</i>Landkarte</a>
     <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">insert_chart</i>Reports</a>
     <div class="mdl-layout-spacer"></div>
-    <a class="mdl-navigation__link" href="?c=help"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
+    <a class="mdl-navigation__link" href="https://github.com/ITcatalog/WebApp/wiki" target="_blank"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
   </nav>
 </div>

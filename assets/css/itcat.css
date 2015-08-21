@@ -6,6 +6,13 @@ html, body {
 
 }
 
+.itcat-category > .mdl-card__title{
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: 300;
+  line-height: normal;
+}
+
 .itcat-category > .mdl-card--expand {
   color:#fff;
 }
@@ -15,6 +22,14 @@ html, body {
   height:130px;
 }
 
+.categories > .itcat-category > .mdl-card__supporting-text,
+.catalog > .itcat-category > .mdl-card__supporting-text{
+  height:110px;
+}
+
+.provider > .itcat-category > .mdl-card__supporting-text{
+  height:50px;
+}
 
 .itcat-service > .mdl-card__supporting-text{
   height: 122px;
@@ -31,12 +46,133 @@ html, body {
 
 }
 
-.service-attribute__value{
+.service-attribute__value p{
+  color: rgba(0,0,0,.7);
+  line-height: 19px;
+  font-size: 13px;
+}
 
+.service-attribute__value li{
+  list-style:none;
+  color: rgba(0,0,0,.7);
+  line-height: 19px;
+  font-size: 13px;
 }
 
 .mdl-card__supporting-text{
   color: rgba(0,0,0,.7);
   line-height:19px;
 
+}
+
+.mdl-text-table {
+   @extend .mdl-data-table;
+   white-space: normal;
+}
+
+.mdl-text-table td{
+   padding-bottom:12px;
+}
+
+
+/* THB Colors */
+
+.mdl-color-text--thb {
+  color: rgb(204,10,47) !important; }
+
+.mdl-color--thb {
+  background-color: rgb(204,10,47) !important; }
+
+.mdl-color--thb-300 {
+  background-color: rgb(204,10,47) !important; }
+
+/* Department of business and management */
+
+.mdl-color-text--thb-dbm {
+  color: rgb(241,132,0) !important; }
+
+.mdl-color--thb-dbm {
+  background-color: rgb(241,132,0) !important; }
+
+  .mdl-color--thb-dbm-300 {
+    background-color: rgb(241,132,0) !important; }
+
+
+  /* Department of computer sciences */
+
+.mdl-color-text--thb-dcs {
+  color: rgb(0,186,229) !important; }
+
+.mdl-color--thb-dcs {
+  background-color: rgb(0,186,229) !important; }
+
+.mdl-color--thb-dcs-300 {
+  background-color: rgb(0,186,229) !important; }
+
+
+/* Department of technology & engineering */
+
+.mdl-color-text--thb-dcs {
+  color: rgb(131,187,32) !important; }
+
+.mdl-color--thb-dcs {
+  background-color: rgb(131,187,32) !important; }
+
+  .mdl-color--thb-dcs-300 {
+    background-color: rgb(131,187,32) !important; }
+
+
+.navigation-card{
+  padding-bottom:30px;
+
+
+}
+
+.navigation-card > .mdl-card__navigation a {
+     display: block;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    padding: 16px 40px;
+    margin: 0;
+    
+    color: #757575;
+    text-decoration: none;
+    font-weight: 500;
+    font-size: 13px;
+
+}
+
+.navigation-card > .mdl-card__navigation a:hover {
+    background-color: #eee;
+}
+
+.related-services {
+ text-align:center;
+ margin-bottom:20px
+}
+
+
+.related-services a {
+  display: inline-block;
+  margin: 0px 2px 8px 0px;
+  padding: 0px 10px;
+  line-height:18px;
+  height:16px;
+  list-style:none;
+  font-family: "Roboto","Helvetica","Arial",sans-serif;
+  font-size:11px;
+  color:#000;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  border-radius: 20px;
+  text-decoration:none;
+  font-weight:400;
+  border:1px solid #000
+}
+
+.related-services a:hover {
+  color:#000;
+  background-color:#F5F5F5;
+  text-decoration:none;
 }

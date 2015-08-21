@@ -55,9 +55,8 @@ if(isset($_GET['service'])){
       <i class="material-icons">more_vert</i>
     </button>
     <ul class="mdl-menu mdl-js-menu mdl-js-ripple-effect mdl-menu--bottom-right" for="hdrbtn">
-      <li class="mdl-menu__item">Item</li>
-      <li class="mdl-menu__item">FAQ</li>
-      <li class="mdl-menu__item">Item2</li>
+      <a href="https://github.com/ITcatalog/" target="_blank" class="mdl-menu__item">Github</a>
+      <a href="https://github.com/ITcatalog/WebApp/issues" target="_blank" class="mdl-menu__item">Report</a>
     </ul>
   </div>
 </header>

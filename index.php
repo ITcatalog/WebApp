@@ -1,8 +1,14 @@
-<?php require_once('./inc/config.php');
+<?php
+require_once('./inc/config.php');
+require_once('./inc/functions.php');
+
+
 ?>
 <!doctype html>
 <html lang="en">
   <head>
+    <?php if(isset($_GET['input'])) echo '<base href="./">';?>
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="IT Service Catalog Demo">

@@ -1,6 +1,31 @@
 <?php
 function convertColorNameToHex ($colorName){
   switch($colorName){
+
+    case "lime":
+      $bgColorHex = '#DCE775';
+      break;
+
+    case "blue":
+      $bgColorHex = '#64B5F6';
+      break;
+
+    case "light-blue":
+      $bgColorHex = '#4FC3F7';
+      break;
+
+    case "brown":
+      $bgColorHex = '#a1887f';
+      break;
+
+    case "deep-purple":
+      $bgColorHex = '#9575cd';
+      break;
+
+    case "red":
+      $bgColorHex = '#e57373';
+      break;
+
     case 'purple':
       $bgColorHex = '#BA68C8';
       break;
@@ -29,27 +54,34 @@ $service = urldecode($_GET['service']);
 
 
 $sparql = '
-  SELECT *
-  FROM NAMED <'.$dataGraphs['ApplicationGraph'].'>
+  SELECT ?category ?category2 ?service ?service2 ?prefLabel ?prefLabel2 ?cat ?cat2 ?bgColor ?bgColor2
   WHERE {
-    <'.$service.'> (^schema:isRelatedTo | schema:isRelatedTo)+ ?service.
-    ?service schema:isRelatedTo ?serviceX.
-    OPTIONAL{
-      ?service  skos:prefLabel ?prefLabel.
+    itcat:HISQIS (^schema:isRelatedTo | schema:isRelatedTo)+ ?service.
+    ?service schema:isRelatedTo ?service2.
+
+    OPTIONAL {
+      ?service  skos:prefLabel ?prefLabelLang.
+      FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'"))
+      BIND (str(?prefLabelLang) AS ?prefLabel)
     }
     OPTIONAL{
-      ?serviceX  skos:prefLabel ?prefLabelX.
+      ?service2  skos:prefLabel ?prefLabel2Lang.
+      FILTER (langMatches(lang(?prefLabel2Lang),"'.LANG.'"))
+      BIND (str(?prefLabel2Lang) AS ?prefLabel2)
     }
+
     OPTIONAL{
-      ?cat itcat:hasITService ?service.
+      ?service itcat:inCategory ?category.
+      ?category a itcat:CatalogCategory.
       GRAPH ?g {
-          ?cat itcat_app:hasBGColor ?bgColor.
+          ?category itcat_app:hasBgColor ?bgColor.
         }.
     }
     OPTIONAL{
-      ?catX itcat:hasITService ?serviceX.
+      ?service2 itcat:inCategory ?category2.
+      ?category2 a itcat:CatalogCategory.
       GRAPH ?g {
-          ?catX itcat_app:hasBGColor ?bgColorX.
+          ?category2 itcat_app:hasBgColor ?bgColor2.
         }.
     }
   }
@@ -63,8 +95,8 @@ $nodes = array();
 while( $row = $result->fetch_array() ){
 
   if(!in_array($row['service'], $nodes)){
-    if(!isset($row['cat'])){
-      $row['cat'] = 'none';
+    if(!isset($row['category'])){
+      $row['category'] = 'none';
     }
 
     if(isset($row['bgColor'])){
@@ -76,27 +108,27 @@ while( $row = $result->fetch_array() ){
 
     if(!isset($row['prefLabel'])) { $row['prefLabel'] = 'empty';}
 
-    $nodes[$row['service']] = "{id:'".$row['service']."', label:'".substr($row['prefLabel'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['cat']."'}";
+    $nodes[$row['service']] = "{id:'".$row['service']."', label:'".substr($row['prefLabel'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['category']."'}";
   }
-  if(!in_array($row['serviceX'], $nodes)){
+  if(!in_array($row['service2'], $nodes)){
 
-    if(!isset($row['catX'])){
-      $row['catX'] = 'none';
+    if(!isset($row['category2'])){
+      $row['category2'] = 'none';
     }
 
-    if(isset($row['bgColorX'])){
-      $bgColorHex = convertColorNameToHex($row['bgColorX']);
+    if(isset($row['bgColor2'])){
+      $bgColorHex = convertColorNameToHex($row['bgColor2']);
     }
     else{
       $bgColorHex = '#ffffff';
     }
 
-    if(!isset($row['prefLabelX'])) { $row['prefLabelX'] = 'empty';}
+    if(!isset($row['prefLabel2'])) { $row['prefLabel2'] = 'empty';}
 
-    $nodes[$row['serviceX']] = "{id:'".$row['serviceX']."', label:'".substr($row['prefLabelX'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['catX']."'}";
+    $nodes[$row['service2']] = "{id:'".$row['service2']."', label:'".substr($row['prefLabel2'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['category2']."'}";
 
   }
-  $edges[] = "{from: '".$row['service']."', to: '".$row['serviceX']."'}";
+  $edges[] = "{from: '".$row['service']."', to: '".$row['service2']."'}";
 }
 
 //Mark Selected Service

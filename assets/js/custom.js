@@ -21,7 +21,7 @@ $('.mdl-card__title-text').truncate({
 
 
 $.ajax({
-  url: "github.php",
+  url: "github.php?branch=itcat-ontology-match",
   beforeSend: function(){
     console.log ('Checking for update ...');
   }
@@ -41,5 +41,4 @@ $.ajax({
 })
 .fail(function() {
   console.log( "Can't check for updates" );
-})
-;
+});
