@@ -11,18 +11,20 @@
       <?php
 
       $sparql = '
-      SELECT ?document
+      SELECT *
       WHERE {
         <'.$service.'> foaf:page ?document.
+        ?document a foaf:Document  ;
+      	schema:url ?url.
       }
       ';
 
       $result = $db->query( $sparql );
       if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
       while( $row = $result->fetch_array() ){
-        echo '<tr onclick="window.open(\' '. $row['document'] .'\');" style="cursor:pointer;">';
-          echo '<td class="mdl-data-table__cell--non-numeric">'.$row['document'].'</td>';
-          echo '<td class="mdl-data-table__cell--non-numeric"><a href="'.$row['document'].'" target="_blank"><i class="material-icons">link</i></a></td>';
+        echo '<tr onclick="window.open(\' '. $row['url'] .'\');" style="cursor:pointer;">';
+          echo '<td class="mdl-data-table__cell--non-numeric">'.$row['url'].'</td>';
+          echo '<td class="mdl-data-table__cell--non-numeric"><a href="'.$row['url'].'" target="_blank"><i class="material-icons">link</i></a></td>';
         echo '</tr>';
       }
      ?>
