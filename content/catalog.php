@@ -29,7 +29,7 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 
 while( $row = $result->fetch_array() ){
-	showCardTemplate ($row['catalog'], $row['prefLabel'], $row['definition'], $row['numberOfServices'], $row['bgColor'], '?c=category&cat=', 6);
+	showCardTemplate ($row['catalog'], $row['prefLabel'], $row['definition'], $row['numberOfServices'], $row['bgColor'], '?c=category&cat=', 6, 600);
 }
 ?>
 </div>

@@ -79,7 +79,7 @@ class serviceController{
 
   public function getObjectProperty ($property){
     $sparql = '
-  	SELECT ?uri ?prefLabel
+  	SELECT DISTINCT ?uri ?prefLabel
   	WHERE {
     	<'.$this->service.'> rdf:type schema:Service;
       '.$property.' ?uri.
@@ -101,5 +101,20 @@ class serviceController{
     return $return;
 
   }
+
+	public function showObjectProperty($label, $property){
+		$result = $this->getObjectProperty($property);
+		if($result['num'] > 0 ){
+			echo '<div class="service-attribute">';
+				echo '<div class="service-attribute__title">'.$label.'</div>';
+				echo '<div class="service-attribute__value">';
+					while($row = $result['result']->fetch_array()){
+						echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
+					}
+				echo '</div>';
+			echo '</div>';
+		}
+
+	}
 
 }

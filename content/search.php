@@ -14,7 +14,7 @@ if (strpos($searchTerm,'in:') !== false) {
 		$searchTerm = $ex[1];
 	}
 
-	$searchTermInput = $identifier . ': ' . $searchTerm;
+	$searchTermInput = $identifier . ':' . $searchTerm;
 
 	$searchTermSparql = 'itcat:' . $searchTerm;
 
@@ -77,12 +77,13 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 </div>
 
   <?php
-
+	$colorStrength = 300;
   while( $row = $result->fetch_array() ){
     if(!isset($row['bgColor'])){
       $row['bgColor'] = 'grey';
+			$colorStrength = '';
     }
-    showCardTemplate ($row['service'], $row['prefLabel'], $row['abstract'], '', $row['bgColor'], '?c=service&service=', 4);
+    showCardTemplate ($row['service'], $row['prefLabel'], $row['abstract'], '', $row['bgColor'], '?c=service&service=', 4, $colorStrength);
 
   }
 

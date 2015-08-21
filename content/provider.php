@@ -4,7 +4,7 @@
 include ('./template/categoryCard.php');
 
 $sparql = '
-SELECT ?provider ?prefLabel ?title ?bgColor (COUNT(?service) AS ?numberOfServices)
+SELECT DISTINCT ?provider ?prefLabel ?title ?bgColor (COUNT(?service) AS ?numberOfServices)
 {
 	?service schema:provider ?provider.
  	?provider skos:prefLabel ?prefLabelLang;
@@ -20,6 +20,7 @@ SELECT ?provider ?prefLabel ?title ?bgColor (COUNT(?service) AS ?numberOfService
 	}
 }
 GROUP BY ?provider ?prefLabel ?title ?bgColor
+ORDER BY DESC(?bgColor)
 ';
 
 $result = $db->query( $sparql );
@@ -29,7 +30,7 @@ while( $row = $result->fetch_array() ){
   if(!isset($row['bgColor'])){
     $row['bgColor'] = 'grey';
   }
-	showCardTemplate ($row['provider'], $row['prefLabel'], $row['title'], $row['numberOfServices'], $row['bgColor'], '?c=category&cat=', 4);
+	showCardTemplate ($row['provider'], $row['prefLabel'], $row['title'], $row['numberOfServices'], $row['bgColor'], '?c=category&cat=', 4, '', 'Dienste');
 }
 
 ?>

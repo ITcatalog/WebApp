@@ -28,11 +28,13 @@ if(isset($_GET['cat'])){
 	$result = $db->query( $sparql );
 	if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
-
+	$colorValue = 300;
 	while( $row = $result->fetch_array() ){
+
 		if(!isset($row['bgColor'])){
 	    $row['bgColor'] = 'grey';
+			$colorValue = '';
 	  }
-		showCardTemplate ($row['service'], $row['prefLabel'], $row['abstract'], '', $row['bgColor'], '?c=service&service=', 4);
+		showCardTemplate ($row['service'], $row['prefLabel'], $row['abstract'], '', $row['bgColor'], '?c=service&service=', 4, $colorValue);
 	}
 }

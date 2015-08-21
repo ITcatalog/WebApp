@@ -1,6 +1,6 @@
 <?php
 
-function showCardTemplate ($uri, $title, $description, $numberOfServices, $bgColor, $urlParameter, $cardSize = 4, $colorValue = 300) {
+function showCardTemplate ($uri, $title, $description, $numberOfServices, $bgColor, $urlParameter, $cardSize = 4, $colorValue = 300, $callToActionValue = 'Öffnen') {
 
   $uri = urlencode($uri);
 
@@ -23,14 +23,19 @@ function showCardTemplate ($uri, $title, $description, $numberOfServices, $bgCol
     $badge = 'mdl-badge badge-btn" data-badge="'. $numberOfServices;
   }
 
+
+  if($colorValue != ''){
+    $colorValue = '-'.$colorValue;
+  }
+
 ?>
 
 <div class="itcat-category mdl-card mdl-shadow--2dp mdl-cell mdl-cell--<?php echo $cardSize; ?>-col mdl-cell--12-col-phone mdl-grid mdl-grid--no-spacing">
-    <div class="mdl-card__title mdl-card--expand mdl-color--<?php echo $bgColor . '-' . $colorValue; ?>">
+    <a class="mdl-card__title mdl-card--expand mdl-color--<?php echo $bgColor .  $colorValue; ?>" href="<?php echo $urlParameter . $uri;?>">
       <h2 class="mdl-card__title-text <?php echo $badge; ?>">
         <?php echo $title; ?>
       </h2>
-    </div>
+    </a>
     <?php
     echo '<div class="mdl-card__supporting-text">';
       echo $description;
@@ -38,7 +43,7 @@ function showCardTemplate ($uri, $title, $description, $numberOfServices, $bgCol
     ?>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="<?php echo $urlParameter . $uri;?>">
-        Öffnen
+         <?php echo $callToActionValue; ?>
       </a>
     </div>
 </div>

@@ -20,7 +20,7 @@ $serviceController = new serviceController($db, $service);
 			if($row['numberOfDocuments'] > 0){?>
 			<a href="?c=service&action=docs&service=<?php echo urlencode($service)?>" class="mdl-tabs__tab <?php if($_GET['action'] == 'docs'){echo 'homeTabBarActive';}?>">Dokumente</a>
 			<?php } ?>
-			<?php $result = $serviceController->getObjectProperty('schema:isRelatedTo'); if($result['num'] > 0){?>
+			<?php $result = $serviceController->getObjectProperty('(schema:isRelatedTo | ^schema:isRelatedTo)'); if($result['num'] > 0){?>
 			<a href="?c=service&action=map&service=<?php echo urlencode($service)?>" class="mdl-tabs__tab <?php if($_GET['action'] == 'map'){echo 'homeTabBarActive';}?>">Landkarte</a>
 			<?php } ?>
     </div>
@@ -103,7 +103,7 @@ else{
   </div>
 
 	<?php
-	$result = $serviceController->getObjectProperty('schema:isRelatedTo');
+	$result = $serviceController->getObjectProperty('(schema:isRelatedTo | ^schema:isRelatedTo)');
 	if($result['num'] > 0){
 
 	?>
@@ -136,49 +136,16 @@ else{
     </div>
 
     <div class="mdl-card__supporting-text">
-      <div class="service-attribute">
-        <div class="service-attribute__title">Verantwortlich</div>
-        <div class="service-attribute__value">
 
-					<?php
+			<?php
+			$serviceController->showObjectProperty('Verantwortlich', 'itcat:supporter');
 
-						$result = $serviceController->getObjectProperty('itcat:supporter');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
+			$serviceController->showObjectProperty('Anbieter', 'schema:provider');
 
-					?>
+			$serviceController->showObjectProperty('Kunde', 'schema:customer');
 
-        </div>
-      </div>
+			?>
 
-      <div class="service-attribute">
-        <div class="service-attribute__title">Anbieter</div>
-        <div class="service-attribute__value">
-          <?php
-
-						$result = $serviceController->getObjectProperty('schema:provider');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
-
-          ?>
-        </div>
-      </div>
-
-			<div class="service-attribute">
-				<div class="service-attribute__title">Kunde</div>
-				<div class="service-attribute__value">
-					<?php
-
-						$result = $serviceController->getObjectProperty('schema:customer');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
-
-					?>
-				</div>
-			</div>
 			<button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent" style="width:100%">
         Hilfe Anfordern
       </button>
@@ -193,32 +160,15 @@ else{
       </h2>
     </div>
     <div class="mdl-card__supporting-text">
-      <div class="service-attribute">
-        <div class="service-attribute__title">Verfügbar für</div>
-        <div class="service-attribute__value">
-					<?php
 
-						$result = $serviceController->getObjectProperty('itcat:user');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
+			<?php
 
-          ?>
-        </div>
-      </div>
+			$serviceController->showObjectProperty('Verfügbar für', 'itcat:user');
 
-      <div class="service-attribute">
-        <div class="service-attribute__title">Unterstütze Geräte</div>
-        <div class="service-attribute__value">
-					<?php
+			$serviceController->showObjectProperty('Unterstütze Geräte', 'itcat:usableWith');
 
-						$result = $serviceController->getObjectProperty('itcat:usableWith');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
-          ?>
-        </div>
-      </div>
+			?>
+
     </div>
   </div>
 
@@ -229,34 +179,15 @@ else{
 
 
 			<div class="mdl-card__supporting-text">
-				<div class="service-attribute">
-					<div class="service-attribute__title">Kritikalität </div>
 
-					<div class="service-attribute__value">
-					<?php
+				<?php
 
-						$result = $serviceController->getObjectProperty('itcat:hasCriticality');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
+				$serviceController->showObjectProperty('Kritikalität', 'itcat:hasCriticality');
 
-					?>
-					</div>
+				$serviceController->showObjectProperty('Priorität', 'itcat:hasPriority');
 
-				</div>
-				<div class="service-attribute">
-					<div class="service-attribute__title">Priorität</div>
+				?>
 
-					<div class="service-attribute__value">
-					<?php
-						$result = $serviceController->getObjectProperty('itcat:hasPriority');
-						while($row = $result['result']->fetch_array()){
-							echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
-						}
-					?>
-					</div>
-
-				</div>
 
 			</div>
 	</div>
