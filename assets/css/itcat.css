@@ -70,9 +70,15 @@ html, body {
    white-space: normal;
 }
 
+.mdl-text-table th{
+  font-size:13px;
+}
+
 .mdl-text-table td{
    padding-bottom:12px;
 }
+
+
 
 
 /* THB Colors */
@@ -112,13 +118,13 @@ html, body {
 
 /* Department of technology & engineering */
 
-.mdl-color-text--thb-dcs {
+.mdl-color-text--thb-dte {
   color: rgb(131,187,32) !important; }
 
-.mdl-color--thb-dcs {
+.mdl-color--thb-dte {
   background-color: rgb(131,187,32) !important; }
 
-  .mdl-color--thb-dcs-300 {
+  .mdl-color--thb-dte-300 {
     background-color: rgb(131,187,32) !important; }
 
 
@@ -135,7 +141,7 @@ html, body {
     flex-shrink: 0;
     padding: 16px 40px;
     margin: 0;
-    
+
     color: #757575;
     text-decoration: none;
     font-weight: 500;
@@ -162,17 +168,17 @@ html, body {
   list-style:none;
   font-family: "Roboto","Helvetica","Arial",sans-serif;
   font-size:11px;
-  color:#000;
+  color:rgba(0,0,0,.7);
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 20px;
   text-decoration:none;
   font-weight:400;
-  border:1px solid #000
+  border:1px solid rgba(0,0,0,.7);
 }
 
 .related-services a:hover {
-  color:#000;
+
   background-color:#F5F5F5;
   text-decoration:none;
 }

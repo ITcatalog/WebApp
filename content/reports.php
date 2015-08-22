@@ -1,5 +1,5 @@
 
-<div class="mdl-cell mdl-cell--4-col ">
+<div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col--phone">
   <div class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card navigation-card">
 
     <div class="mdl-card__title">
@@ -16,7 +16,7 @@
     </div>
     <div class="mdl-card__navigation">
       <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Staff">Dienste für Mitarbeiter</a>
-      <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23StaffADM">Mitarbeiter Verwaltung/Zentren </a>
+      <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23StaffADM">Dienste für Verwaltung/Zentren </a>
       	<a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Smartphone">Dienste für Smartphones</a>
         <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Operation">Dienste in Betrieb</a>
     </div>
@@ -28,14 +28,14 @@
     <div class="mdl-card__navigation">
         <a href="?c=reports&action=find_withoutDocs">Dienste ohne Dokumenten</a>
         <a href="?c=reports&action=find_lessThan18">Dienste mit weniger als 18 Eigenschaften</a>
-        <a href="?c=reports&action=find_withoutType">Elemente ohne Type</a>
+        <a href="?c=reports&action=find_withoutType">Elemente ohne Typ</a>
         <a href="?c=reports&action=statistic&category=category">Statistik</a>
     </div>
   </div>
 
 </div>
 
-<div class="mdl-cell mdl-cell--8-col mdl-grid">
+<div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col--phone">
 
 
 <?php
@@ -94,7 +94,7 @@ if(isset($_GET['action'])){
 
       case 'externProvider':
         $sparql = '
-        SELECT DISTINCT (?provider AS ?uri) (?prefLabel AS ?Provider) (?title AS ?Beschreibung)
+        SELECT DISTINCT (?provider AS ?uri) (?prefLabel AS ?Provider) (?title AS ?Beschreibung) (COUNT(?service) AS ?Dienste)
         WHERE{
           {
             SELECT *
@@ -122,6 +122,8 @@ if(isset($_GET['action'])){
          	BIND (str(?prefLabelLang) AS ?prefLabel)
          	BIND (str(?titleLang) AS ?title)
         }
+        GROUP BY ?provider ?prefLabel ?title
+        ORDER BY DESC(?prefLabel)
         ';
 
         break;
@@ -253,7 +255,7 @@ print '<table class="mdl-data-table mdl-js-data-table mdl-text-table">';
     print "<tr>";
       foreach( $fields as $field ){
         if($field != 'uri'){
-          print "<th class='mdl-data-table__cell--non-numeric'>$field</th>";
+          print "<th class='mdl-data-table__cell--non-numeric mdl-color--grey-100'>$field</th>";
         }
       }
     print "</tr>";
