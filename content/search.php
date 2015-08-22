@@ -1,5 +1,13 @@
 <?php
+
+$searchTerm = $_GET['search'];
+$searchTermInput = $searchTerm;
 $sparqlFilter = '';
+$filterItemsHtml = '';
+
+
+
+
 if(isset($_GET['arg'])){
 
 	if($_GET['arg'] == 'true'){
@@ -23,6 +31,10 @@ if(isset($_GET['arg'])){
 		}
 	}
 	$args = urlencode(serialize($conditionArray));
+
+
+
+
 }
 else{
 	$args = 'true';
@@ -34,14 +46,17 @@ if(isset($conditionArray)){
 
 	foreach ($conditionArray as $key => $value) {
 		$sparqlFilter .= '?service ?prop_'.$key.' <' . $value . '> .';
+
+		$valueLabel = explode('#', $value);
+		$valueLabel = $valueLabel[1];
+
+		$filterItemsHtml .= '<a href="?search='.$searchTerm.'&arg='. $args .'&action='. urlencode($value) .'"">
+				'.$valueLabel.' <i class="material-icons">close</i>
+			</a> ';
 	}
 
 
 }
-
-echo htmlspecialchars($sparqlFilter);
-
-
 ?>
 
 <script>
@@ -65,28 +80,22 @@ echo htmlspecialchars($sparqlFilter);
 
 
 
-
-$searchTerm = $_GET['search'];
-$searchTermInput = $searchTerm;
-
-
 $sparql = '
 SELECT  ?category (MIN(?prop) AS ?propX) (MIN(?catType) AS ?catTypeX) (MIN(?categoryPrefLabel) AS ?categoryPrefLabelX) (COUNT(?service) AS ?numService)
 WHERE {
-  	?service ?prop  ?category.
+	?service ?prop  ?category.
 	?prop a owl:ObjectProperty.
 	?category a ?catType.
-
 
 	?category skos:prefLabel ?categoryPrefLabelLang.
 	FILTER (langMatches(lang(?categoryPrefLabelLang),"de"))
 	BIND (str(?categoryPrefLabelLang) AS ?categoryPrefLabel)
-
   {
       SELECT DISTINCT ?service
       WHERE{
         ?service a schema:Service.
-				
+				'.$sparqlFilter.'
+
           ?service ?property ?valueLang
           {
               ?property a owl:AnnotationProperty.
@@ -269,6 +278,16 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
     <input type="text" placeholder="<?php echo $searchTermInput ?>" size="1" name="search">
   </form>
 </div>
+
+<div class="mdl-cell mdl-cell--12-col">
+	<div class="search-condintions">
+		<?php echo $filterItemsHtml;?>
+	</div>
+</div>
+
+
+
+
 
 
 <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col--phone">
