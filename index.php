@@ -35,7 +35,7 @@ require_once('./inc/functions.php');
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
 
     <!-- Color -->
-    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.indigo-red.min.css" />
+    <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.2/material.grey-red.min.css" />
 
     <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
 

@@ -28,17 +28,17 @@ if(isset($_GET['service'])){
 }
 
 
-#$currentPath;
-
 ?>
-
-
-
 
 
 <header class="demo-header mdl-layout__header mdl-color--white mdl-color--grey-100 mdl-color-text--grey-600">
   <div class="mdl-layout__header-row">
-    <span class="mdl-layout-title"><a href="./">ITcat</a> <?php echo $currentPath ?></span>
+    <span class="mdl-layout-title">
+      <img src="assets/images/thb_logo_rgb.png" style="height:18px;margin-right:5px; padding-bottom:3px;">
+      <a href="./" class="mdl-cell--hide-phone" style="color: #000">IT-Dienste der TH Brandenburg</a>
+      <a href="./" class="mdl-cell--hide-desktop mdl-cell--hide-tablet">IT-Dienste THB</a>
+      <?php echo $currentPath ?>
+    </span>
     <div class="mdl-layout-spacer"></div>
     <div class="mdl-textfield mdl-js-textfield mdl-textfield--expandable">
       <label class="mdl-button mdl-js-button mdl-button--icon" for="search">

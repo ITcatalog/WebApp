@@ -102,6 +102,11 @@ if(isset($_GET['c'])){
       $pageTitle = 'Reports';
       break;
 
+    case 'help':
+      $includePath = 'content/help.php';
+      $pageTitle = 'Hilfe';
+      break;
+
   }
 }
 elseif(isset($_GET['search'])){
