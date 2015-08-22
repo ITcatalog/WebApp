@@ -54,20 +54,14 @@ $service = urldecode($_GET['service']);
 
 
 $sparql = '
-  SELECT ?category ?category2 ?service ?service2 ?prefLabel ?prefLabel2 ?cat ?cat2 ?bgColor ?bgColor2
+  SELECT ?category ?service ?prefLabel ?cat ?bgColor
   WHERE {
-    itcat:HISQIS (^schema:isRelatedTo | schema:isRelatedTo)+ ?service.
-    ?service schema:isRelatedTo ?service2.
+    <'.$service.'> (^schema:isRelatedTo | schema:isRelatedTo) ?service.
 
     OPTIONAL {
       ?service  skos:prefLabel ?prefLabelLang.
       FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'"))
       BIND (str(?prefLabelLang) AS ?prefLabel)
-    }
-    OPTIONAL{
-      ?service2  skos:prefLabel ?prefLabel2Lang.
-      FILTER (langMatches(lang(?prefLabel2Lang),"'.LANG.'"))
-      BIND (str(?prefLabel2Lang) AS ?prefLabel2)
     }
 
     OPTIONAL{
@@ -77,13 +71,7 @@ $sparql = '
           ?category itcat_app:hasBgColor ?bgColor.
         }.
     }
-    OPTIONAL{
-      ?service2 itcat:inCategory ?category2.
-      ?category2 a itcat:CatalogCategory.
-      GRAPH ?g {
-          ?category2 itcat_app:hasBgColor ?bgColor2.
-        }.
-    }
+
   }
 ';
 
@@ -110,25 +98,8 @@ while( $row = $result->fetch_array() ){
 
     $nodes[$row['service']] = "{id:'".$row['service']."', label:'".substr($row['prefLabel'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['category']."'}";
   }
-  if(!in_array($row['service2'], $nodes)){
 
-    if(!isset($row['category2'])){
-      $row['category2'] = 'none';
-    }
-
-    if(isset($row['bgColor2'])){
-      $bgColorHex = convertColorNameToHex($row['bgColor2']);
-    }
-    else{
-      $bgColorHex = '#ffffff';
-    }
-
-    if(!isset($row['prefLabel2'])) { $row['prefLabel2'] = 'empty';}
-
-    $nodes[$row['service2']] = "{id:'".$row['service2']."', label:'".substr($row['prefLabel2'], 0, 20)."', color: '".$bgColorHex."', group: '".$row['category2']."'}";
-
-  }
-  $edges[] = "{from: '".$row['service']."', to: '".$row['service2']."'}";
+  $edges[] = "{from: '".$service."', to: '".$row['service']."'}";
 }
 
 //Mark Selected Service
@@ -143,7 +114,7 @@ $sparql = '
 $result = $db->query( $sparql );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 $row = $result->fetch_array();
-$nodes[$service] = "{id:'$service', label:'".$row['prefLabel']."', color: '#CC0000', group: 'center'}";
+$nodes[$service] = "{id:'$service', label:'".$row['prefLabel']."', color: '#000', group: 'center'}";
 
 
 ?>
