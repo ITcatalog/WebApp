@@ -19,12 +19,12 @@
   </header>
 
   <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
-    <a class="mdl-navigation__link" href="?c=home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Dashboard</a>
+    <a class="mdl-navigation__link" href="?c=home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
+    <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">insert_chart</i>Reports</a>
+    <a class="mdl-navigation__link" href="?c=map"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">share</i>Landkarte</a>
+    <a class="mdl-navigation__link" href="?c=list"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_list</i>Liste</a>
     <a class="mdl-navigation__link" href="?c=categories"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_module</i>Kategorien</a>
     <a class="mdl-navigation__link" href="?c=catalog"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">local_library</i>Kataloge</a>
-    <a class="mdl-navigation__link" href="?c=list"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_list</i>Liste</a>
-    <a class="mdl-navigation__link" href="?c=map"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">share</i>Landkarte</a>
-    <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">insert_chart</i>Reports</a>
     <div class="mdl-layout-spacer"></div>
     <a class="mdl-navigation__link" href="https://github.com/ITcatalog/WebApp/wiki" target="_blank"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">help_outline</i><span class="visuallyhidden">Help</span></a>
   </nav>
