@@ -13,6 +13,20 @@
    overflow: visible !important;
 }
 
+
+.mdl-badge-navigation {
+  position:relative;
+  overflow: visible !important;
+
+}
+
+.mdl-badge-navigation[data-badge]:after {
+   top:15px;
+   right:20px;
+   background:rgba(0,0,0,0.3);
+}
+
+
 .searchBoxDiv{
  width:100%;
 }
