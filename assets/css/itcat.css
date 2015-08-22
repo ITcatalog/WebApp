@@ -229,7 +229,11 @@ a {
  margin-bottom:20px
 }
 
+.search-condintions {
+ text-align:left !important;
+}
 
+.search-condintions a,
 .related-services a {
   display: inline-block;
   margin: 0px 2px 8px 0px;
@@ -248,8 +252,12 @@ a {
   border:1px solid rgba(0,0,0,.7);
 }
 
+.search-condintions a i{
+  font-size:9px;
+}
 
 
+.search-condintions a:hover,
 .related-services a:hover {
 
   background-color:#F5F5F5;
