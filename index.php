@@ -18,6 +18,7 @@ require_once('./inc/functions.php');
     <!-- Add to homescreen for Chrome on Android -->
     <meta name="mobile-web-app-capable" content="yes">
     <link rel="icon" sizes="192x192" href="images/touch/chrome-touch-icon-192x192.png">
+    
 
     <!-- Add to homescreen for Safari on iOS -->
     <meta name="apple-mobile-web-app-capable" content="yes">
@@ -28,6 +29,8 @@ require_once('./inc/functions.php');
     <!-- Tile icon for Win8 (144x144 + tile color) -->
     <meta name="msapplication-TileImage" content="images/touch/ms-touch-icon-144x144-precomposed.png">
     <meta name="msapplication-TileColor" content="#3372DF">
+    
+    <link rel="icon" type="image/png" href="assets/images/thb_logo_rgb.png" />
 
     <link rel="stylesheet" href="./bower_components/material-design-lite/material.min.css">
 
