@@ -109,6 +109,7 @@ if(isset($_GET['action'])){
               VALUES (?provider ) {
               	(itcat:TLSO)
               	(itcat:DCS)
+              	(itcat:LSCS)
               	(itcat:StaffADM)
               	(itcat:DataCenter)
                 (itcat:RegOffice)
