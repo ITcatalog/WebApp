@@ -26,7 +26,7 @@
       <h2 class="mdl-card__title-text">Administration</h2>
     </div>
     <div class="mdl-card__navigation">
-        <a href="?c=reports&action=find_withoutDocs">Dienste ohne Dokumenten</a>
+        <a href="?c=reports&action=find_withoutDocs">Dienste ohne Dokumente</a>
         <a href="?c=reports&action=find_lessThan18">Dienste mit weniger als 18 Eigenschaften</a>
         <a href="?c=reports&action=find_withoutType">Elemente ohne Typ</a>
         <a href="?c=reports&action=statistic&category=category">Statistik</a>
