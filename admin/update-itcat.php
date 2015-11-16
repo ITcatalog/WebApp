@@ -68,7 +68,7 @@ else{
 }
 if($output != 'Already up-to-date.'){
   echo '<h2>SchemaGraph & Datagraph</h2>';
-  sendFileToSparqlHTTP('../../ITcat/Ontology/itcatMerged.ttl', 'PUT');
+  sendFileToSparqlHTTP('../../ITcat/Ontology/SchemaDataGraph.ttl', 'PUT');
 
 
   #echo '<h2>SchemaGraph</h2>';
