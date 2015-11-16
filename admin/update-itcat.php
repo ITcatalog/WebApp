@@ -67,10 +67,14 @@ else{
   echo '<h2>' . $output . '<h2>';
 }
 if($output != 'Already up-to-date.'){
-  echo '<h2>SchemaGraph</h2>';
-  sendFileToSparqlHTTP('../../ITcat/Ontology/SchemaGraph.ttl', 'PUT');
+  echo '<h2>SchemaGraph & Datagraph</h2>';
+  sendFileToSparqlHTTP('../../ITcat/Ontology/itcatMerged.ttl', 'PUT');
 
-  echo '<h2>DataGraph</h2>';
-  sendFileToSparqlHTTP('../../ITcat/Ontology/DataGraph.ttl', 'POST');
+
+  #echo '<h2>SchemaGraph</h2>';
+  #sendFileToSparqlHTTP('../../ITcat/Ontology/SchemaGraph.ttl', 'PUT');
+
+  #echo '<h2>DataGraph</h2>';
+  #sendFileToSparqlHTTP('../../ITcat/Ontology/DataGraph.ttl', 'POST');
 }
 ?>
