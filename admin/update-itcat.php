@@ -1,7 +1,7 @@
 <?php
 
 function sendFileToSparqlHTTP($file, $method){
-  $sparqlEndpoint = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcatTest/data?default';
+  $sparqlEndpoint = 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/data?default';
   $file_name_with_full_path = realpath($file);
 
   $POST = array(
