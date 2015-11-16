@@ -66,7 +66,7 @@ else{
   #echo '' . json_encode($output) . '';
   echo '<h2>' . $output . '<h2>';
 }
-if($output == 'Already up-to-date.'){
+if($output != 'Already up-to-date.'){
   echo '<h2>SchemaGraph</h2>';
   sendFileToSparqlHTTP('../../ITcat/Ontology/SchemaGraph.ttl', 'PUT');
 
