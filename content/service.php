@@ -216,7 +216,7 @@ else{
 
 			$serviceController->showObjectProperty('Verfügbar für', 'itcat:user');
 
-			$serviceController->showObjectProperty('Unterstütze Geräte', 'itcat:usableWith');
+			$serviceController->showObjectProperty('Unterstützte Geräte', 'itcat:usableWith');
 
 			?>
 
