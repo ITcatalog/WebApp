@@ -1,143 +1,146 @@
 html, body {
-  font-family: 'Roboto', 'Helvetica', sans-serif;
+    font-family: 'Roboto', 'Helvetica', sans-serif;
 }
 
-.service-profile-cat{
+.service-profile-cat {
 
 }
 
-.itcat-category > .mdl-card__title{
-  text-decoration: none;
-  font-size: 24px;
-  font-weight: 300;
-  line-height: normal;
+.itcat-category > .mdl-card__title {
+    text-decoration: none;
+    font-size: 24px;
+    font-weight: 300;
+    line-height: normal;
 }
 
 .itcat-category > .mdl-card--expand {
-  color:#fff;
+    color: #fff;
 }
 
-
-.itcat-category > .mdl-card__supporting-text{
-  height:130px;
+.itcat-category > .mdl-card__supporting-text {
+    height: 130px;
 }
 
 .categories > .itcat-category > .mdl-card__supporting-text,
-.catalog > .itcat-category > .mdl-card__supporting-text{
-  height:110px;
+.catalog > .itcat-category > .mdl-card__supporting-text {
+    height: 110px;
 }
 
-.provider > .itcat-category > .mdl-card__supporting-text{
-  height:50px;
+.provider > .itcat-category > .mdl-card__supporting-text {
+    height: 50px;
 }
 
-.itcat-service > .mdl-card__supporting-text{
-  height: 122px;
-
-}
-
-.service-attribute{
-  margin-bottom:10px;
+.itcat-service > .mdl-card__supporting-text {
+    height: 122px;
 
 }
 
-.service-attribute__title{
-  font-weight:bold;
+.service-attribute {
+    margin-bottom: 10px;
 
 }
 
-.service-attribute__value p{
-  color: rgba(0,0,0,.7);
-  line-height: 19px;
-  font-size: 13px;
+.service-attribute__title {
+    font-weight: bold;
+
 }
 
-.service-attribute__value li{
-  list-style:none;
-  color: rgba(0,0,0,.7);
-  line-height: 19px;
-  font-size: 13px;
+.service-attribute__value p {
+    color: rgba(0, 0, 0, .7);
+    line-height: 19px;
+    font-size: 13px;
 }
 
-.mdl-card__supporting-text{
-  color: rgba(0,0,0,.7);
-  line-height:19px;
+.service-attribute__value li {
+    list-style: none;
+    color: rgba(0, 0, 0, .7);
+    line-height: 19px;
+    font-size: 13px;
+}
+
+.mdl-card__supporting-text {
+    color: rgba(0, 0, 0, .7);
+    line-height: 19px;
 
 }
 
 .mdl-text-table {
-   @extend .mdl-data-table;
-   white-space: normal;
+@extend . mdl-data-table;
+    white-space: normal;
 }
 
-.mdl-text-table th{
-  font-size:13px;
+.mdl-text-table th {
+    font-size: 13px;
 }
 
-.mdl-text-table td{
-   padding-bottom:12px;
+.mdl-text-table td {
+    padding-bottom: 12px;
 }
-
-
-
 
 /* THB Colors */
 
 .mdl-color-text--thb {
-  color: rgb(204,10,47) !important; }
+    color: rgb(204, 10, 47) !important;
+}
 
 .mdl-color--thb {
-  background-color: rgb(204,10,47) !important; }
+    background-color: rgb(204, 10, 47) !important;
+}
 
 .mdl-color--thb-300 {
-  background-color: rgb(204,10,47) !important; }
+    background-color: rgb(204, 10, 47) !important;
+}
 
 /* Department of business and management */
 
 .mdl-color-text--thb-dbm {
-  color: rgb(241,132,0) !important; }
+    color: rgb(241, 132, 0) !important;
+}
 
 .mdl-color--thb-dbm {
-  background-color: rgb(241,132,0) !important; }
+    background-color: rgb(241, 132, 0) !important;
+}
 
-  .mdl-color--thb-dbm-300 {
-    background-color: rgb(241,132,0) !important; }
+.mdl-color--thb-dbm-300 {
+    background-color: rgb(241, 132, 0) !important;
+}
 
-
-  /* Department of computer sciences */
+/* Department of computer sciences */
 
 .mdl-color-text--thb-dcs {
-  color: rgb(0,186,229) !important; }
+    color: rgb(0, 186, 229) !important;
+}
 
 .mdl-color--thb-dcs {
-  background-color: rgb(0,186,229) !important; }
+    background-color: rgb(0, 186, 229) !important;
+}
 
 .mdl-color--thb-dcs-300 {
-  background-color: rgb(0,186,229) !important; }
-
+    background-color: rgb(0, 186, 229) !important;
+}
 
 /* Department of technology & engineering */
 
 .mdl-color-text--thb-dte {
-  color: rgb(131,187,32) !important; }
+    color: rgb(131, 187, 32) !important;
+}
 
 .mdl-color--thb-dte {
-  background-color: rgb(131,187,32) !important; }
+    background-color: rgb(131, 187, 32) !important;
+}
 
-  .mdl-color--thb-dte-300 {
-    background-color: rgb(131,187,32) !important; }
-
-
-
+.mdl-color--thb-dte-300 {
+    background-color: rgb(131, 187, 32) !important;
+}
 
 .navigation-card {
-  padding-bottom:20px;
-  min-height:0px;
+    padding-bottom: 20px;
+    min-height: 0px;
 }
 
 .mdl-card__navigation li,
 .mdl-card__navigation a {
-     display: block;
+    display: block;
     -webkit-flex-shrink: 0;
     -ms-flex-negative: 0;
     flex-shrink: 0;
@@ -156,110 +159,169 @@ html, body {
     background-color: #eee;
 }
 
-
 /* Collapse menu */
 
 a {
-  cursor: pointer;
+    cursor: pointer;
 }
 
 .mdl-collapse__button {
-  -webkit-touch-callout: none;
-  -webkit-user-select: none;
-  -khtml-user-select: none;
-  -moz-user-select: none;
-  -ms-user-select: none;
-  user-select: none;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
 }
 
-.mdl-collapse__button{
-  color:black;
+.mdl-collapse__button {
+    color: black;
 
 }
 
 .mdl-collapse.mdl-collapse--opened {
-  /*border-top: 1px solid #e0e0e0;*/
-  /*border-bottom: 1px solid #e0e0e0;*/
-  /*margin-top: -1px;*/
+    /*border-top: 1px solid #e0e0e0;*/
+    /*border-bottom: 1px solid #e0e0e0;*/
+    /*margin-top: -1px;*/
 }
 
 .mdl-collapse.mdl-collapse--opened + .mdl-collapse.mdl-collapse--opened {
-  border-top: none;
-  /*margin-top: 0;*/
+    border-top: none;
+    /*margin-top: 0;*/
 }
 
 .mdl-collapse .mdl-collapse__content-wrapper {
-  overflow: hidden;
+    overflow: hidden;
 }
 
 .mdl-collapse .mdl-collapse__content {
-  transition-property: margin-top;
-  transition-duration: 0.2s;
+    transition-property: margin-top;
+    transition-duration: 0.2s;
 }
 
 .mdl-collapse .mdl-collapse__icon {
-  transition-property: transform;
-  transition-duration: 0.2s;
-  color: rgba(0,0,0,0.3);
+    transition-property: transform;
+    transition-duration: 0.2s;
+    color: rgba(0, 0, 0, 0.3);
 
-  /* MDL should provide some facility for positioning icons inside list items so I don't have to do this */
-  position: absolute;
-  right: 6px;
-  margin-top: -3px;
+    /* MDL should provide some facility for positioning icons inside list items so I don't have to do this */
+    position: absolute;
+    right: 6px;
+    margin-top: -3px;
 }
 
 .mdl-collapse.mdl-collapse--opened .mdl-collapse__icon {
-  transform: rotate(-180deg);
+    transform: rotate(-180deg);
 }
 
 .mdl-collapse.mdl-collapse--opened .mdl-collapse__button {
-  color: grey;
+    color: grey;
 }
 
 .mdl-collapse.mdl-collapse--opened .mdl-collapse__content {
-  margin-top: 0 !important;
+    margin-top: 0 !important;
+}
+
+/*
+ * LifeCycle Timeline
+ */
+
+.lifeCycleTimeline {
+    width: 150px;
+    display: flex;
+    flex-direction: row;
+    top: -3px;
+}
+
+.lifeCycleTimeline .dot {
+    position: relative;
+    flex-grow: 1;
 }
 
 
+.lifeCycleTimeline .dot:before {
+    height: 15px;
+    width: 15px;
+    border-radius: 100%;
+    z-index: 2;
+}
 
+.lifeCycleTimeline .dot::before,
+.lifeCycleTimeline .dot::after {
+    position: absolute;
+    top: 30px;
+    left: 48.5%;
+    display: block;
+    content: "";
+    background: lightgrey;
+}
+
+.lifeCycleTimeline .dot::after {
+    top: 35px;
+    left: 0;
+    height: 5px;
+    width: 100%;
+    z-index: 1;
+}
+
+.lifeCycleTimeline .dot.complete::before {
+    width: 5px;
+    height: 5px;
+    border: 5px solid;
+    border-color: rgba(0, 0, 0, .7);
+}
+.lifeCycleTimeline .dot.complete::after {
+    background: lightgrey;
+}
+.lifeCycleTimeline .dot:first-child::after {
+    background: linear-gradient(90deg, white 50%, lightgrey 50%);
+}
+.lifeCycleTimeline .dot:last-child::after {
+    background: linear-gradient(90deg, lightgrey 50%, lightgrey 50%);
+}
+.lifeCycleTimeline .dot.complete:first-child::after {
+    background: linear-gradient(90deg, lightgrey 50%, lightgrey 50%);
+}
+.lifeCycleTimeline .dot.complete:last-child::after {
+    background: linear-gradient(90deg, lightgrey 50%, lightgrey 50%);
+}
 
 
 .related-services {
- text-align:center;
- margin-bottom:20px
+    text-align: center;
+    margin-bottom: 20px
 }
 
 .search-condintions {
- text-align:left !important;
+    text-align: left !important;
 }
 
 .search-condintions a,
 .related-services a {
-  display: inline-block;
-  margin: 0px 2px 8px 0px;
-  padding: 0px 10px;
-  line-height:18px;
-  height:16px;
-  list-style:none;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-size:11px;
-  color:rgba(0,0,0,.7);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 20px;
-  text-decoration:none;
-  font-weight:400;
-  border:1px solid rgba(0,0,0,.7);
+    display: inline-block;
+    margin: 0px 2px 8px 0px;
+    padding: 0px 10px;
+    line-height: 18px;
+    height: 16px;
+    list-style: none;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 11px;
+    color: rgba(0, 0, 0, .7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 400;
+    border: 1px solid rgba(0, 0, 0, .7);
 }
 
-.search-condintions a i{
-  font-size:9px;
+.search-condintions a i {
+    font-size: 9px;
 }
-
 
 .search-condintions a:hover,
 .related-services a:hover {
 
-  background-color:#F5F5F5;
-  text-decoration:none;
+    background-color: #F5F5F5;
+    text-decoration: none;
 }
