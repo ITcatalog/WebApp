@@ -325,3 +325,42 @@ a {
     background-color: #F5F5F5;
     text-decoration: none;
 }
+
+/*
+ * Portfolio-Grid
+ */
+
+.portfolio-grid td.field {
+    border:1px solid grey;
+
+}
+
+.portfolio-grid td.field:hover{
+    background-color:rgba(0, 0, 0, 0.05);
+
+}
+
+.portfolio-grid li{
+    margin:8px;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    list-style:none;
+}
+
+.portfolio-grid li a{
+    font-size:14px;
+    color: rgba(0,0,0,.77);
+}
+
+.portfolio-grid .yaxis--label__header{
+    width:10px;
+}
+
+.portfolio-grid .yaxis--label__header span h5,
+.portfolio-grid .yaxis--label span{
+    transform: rotate(270deg);
+}
+
+.portfolio-grid .xaxis{
+    text-align:center;
+}
