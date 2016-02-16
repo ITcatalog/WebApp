@@ -1,0 +1,131 @@
+
+<!doctype html>
+<html>
+<head>
+
+  <link rel="stylesheet" href="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.teal-indigo.min.css" />
+  <script src="https://storage.googleapis.com/code.getmdl.io/1.0.0/material.js"></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+
+  <style>
+    a {
+      cursor: pointer;
+    }
+
+    .mdl-collapse.mdl-collapse--opened {
+      border-top: 1px solid #e0e0e0;
+      border-bottom: 1px solid #e0e0e0;
+      margin-top: -1px;
+    }
+
+    .mdl-collapse.mdl-collapse--opened + .mdl-collapse.mdl-collapse--opened {
+      border-top: none;
+      margin-top: 0;
+    }
+
+    .mdl-collapse .mdl-collapse__content-wrapper {
+      overflow: hidden;
+    }
+
+    .mdl-collapse .mdl-collapse__content {
+      transition-property: margin-top;
+      transition-duration: 0.2s;
+    }
+
+    .mdl-collapse .mdl-collapse__icon {
+      transition-property: transform;
+      transition-duration: 0.2s;
+      color: rgba(0,0,0,0.3);
+
+      /* MDL should provide some facility for positioning icons inside list items so I don't have to do this */
+      position: absolute;
+      right: 6px;
+      margin-top: -3px;
+    }
+
+    .mdl-collapse.mdl-collapse--opened .mdl-collapse__icon {
+      transform: rotate(-180deg);
+    }
+
+    .mdl-collapse.mdl-collapse--opened .mdl-collapse__button {
+      color: teal;
+    }
+
+    .mdl-collapse.mdl-collapse--opened .mdl-collapse__content {
+      margin-top: 0 !important;
+    }
+  </style>
+
+  <script>
+    $(function(){
+      $('.mdl-collapse__content').each(function(){
+        var content = $(this);
+        content.css('margin-top', -content.height());
+      })
+
+      $(document.body).on('click', '.mdl-collapse__button', function(){
+        $(this).parent('.mdl-collapse').toggleClass('mdl-collapse--opened');
+      })
+    })
+  </script>
+
+</head>
+<body>
+<div class="mdl-layout mdl-js-layout mdl-layout--fixed-drawer mdl-layout--overlay-drawer-button">
+  <div class="mdl-layout__drawer">
+    <div class="mdl-navigation">
+
+      <a class="mdl-navigation__link">A link</a>
+
+      <div class="mdl-collapse">
+        <a class="mdl-navigation__link mdl-collapse__button">
+          <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
+          Some links
+        </a>
+        <div class="mdl-collapse__content-wrapper">
+          <div class="mdl-collapse__content mdl-animation--default">
+            <a class="mdl-navigation__link">This</a>
+            <a class="mdl-navigation__link">That</a>
+            <a class="mdl-navigation__link">The other</a>
+          </div>
+        </div>
+      </div>
+
+      <div class="mdl-collapse mdl-collapse--opened">
+        <a class="mdl-navigation__link mdl-collapse__button">
+          <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
+          Default to opened
+        </a>
+        <div class="mdl-collapse__content-wrapper">
+          <div class="mdl-collapse__content mdl-animation--default">
+            <a class="mdl-navigation__link">Here</a>
+            <a class="mdl-navigation__link">There</a>
+          </div>
+        </div>
+      </div>
+
+      <a class="mdl-navigation__link">Ordinary link</a>
+
+      <div class="mdl-collapse">
+        <a class="mdl-navigation__link mdl-collapse__button">
+          <i class="material-icons mdl-collapse__icon mdl-animation--default">expand_more</i>
+          Other links
+        </a>
+        <div class="mdl-collapse__content-wrapper">
+          <div class="mdl-collapse__content mdl-animation--default">
+            <a class="mdl-navigation__link">One</a>
+            <a class="mdl-navigation__link">Two</a>
+            <a class="mdl-navigation__link">Three</a>
+            <a class="mdl-navigation__link">Four</a>
+          </div>
+        </div>
+      </div>
+
+      <a class="mdl-navigation__link">Just a link</a>
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
