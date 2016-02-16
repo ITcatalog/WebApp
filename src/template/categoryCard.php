@@ -29,17 +29,17 @@ function showCardTemplate ($uri, $title, $description, $numberOfServices, $bgCol
   }
 
 ?>
-
 <div class="itcat-category mdl-card mdl-shadow--2dp mdl-cell mdl-cell--<?php echo $cardSize; ?>-col mdl-cell--12-col-phone mdl-grid mdl-grid--no-spacing">
+
     <a class="mdl-card__title mdl-card--expand mdl-color--<?php echo $bgColor .  $colorValue; ?>" href="<?php echo $urlParameter . $uri;?>">
       <h2 class="mdl-card__title-text <?php echo $badge; ?>">
         <?php echo $title; ?>
       </h2>
     </a>
     <?php
-    echo '<div class="mdl-card__supporting-text">';
+    echo '<a class="mdl-card__supporting-text" href="'. $urlParameter . $uri .'">';
       echo $description;
-    echo '</div>';
+    echo '</a>';
     ?>
     <div class="mdl-card__actions mdl-card--border">
       <a class="mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" href="<?php echo $urlParameter . $uri;?>">

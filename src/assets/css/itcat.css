@@ -18,8 +18,10 @@ html, body {
 }
 
 .itcat-category > .mdl-card__supporting-text {
-    height: 130px;
-}
+     height: 130px;
+    text-decoration: none;
+ }
+
 
 .categories > .itcat-category > .mdl-card__supporting-text,
 .catalog > .itcat-category > .mdl-card__supporting-text {
