@@ -1,0 +1,12 @@
+{
+  "name": "ITCat WebApp",
+  "homepage": "https://github.com/ITcatalog/WebApp",
+  "authors": [
+    "Jonas Jetschni"
+  ],
+  "description": "IT-Service-Catalog Web Application",
+  "dependencies": {
+    "material-design-lite": "^1.1.1",
+    "vis": "^4.14.0"
+  }
+}
