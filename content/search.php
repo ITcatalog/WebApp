@@ -8,6 +8,7 @@ $filterItemsHtml = '';
 
 
 
+
 if(isset($_GET['arg'])){
 
 	if($_GET['arg'] == 'true'){
@@ -77,43 +78,137 @@ if(isset($conditionArray)){
 
 <?php
 
+/*
+ *
+ * Query for Serach Results
+ *
+ */
+
+if (strpos($searchTerm,'in:') !== false) {
+	$ex = explode(':', $searchTerm, 2);
+	$identifier = $ex[0];
+	$searchTerm = urldecode($ex[1]);
+	if (strpos($searchTerm,'#') !== false) {
+		$ex = explode('#', $searchTerm, 2);
+		$searchTerm = $ex[1];
+	}
+
+	$searchTermInput = $identifier . ':' . $searchTerm;
+
+	$searchTermSparql = 'itcat:' . $searchTerm;
+
+	$sparqlResult = '
+	SELECT DISTINCT (?service AS ?uri) ?prefLabel ?abstract
+	WHERE {
+	  ?service ?x '.$searchTermSparql.'.
+	  ?service skos:prefLabel ?prefLabelLang;
+	  dcterms:abstract      ?abstractLang;
+	  FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'"))
+		FILTER (langMatches(lang(?abstractLang),"'.LANG.'"))
+		BIND (str(?prefLabelLang) AS ?prefLabel)
+		BIND (str(?abstractLang) AS ?abstract)
+	}
+	';
 
 
+	$sparqlFilter = '
+	SELECT  ?category (MIN(?prop) AS ?propX) (MIN(?catType) AS ?catTypeX) (MIN(?categoryPrefLabel) AS ?categoryPrefLabelX) (COUNT(?service) AS ?numService)
+	WHERE {
+		?service ?prop  ?category.
+		?prop a owl:ObjectProperty.
+		?category a ?catType.
 
-$sparql = '
-SELECT  ?category (MIN(?prop) AS ?propX) (MIN(?catType) AS ?catTypeX) (MIN(?categoryPrefLabel) AS ?categoryPrefLabelX) (COUNT(?service) AS ?numService)
-WHERE {
-	?service ?prop  ?category.
-	?prop a owl:ObjectProperty.
-	?category a ?catType.
+		?category skos:prefLabel ?categoryPrefLabelLang.
+		FILTER (langMatches(lang(?categoryPrefLabelLang),"'.LANG.'"))
+		BIND (str(?categoryPrefLabelLang) AS ?categoryPrefLabel)
+	  	{
+		  SELECT DISTINCT ?service
+		  WHERE{
+			?service ?x '.$searchTermSparql.'.
+					'.$sparqlFilter.'
 
-	?category skos:prefLabel ?categoryPrefLabelLang.
-	FILTER (langMatches(lang(?categoryPrefLabelLang),"de"))
-	BIND (str(?categoryPrefLabelLang) AS ?categoryPrefLabel)
-  {
-      SELECT DISTINCT ?service
-      WHERE{
-        ?service a schema:Service.
-				'.$sparqlFilter.'
-
-          ?service ?property ?valueLang
-          {
-              ?property a owl:AnnotationProperty.
-          }
-          UNION{
-              ?property a owl:DatatypeProperty.
-          }
-          FILTER (
-              (regex(lcase(str(?valueLang)), lcase("'.$searchTerm.'")))
-          )
-      }
-  }
+			  ?service ?property ?valueLang
+			  {
+				  ?property a owl:AnnotationProperty.
+			  }
+			  UNION{
+				  ?property a owl:DatatypeProperty.
+			  }
+		 }
+	  }
+	}
+	GROUP BY ?category
+	ORDER BY ?propX ?catTypeX';
 }
-GROUP BY ?category
-ORDER BY ?propX ?catTypeX
-';
+else {
+	$sparqlResult = '
+	SELECT DISTINCT (?service AS ?uri) ?prefLabel ?abstract
+	WHERE {
+		?service a schema:Service.
+	  	?service ?prop ?valueLang
+	  	{
+	      ?prop a owl:AnnotationProperty.
+	    }
+	    UNION{
+	      ?prop a owl:DatatypeProperty.
+	    }
+	    FILTER (
+	      (regex(lcase(str(?valueLang)), lcase("'.$searchTerm.'")))
+	  	)
 
-$result = $db->query( $sparql );
+			'.$sparqlFilter.'
+
+		?service skos:prefLabel ?prefLabelLang;
+	  dcterms:abstract      ?abstractLang;
+	  FILTER (langMatches(lang(?prefLabelLang),"de"))
+		FILTER (langMatches(lang(?abstractLang),"de"))
+		BIND (str(?prefLabelLang) AS ?prefLabel)
+		BIND (str(?abstractLang) AS ?abstract)
+	  OPTIONAL{
+	    ?service itcat:inCategory ?category.
+	    GRAPH ?g {
+		     ?category itcat_app:hasBgColor ?bgColor.
+	    }
+	  }
+	}
+	';
+
+
+	$sparqlFilter = '
+	SELECT  ?category (MIN(?prop) AS ?propX) (MIN(?catType) AS ?catTypeX) (MIN(?categoryPrefLabel) AS ?categoryPrefLabelX) (COUNT(?service) AS ?numService)
+	WHERE {
+		?service ?prop  ?category.
+		?prop a owl:ObjectProperty.
+		?category a ?catType.
+
+		?category skos:prefLabel ?categoryPrefLabelLang.
+		FILTER (langMatches(lang(?categoryPrefLabelLang),"'.LANG.'"))
+		BIND (str(?categoryPrefLabelLang) AS ?categoryPrefLabel)
+	  	{
+		  SELECT DISTINCT ?service
+		  WHERE{
+			?service a schema:Service.
+					'.$sparqlFilter.'
+
+			  ?service ?property ?valueLang
+			  {
+				  ?property a owl:AnnotationProperty.
+			  }
+			  UNION{
+				  ?property a owl:DatatypeProperty.
+			  }
+			  FILTER (
+				  (regex(lcase(str(?valueLang)), lcase("'.$searchTerm.'")))
+			  )
+		 }
+	  }
+	}
+	GROUP BY ?category
+	ORDER BY ?propX ?catTypeX';
+}
+
+
+$result = $db->query( $sparqlFilter );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 
@@ -141,6 +236,7 @@ $tmpCat = '';
 $tmpProp = '';
 $firstRun = true;
 $navigationHtml = '';
+
 
 while( $row = $result->fetch_array() ){
 
@@ -180,7 +276,7 @@ while( $row = $result->fetch_array() ){
 		}
 
 		$navigationHtml .= '
-			<a href="?search='.$searchTerm.'&arg='. $args .'&action='. urlencode($row['category']) .'" class="mdl-badge mdl-badge-navigation" data-badge="'.$row['numService'].'">
+			<a href="?search='.$searchTermInput.'&arg='. $args .'&action='. urlencode($row['category']) .'" class="mdl-badge mdl-badge-navigation" data-badge="'.$row['numService'].'">
 				'.$row['categoryPrefLabelX'].'
 			</a> ';
 
@@ -195,80 +291,14 @@ $navigationHtml .= '</div></div></div>';
 
 include ('./template/categoryCard.php');
 
-if (strpos($searchTerm,'in:') !== false) {
-	$ex = explode(':', $searchTerm, 2);
-	$identifier = $ex[0];
-	$searchTerm = urldecode($ex[1]);
-	if (strpos($searchTerm,'#') !== false) {
-		$ex = explode('#', $searchTerm, 2);
-		$searchTerm = $ex[1];
-	}
-
-	$searchTermInput = $identifier . ':' . $searchTerm;
-
-	$searchTermSparql = 'itcat:' . $searchTerm;
-
-  $sparql = '
-	SELECT DISTINCT (?service AS ?uri) ?prefLabel ?abstract
-	WHERE {
-	  ?service ?x '.$searchTermSparql.'.
-	  ?service skos:prefLabel ?prefLabelLang;
-	  dcterms:abstract      ?abstractLang;
-	  FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'"))
-		FILTER (langMatches(lang(?abstractLang),"'.LANG.'"))
-		BIND (str(?prefLabelLang) AS ?prefLabel)
-		BIND (str(?abstractLang) AS ?abstract)
-	}
-
-	';
-}
-else {
-	$sparql = '
-	SELECT DISTINCT (?service AS ?uri) ?prefLabel ?abstract
-	WHERE {
-		?service a schema:Service.
-	  	?service ?prop ?valueLang
-	  	{
-	      ?prop a owl:AnnotationProperty.
-	    }
-	    UNION{
-	      ?prop a owl:DatatypeProperty.
-	    }
-	    FILTER (
-	      (regex(lcase(str(?valueLang)), lcase("'.$searchTerm.'")))
-	  	)
-
-			'.$sparqlFilter.'
-
-		?service skos:prefLabel ?prefLabelLang;
-	  dcterms:abstract      ?abstractLang;
-	  FILTER (langMatches(lang(?prefLabelLang),"de"))
-		FILTER (langMatches(lang(?abstractLang),"de"))
-		BIND (str(?prefLabelLang) AS ?prefLabel)
-		BIND (str(?abstractLang) AS ?abstract)
-	  OPTIONAL{
-	    ?service itcat:inCategory ?category.
-	    GRAPH ?g {
-		     ?category itcat_app:hasBgColor ?bgColor.
-	    }
-	  }
-	}
-	';
-}
 
 
 
-$result = $db->query( $sparql );
+
+$result = $db->query( $sparqlResult );
 if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 ?>
-
-
-
-
-
-
-
 
 
 
@@ -304,7 +334,7 @@ if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 	$urlParameters = '?input=';
 
-	$result = $db->query( $sparql );
+	$result = $db->query( $sparqlResult );
 	if( !$result ) { print $db->errno() . ": " . $db->error(). "\n"; exit; }
 
 	$fields = $result->field_array( $result );
