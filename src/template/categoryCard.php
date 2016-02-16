@@ -20,16 +20,12 @@ function showCardTemplate($uri, $title, $description, $numberOfServices, $bgColo
     if ($numberOfServices == '' || !isset($numberOfServices)) {
         $badge = '';
     } else {
-        #$badge = 'mdl-badge badge-btn" data-badge="' . $numberOfServices;
-        $badge = 'mdl-badge badge-btn" data-badge="' . $numberOfServices;
-
-    $badge = '
-        <span class="service-number">
-            <span class="number">'.$numberOfServices.'</span>
-            <span class="label">Dienste</span>
-        </span>
-    ';
-
+        $badge = '
+            <span class="service-number">
+                <span class="number">'.$numberOfServices.'</span>
+                <span class="label">Dienste</span>
+            </span>
+        ';
     }
 
 

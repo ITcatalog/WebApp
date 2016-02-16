@@ -20,30 +20,31 @@ html, body {
 .itcat-category > .mdl-card__supporting-text {
     height: 130px;
     text-decoration: none;
- }
+}
 
-.itcat-category > .mdl-card__actions{
+.itcat-category > .mdl-card__actions {
     display: flex;
-    box-sizing:border-box;
+    box-sizing: border-box;
     align-items: center;
     padding-right: 20px;
 }
 
-.service-number{
-    text-align:center;
-    color: rgba(0,0,0, 0.4);
+.service-number {
+    text-align: center;
+    color: rgba(0, 0, 0, 0.4);
     font-weight: 800;
-    text-transform:uppercase;
-}
-.service-number .number{
-    display:block;
-    font-size: 16px;
-}
-.service-number .label{
-    display:block;
-    font-size: 9px;
+    text-transform: uppercase;
 }
 
+.service-number .number {
+    display: block;
+    font-size: 16px;
+}
+
+.service-number .label {
+    display: block;
+    font-size: 9px;
+}
 
 .categories > .itcat-category > .mdl-card__supporting-text,
 .catalog > .itcat-category > .mdl-card__supporting-text {
@@ -261,7 +262,6 @@ a {
     flex-grow: 1;
 }
 
-
 .lifeCycleTimeline .dot:before {
     height: 15px;
     width: 15px;
@@ -293,22 +293,26 @@ a {
     border: 5px solid;
     border-color: rgba(0, 0, 0, .7);
 }
+
 .lifeCycleTimeline .dot.complete::after {
     background: lightgrey;
 }
+
 .lifeCycleTimeline .dot:first-child::after {
     background: linear-gradient(90deg, white 50%, lightgrey 50%);
 }
+
 .lifeCycleTimeline .dot:last-child::after {
     background: linear-gradient(90deg, lightgrey 50%, lightgrey 50%);
 }
+
 .lifeCycleTimeline .dot.complete:first-child::after {
     background: linear-gradient(90deg, lightgrey 50%, lightgrey 50%);
 }
+
 .lifeCycleTimeline .dot.complete:last-child::after {
     background: linear-gradient(90deg, lightgrey 50%, lightgrey 50%);
 }
-
 
 .related-services {
     text-align: center;
@@ -354,36 +358,36 @@ a {
  */
 
 .portfolio-grid td.field {
-    border:1px solid grey;
+    border: 1px solid grey;
 
 }
 
-.portfolio-grid td.field:hover{
-    background-color:rgba(0, 0, 0, 0.05);
+.portfolio-grid td.field:hover {
+    background-color: rgba(0, 0, 0, 0.05);
 
 }
 
-.portfolio-grid li{
-    margin:8px;
+.portfolio-grid li {
+    margin: 8px;
     flex-direction: row;
     flex-wrap: nowrap;
-    list-style:none;
+    list-style: none;
 }
 
-.portfolio-grid li a{
-    font-size:14px;
-    color: rgba(0,0,0,.77);
+.portfolio-grid li a {
+    font-size: 14px;
+    color: rgba(0, 0, 0, .77);
 }
 
-.portfolio-grid .yaxis--label__header{
-    width:10px;
+.portfolio-grid .yaxis--label__header {
+    width: 10px;
 }
 
 .portfolio-grid .yaxis--label__header span h5,
-.portfolio-grid .yaxis--label span{
+.portfolio-grid .yaxis--label span {
     transform: rotate(270deg);
 }
 
-.portfolio-grid .xaxis{
-    text-align:center;
+.portfolio-grid .xaxis {
+    text-align: center;
 }

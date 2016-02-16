@@ -20,25 +20,25 @@ class serviceController{
 
 	function readLiteral(){
 		$sparql = '
-    SELECT ?prop ?prefLabel ?value
-		WHERE {
-			<'.$this->service.'> ?prop ?valueLang.
-			{
-				?prop a owl:AnnotationProperty.
+			SELECT ?prop ?prefLabel ?value
+			WHERE {
+				<'.$this->service.'> ?prop ?valueLang.
+				{
+					?prop a owl:AnnotationProperty.
+				}
+				UNION{
+					?prop a owl:DatatypeProperty.
+				}
+				?prop skos:prefLabel ?propLabelLang.
+				FILTER (langMatches(lang(?propLabelLang),"'.LANG.'"))
+				BIND (str(?propLabelLang) AS ?prefLabel)
+				FILTER (
+					langMatches(lang(?valueLang),"'.LANG.'") ||
+					langMatches(lang(?valueLang),"")
+				)
+				BIND (str(?valueLang) AS ?value)
 			}
-			UNION{
-				?prop a owl:DatatypeProperty.
-			}
-			?prop skos:prefLabel ?propLabelLang.
-			FILTER (langMatches(lang(?propLabelLang),"'.LANG.'"))
-			BIND (str(?propLabelLang) AS ?prefLabel)
-			FILTER (
-				langMatches(lang(?valueLang),"'.LANG.'") ||
-				langMatches(lang(?valueLang),"")
-			)
-			BIND (str(?valueLang) AS ?value)
-		}
-		';
+			';
 
 		$result = $this->db->query( $sparql );
 		if( !$result ) { print $this->db->errno() . ": " . $this->db->error(). "\n"; exit; }
@@ -79,15 +79,15 @@ class serviceController{
 
   public function getObjectProperty ($property){
     $sparql = '
-  	SELECT DISTINCT ?uri ?prefLabel
-  	WHERE {
-    	<'.$this->service.'> rdf:type schema:Service;
-      '.$property.' ?uri.
-    	?uri skos:prefLabel ?prefLabelLang.
-    	FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'") || langMatches(lang(?prefLabelLang),""))
-  		BIND (str(?prefLabelLang) AS ?prefLabel)
-  	}
-    ';
+		SELECT DISTINCT ?uri ?prefLabel
+		WHERE {
+			<'.$this->service.'> rdf:type schema:Service;
+		  '.$property.' ?uri.
+			?uri skos:prefLabel ?prefLabelLang.
+			FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'") || langMatches(lang(?prefLabelLang),""))
+			BIND (str(?prefLabelLang) AS ?prefLabel)
+		}
+		';
 
     $result = $this->db->query( $sparql );
     if( !$result ) { print $this->db->errno() . ": " . $this->db->error(). "\n"; exit; }

@@ -68,19 +68,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 /* Get categories */
 
                 $sparql = '
-			SELECT ?subjectCategory ?prefLabel ?bgColor
-			WHERE {
-				<' . $service . '> itcat:inCategory ?subjectCategory.
-			  ?subjectCategory a itcat:SubjectCategory;
-			  skos:prefLabel ?prefLabelLang;
-			  FILTER (langMatches(lang(?prefLabelLang),"' . LANG . '"))
-				BIND (str(?prefLabelLang) AS ?prefLabel)
-			  GRAPH ?g {
-			    ?subjectCategory itcat_app:hasBgColor ?bgColor
-			  }
-			}
-			ORDER BY ?prefLabel
-			';
+                    SELECT ?subjectCategory ?prefLabel ?bgColor
+                    WHERE {
+                        <' . $service . '> itcat:inCategory ?subjectCategory.
+                      ?subjectCategory a itcat:SubjectCategory;
+                      skos:prefLabel ?prefLabelLang;
+                      FILTER (langMatches(lang(?prefLabelLang),"' . LANG . '"))
+                        BIND (str(?prefLabelLang) AS ?prefLabel)
+                      GRAPH ?g {
+                        ?subjectCategory itcat_app:hasBgColor ?bgColor
+                      }
+                    }
+                    ORDER BY ?prefLabel
+                    ';
 
                 $result = $db->query($sparql);
                 if (!$result) {
@@ -151,7 +151,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 echo '<div class="lifeCycleTimeline mdl-card__menu">';
 
                 while ($LifeCycleStageRow = $resultLifeCycleStage->fetch_array()) {
-                    echo '<a href="?search=in:'.urlencode($row['uri']).'" class="dot ' . ($LifeCycleStageRow['lifeCycleStage'] == $row['uri'] ? 'complete' : '') . '" id="' . $LifeCycleStageRow['lifeCycleStage'] . '"></a>';
+                    echo '<a href="?search=in:' . urlencode($row['uri']) . '" class="dot ' . ($LifeCycleStageRow['lifeCycleStage'] == $row['uri'] ? 'complete' : '') . '" id="' . $LifeCycleStageRow['lifeCycleStage'] . '"></a>';
                     echo '<div class="mdl-tooltip" for="' . $LifeCycleStageRow['lifeCycleStage'] . '">' . $LifeCycleStageRow['prefLabel'] . '</div>';
                 }
                 echo '</div>';

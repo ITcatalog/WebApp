@@ -29,4 +29,3 @@ function version() {
     return $version;
   }
 //echo version()['short'];
-?>
