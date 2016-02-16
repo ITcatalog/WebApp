@@ -39,5 +39,3 @@ $db->ns( "usdl-agreement","http://www.linked-usdl.org/ns/usdl-agreement#");
 $db->ns( "itcat","http://th-brandenburg.de/ns/itcat#");
 $db->ns( "itcat_app","http://th-brandenburg.de/ns/itcat_app#" );
 
-
-?>

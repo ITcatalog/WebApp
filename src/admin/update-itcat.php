@@ -77,4 +77,3 @@ if($output != 'Already up-to-date.'){
   #echo '<h2>DataGraph</h2>';
   #sendFileToSparqlHTTP('../../ITcat/Ontology/DataGraph.ttl', 'POST');
 }
-?>
