@@ -16,7 +16,7 @@ itcat:InfrastructureCatalog
 itcat:TLSO  itcat_app:hasBgColor  "thb-dbm" .
 
 itcat:LibraryServices
-        itcat_app:hasBgColor  "lime" .
+        itcat_app:hasBgColor  "teal" .
 
 itcat:HISServices  itcat_app:hasBgColor
                 "cyan" .
