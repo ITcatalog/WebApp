@@ -21,6 +21,7 @@
   <nav class="demo-navigation mdl-navigation mdl-color--blue-grey-800">
     <a class="mdl-navigation__link" href="?c=home"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">home</i>Home</a>
     <a class="mdl-navigation__link" href="?c=reports"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">insert_chart</i>Reports</a>
+    <a class="mdl-navigation__link" href="?c=portfolio"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">dashboard</i>Portfolio</a>
     <a class="mdl-navigation__link" href="?c=map"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">share</i>Landkarte</a>
     <a class="mdl-navigation__link" href="?c=list"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_list</i>Liste</a>
     <a class="mdl-navigation__link" href="?c=categories"><i class="mdl-color-text--blue-grey-400 material-icons" role="presentation">view_module</i>Kategorien</a>

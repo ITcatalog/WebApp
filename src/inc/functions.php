@@ -102,6 +102,11 @@ if (isset($_GET['c'])) {
             $pageTitle = 'Reports';
             break;
 
+        case 'portfolio':
+            $includePath = 'content/portfolio.php';
+            $pageTitle = 'Portfolio';
+            break;
+
         case 'help':
             $includePath = 'content/help.php';
             $pageTitle = 'Hilfe';
