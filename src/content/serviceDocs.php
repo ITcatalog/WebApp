@@ -3,8 +3,7 @@
   <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table ">
     <thead>
       <tr>
-        <th class="mdl-data-table__cell--non-numeric">Dokument</th>
-        <th class="mdl-data-table__cell--non-numeric"></th>
+        <th class="mdl-data-table__cell--non-numeric">Dokumente</th>
       </tr>
     </thead>
     <tbody>
@@ -24,7 +23,6 @@
       while( $row = $result->fetch_array() ){
         echo '<tr onclick="window.open(\' '. $row['url'] .'\');" style="cursor:pointer;">';
           echo '<td class="mdl-data-table__cell--non-numeric">'.$row['url'].'</td>';
-          echo '<td class="mdl-data-table__cell--non-numeric"><a href="'.$row['url'].'" target="_blank"><i class="material-icons">link</i></a></td>';
         echo '</tr>';
       }
      ?>
