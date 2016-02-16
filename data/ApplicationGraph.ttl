@@ -46,3 +46,5 @@ itcat:DTE  itcat_app:hasBgColor  "thb-dte" .
 itcat:DataCenter  itcat_app:hasBgColor  "thb" .
 
 itcat:RegOffice  itcat_app:hasBgColor  "thb" .
+
+itcat:LSCS  itcat_app:hasBgColor  "thb-dcs" .
