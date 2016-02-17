@@ -1,3 +1,18 @@
+$(function () {
+    $('.dialog-button').click(function () {
+        var dialog = document.querySelector('#' + $(this).data('dialog'));
+
+        if (!dialog.showModal) {
+            dialogPolyfill.registerDialog(dialog);
+        }
+        dialog.showModal();
+        dialog.querySelector(".close").addEventListener("click", function () {
+            dialog.close();
+        })
+    });
+});
+
+
 $('.itcat-service > .mdl-card__supporting-text').truncate({
     width: 'auto',
     token: '&hellip;',

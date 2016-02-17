@@ -82,7 +82,7 @@ class serviceController{
 		SELECT DISTINCT ?uri ?prefLabel
 		WHERE {
 			<'.$this->service.'> rdf:type schema:Service;
-		  '.$property.' ?uri.
+		        '.$property.' ?uri.
 			?uri skos:prefLabel ?prefLabelLang.
 			FILTER (langMatches(lang(?prefLabelLang),"'.LANG.'") || langMatches(lang(?prefLabelLang),""))
 			BIND (str(?prefLabelLang) AS ?prefLabel)
@@ -102,12 +102,66 @@ class serviceController{
 
   }
 
-	public function showObjectProperty($label, $property){
+    public function getCommentOfSubjectType($property){
+
+        $sparql = '
+		SELECT DISTINCT ?comment
+		WHERE {
+
+            '.$property.' rdfs:comment ?comment_Lang
+            FILTER (langMatches(lang(?comment_Lang),"'.LANG.'") || langMatches(lang(?comment_Lang),""))
+            BIND (str(?comment_Lang) AS ?comment)
+		}
+		';
+
+        $result = $this->db->query( $sparql );
+        if( !$result ) { print $this->db->errno() . ": " . $this->db->error(). "\n"; exit; }
+
+         $return = array(
+            'num' => $result->num_rows(),
+            'comment' => $result->fetch_array()['comment'],
+        );
+
+        return $return;
+    }
+
+    public function showObjectPropertyHelp($label, $properties = array()){
+
+        echo '
+        <div class="mdl-card__menu">
+            <button class="mdl-button mdl-button--icon mdl-js-button mdl-js-ripple-effect dialog-button" data-dialog="'.$label.'">
+                <i class="material-icons">help_outline</i>
+            </button>
+        </div>
+        <dialog class="mdl-dialog mdl-cell--8-col dialog" id="'.$label.'">
+                <h4 class="mdl-dialog__title"><i class="material-icons">help_outline</i> '.$label.'</h4>
+                <div class="mdl-dialog__content">';
+        foreach ($properties as $property) {
+            echo '<div class="service-attribute">';
+                echo '<div class="service-attribute__title" >'.$property['label'].'</div>';
+                echo '<div class="service-attribute__value">';
+                    echo $this->getCommentOfSubjectType($property['value'])['comment'];
+                echo '</div>';
+            echo '</div>';
+        }
+
+        echo '
+                </div>
+                <div class="mdl-dialog__actions">
+                    <button type="button" class="mdl-button close">Schließen</button>
+                </div>
+            </dialog>
+        ';
+    }
+
+
+    public function showObjectProperty($label, $property){
 		$result = $this->getObjectProperty($property);
+
 		if($result['num'] > 0 ){
-			echo '<div class="service-attribute">';
-				echo '<div class="service-attribute__title">'.$label.'</div>';
-				echo '<div class="service-attribute__value">';
+			echo '<div class="service-attribute"">';
+                echo '<div class="service-attribute__title">'.$label.'</div>';
+    			echo '<div class="service-attribute__value">';
 					while($row = $result['result']->fetch_array()){
 						echo '<a href="?search=in:'.urlencode($row['uri']).'">'.$row['prefLabel'].'</a> <br />';
 					}
