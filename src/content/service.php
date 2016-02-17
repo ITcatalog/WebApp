@@ -225,7 +225,6 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 $serviceController->showObjectProperty('Anbieter', 'schema:provider');
 
                 $serviceController->showObjectProperty('Kunde', 'schema:customer');
-
                 ?>
 
                 <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
@@ -233,6 +232,14 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                     Hilfe Anfordern
                 </button>
             </div>
+
+            <?php
+            $serviceController->showObjectPropertyHelp('Ansprechpartner', array(
+                    array('label' => 'Verantwortlich','value' => 'itcat:supporter',),
+                    array('label' => 'Anbieter','value' => 'schema:provider',),
+                    array('label' => 'Kunde', 'value' => 'schema:customer',)
+                ));
+            ?>
         </div>
 
         <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
@@ -253,6 +260,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 ?>
 
             </div>
+            <?php
+            $serviceController->showObjectPropertyHelp('Service-Merkmale', array(
+                array('label' => 'Verfügbar für','value' => 'itcat:user',),
+                array('label' => 'Unterstützte Geräte','value' => 'itcat:usableWith',)
+            ));
+            ?>
         </div>
 
         <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
@@ -260,9 +273,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 <h2 class="mdl-card__title-text">Service-Bewertung</h2>
             </div>
 
-
             <div class="mdl-card__supporting-text">
-
                 <?php
 
                 $serviceController->showObjectProperty('Kritikalität', 'itcat:hasCriticality');
@@ -270,9 +281,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 $serviceController->showObjectProperty('Priorität', 'itcat:hasPriority');
 
                 ?>
-
-
             </div>
+            <?php
+                $serviceController->showObjectPropertyHelp('Service-Bewertung', array(
+                    array('label' => 'Kritikalität','value' => 'itcat:hasCriticality',),
+                    array('label' => 'Priorität','value' => 'itcat:hasPriority',)
+                ));
+            ?>
+
+
         </div>
     </div>
 
