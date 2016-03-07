@@ -36,7 +36,7 @@ $('.mdl-card__title-text').truncate({
 
 
 $.ajax({
-        url: "admin/github.php?branch=dev",
+        url: "admin/github.php",
         beforeSend: function () {
             console.log ('Checking for update ...');
         }
