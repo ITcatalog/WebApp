@@ -227,10 +227,10 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 $serviceController->showObjectProperty('Kunde', 'schema:customer');
                 ?>
 
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                        style="width:100%">
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                        style="width:100%" href="https://thb.freshservice.com/support/tickets/new" target="_blank">
                     Hilfe Anfordern
-                </button>
+                </a>
             </div>
 
             <?php
