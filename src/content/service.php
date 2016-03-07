@@ -68,19 +68,19 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 /* Get categories */
 
                 $sparql = '
-			SELECT ?subjectCategory ?prefLabel ?bgColor
-			WHERE {
-				<' . $service . '> itcat:inCategory ?subjectCategory.
-			  ?subjectCategory a itcat:SubjectCategory;
-			  skos:prefLabel ?prefLabelLang;
-			  FILTER (langMatches(lang(?prefLabelLang),"' . LANG . '"))
-				BIND (str(?prefLabelLang) AS ?prefLabel)
-			  GRAPH ?g {
-			    ?subjectCategory itcat_app:hasBgColor ?bgColor
-			  }
-			}
-			ORDER BY ?prefLabel
-			';
+                    SELECT ?subjectCategory ?prefLabel ?bgColor
+                    WHERE {
+                        <' . $service . '> itcat:inCategory ?subjectCategory.
+                      ?subjectCategory a itcat:SubjectCategory;
+                      skos:prefLabel ?prefLabelLang;
+                      FILTER (langMatches(lang(?prefLabelLang),"' . LANG . '"))
+                        BIND (str(?prefLabelLang) AS ?prefLabel)
+                      GRAPH ?g {
+                        ?subjectCategory itcat_app:hasBgColor ?bgColor
+                      }
+                    }
+                    ORDER BY ?prefLabel
+                    ';
 
                 $result = $db->query($sparql);
                 if (!$result) {
@@ -151,7 +151,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 echo '<div class="lifeCycleTimeline mdl-card__menu">';
 
                 while ($LifeCycleStageRow = $resultLifeCycleStage->fetch_array()) {
-                    echo '<a href="?search=in:'.urlencode($row['uri']).'" class="dot ' . ($LifeCycleStageRow['lifeCycleStage'] == $row['uri'] ? 'complete' : '') . '" id="' . $LifeCycleStageRow['lifeCycleStage'] . '"></a>';
+                    echo '<a href="?search=in:' . urlencode($row['uri']) . '" class="dot ' . ($LifeCycleStageRow['lifeCycleStage'] == $row['uri'] ? 'complete' : '') . '" id="' . $LifeCycleStageRow['lifeCycleStage'] . '"></a>';
                     echo '<div class="mdl-tooltip" for="' . $LifeCycleStageRow['lifeCycleStage'] . '">' . $LifeCycleStageRow['prefLabel'] . '</div>';
                 }
                 echo '</div>';
@@ -225,14 +225,21 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 $serviceController->showObjectProperty('Anbieter', 'schema:provider');
 
                 $serviceController->showObjectProperty('Kunde', 'schema:customer');
-
                 ?>
 
-                <button class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
-                        style="width:100%">
+                <a class="mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--accent"
+                        style="width:100%" href="https://thb.freshservice.com/support/tickets/new" target="_blank">
                     Hilfe Anfordern
-                </button>
+                </a>
             </div>
+
+            <?php
+            $serviceController->showObjectPropertyHelp('Ansprechpartner', array(
+                    array('label' => 'Verantwortlich','value' => 'itcat:supporter',),
+                    array('label' => 'Anbieter','value' => 'schema:provider',),
+                    array('label' => 'Kunde', 'value' => 'schema:customer',)
+                ));
+            ?>
         </div>
 
         <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
@@ -253,6 +260,12 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 ?>
 
             </div>
+            <?php
+            $serviceController->showObjectPropertyHelp('Service-Merkmale', array(
+                array('label' => 'Verfügbar für','value' => 'itcat:user',),
+                array('label' => 'Unterstützte Geräte','value' => 'itcat:usableWith',)
+            ));
+            ?>
         </div>
 
         <div class="service-profile-cat mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card">
@@ -260,9 +273,7 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 <h2 class="mdl-card__title-text">Service-Bewertung</h2>
             </div>
 
-
             <div class="mdl-card__supporting-text">
-
                 <?php
 
                 $serviceController->showObjectProperty('Kritikalität', 'itcat:hasCriticality');
@@ -270,9 +281,15 @@ if (isset($_GET['action']) && $_GET['action'] == 'map') {
                 $serviceController->showObjectProperty('Priorität', 'itcat:hasPriority');
 
                 ?>
-
-
             </div>
+            <?php
+                $serviceController->showObjectPropertyHelp('Service-Bewertung', array(
+                    array('label' => 'Kritikalität','value' => 'itcat:hasCriticality',),
+                    array('label' => 'Priorität','value' => 'itcat:hasPriority',)
+                ));
+            ?>
+
+
         </div>
     </div>
 

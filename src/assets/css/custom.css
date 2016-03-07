@@ -1,141 +1,142 @@
 
 .badge-header {
-   position:relative;
-   overflow: visible !important;
+    position: relative;
+    overflow: visible !important;
 }
+
 .badge-header[data-badge]:after {
-   top:-10px;
-   right:-10px;
+    top: -10px;
+    right: -10px;
+
+}
+
+.mdl-badge[data-badge]:after {
+
 }
 
 .badge-btn {
-   position:relative;
-   overflow: visible !important;
+    position: relative;
+    overflow: visible !important;
 }
 
-
 .mdl-badge-navigation {
-  position:relative;
-  overflow: visible !important;
+    position: relative;
+    overflow: visible !important;
 
 }
 
 .mdl-badge-navigation[data-badge]:after {
-   top:15px;
-   right:20px;
-   background:rgba(0,0,0,0.3);
+    top: 15px;
+    right: 20px;
+    background: rgba(0, 0, 0, 0.3);
 }
 
-
-.searchBoxDiv{
- width:100%;
+.searchBoxDiv {
+    width: 100%;
 }
 
-.searchBoxDiv input{
-  font-size:40px;
+.searchBoxDiv input {
+    font-size: 40px;
 }
 
-.searchBoxDiv label{
-  overflow:visible;
-  font-size:40px;
-  top:40px
+.searchBoxDiv label {
+    overflow: visible;
+    font-size: 40px;
+    top: 40px
 }
 
-.homeTabBarActive:after{
-  height: 2px;
-  width: 100%;
-  display: block;
-  content: " ";
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  background:rgb(158,158,158);
-  -webkit-animation: border-expand .2s cubic-bezier(.4,0,.4,1).01s alternate forwards;
-  animation: border-expand .2s cubic-bezier(.4,0,.4,1).01s alternate forwards;
-  -webkit-transition: all 1s cubic-bezier(.4,0,1,1);
-  transition: all 1s cubic-bezier(.4,0,1,1);
+.homeTabBarActive:after {
+    height: 2px;
+    width: 100%;
+    display: block;
+    content: " ";
+    bottom: 0;
+    left: 0;
+    position: absolute;
+    background: rgb(158, 158, 158);
+    -webkit-animation: border-expand .2s cubic-bezier(.4, 0, .4, 1) .01s alternate forwards;
+    animation: border-expand .2s cubic-bezier(.4, 0, .4, 1) .01s alternate forwards;
+    -webkit-transition: all 1s cubic-bezier(.4, 0, 1, 1);
+    transition: all 1s cubic-bezier(.4, 0, 1, 1);
 }
 
-.category-badge{
-  margin:auto;
-  padding:0px;
-  margin-left:5px;
-  clear:both;
+.category-badge {
+    margin: auto;
+    padding: 0px;
+    margin-left: 5px;
+    clear: both;
 }
 
-
-.category-badge li{
-  display: inline-block;
-  margin: 0px 2px 0px 0px;
-  padding: 0px 10px;
-  line-height:14px;
-  height:14px;
-  list-style:none;
-  font-family: "Roboto","Helvetica","Arial",sans-serif;
-  font-size:9px;
-  color:#fff;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  border-radius: 20px;
+.category-badge li {
+    display: inline-block;
+    margin: 0px 2px 0px 0px;
+    padding: 0px 10px;
+    line-height: 14px;
+    height: 14px;
+    list-style: none;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-size: 9px;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    border-radius: 20px;
 }
 
-.category-badge li a{
-  color:#fff;
-  text-decoration:none;
-  font-weight:400;
+.category-badge li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 400;
 }
 
-.category-badge li:hover{
-  color:#fff;
-  text-decoration:none;
+.category-badge li:hover {
+    color: #fff;
+    text-decoration: none;
 }
-
 
 .mdh-expandable-search {
-  align-items: center;
-  justify-content: center;
+    align-items: center;
+    justify-content: center;
 }
 
 .mdh-expandable-search form {
-  /*max-width: 600px;*/
+    /*max-width: 600px;*/
 }
 
 .mdh-expandable-search,
 .mdh-expandable-search form,
 .mdh-expandable-search input {
-  /* Cross browser flex-grow */
-  -webkit-box-flex: 1;
-  -webkit-flex-grow: 1;
-  -ms-flex-positive: 1;
-  flex-grow: 1;
+    /* Cross browser flex-grow */
+    -webkit-box-flex: 1;
+    -webkit-flex-grow: 1;
+    -ms-flex-positive: 1;
+    flex-grow: 1;
 }
 
 .mdh-expandable-search,
 .mdh-expandable-search form {
-  /* Cross browser inline-flex */
-  display: -webkit-inline-box;
-  display: -webkit-inline-flex;
-  display: -moz-inline-box;
-  display: -ms-inline-flexbox;
-  display: inline-flex;
+    /* Cross browser inline-flex */
+    display: -webkit-inline-flex;
+    display: -moz-inline-box;
+    display: -ms-inline-flexbox;
+    display: inline-flex;
 }
 
 /* Position search icon */
 .mdh-expandable-search .material-icons {
-  position: relative;
-  right: -40px;
-  margin-left: -24px;
-  font-size:40px
+    position: relative;
+    right: -40px;
+    margin-left: -24px;
+    font-size: 40px
 }
 
 .mdh-expandable-search input {
-  outline: none;
-  border: none;
-  font-size: 35px;
-  padding: 0px 35px 0px 70px;
-  height: 60px;
-  line-height: 40px; /* TODO: This was recommended for cross browser compatability of input height, check if its actually needed in modern browsers */
-  border-radius: 5px 5px 5px 5px;
-  -moz-border-radius: 5px 5px 5px 5px;
-  -webkit-border-radius: 5px 5px 5px 5px;
+    outline: none;
+    border: none;
+    font-size: 35px;
+    padding: 0px 35px 0px 70px;
+    height: 60px;
+    line-height: 40px; /* TODO: This was recommended for cross browser compatability of input height, check if its actually needed in modern browsers */
+    border-radius: 5px 5px 5px 5px;
+    -moz-border-radius: 5px 5px 5px 5px;
+    -webkit-border-radius: 5px 5px 5px 5px;
 }
