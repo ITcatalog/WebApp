@@ -102,15 +102,15 @@ class serviceController{
 
   }
 
-    public function getCommentOfSubjectType($property){
+    public function getDefinitionOfSubjectType($property){
 
         $sparql = '
-		SELECT DISTINCT ?comment
+		SELECT DISTINCT ?definition
 		WHERE {
 
-            '.$property.' rdfs:comment ?comment_Lang
-            FILTER (langMatches(lang(?comment_Lang),"'.LANG.'") || langMatches(lang(?comment_Lang),""))
-            BIND (str(?comment_Lang) AS ?comment)
+            '.$property.' skos:definition ?definition_Lang
+            FILTER (langMatches(lang(?comment_Lang),"'.LANG.'") || langMatches(lang(?definition_Lang),""))
+            BIND (str(?comment_Lang) AS ?definition)
 		}
 		';
 
@@ -119,7 +119,7 @@ class serviceController{
 
          $return = array(
             'num' => $result->num_rows(),
-            'comment' => $result->fetch_array()['comment'],
+            'definition' => $result->fetch_array()['definition'],
         );
 
         return $return;
@@ -140,7 +140,7 @@ class serviceController{
             echo '<div class="service-attribute">';
                 echo '<div class="service-attribute__title" >'.$property['label'].'</div>';
                 echo '<div class="service-attribute__value">';
-                    echo $this->getCommentOfSubjectType($property['value'])['comment'];
+                    echo $this->getDefinitionOfSubjectType($property['value'])['definition'];
                 echo '</div>';
             echo '</div>';
         }

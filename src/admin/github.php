@@ -14,7 +14,7 @@ else{
     $branch = $_GET['branch'];
   }
 
-  $output = exec('cd /var/www/html/git/WebApp/ && git pull origin ' . $branch .'');
+  $output = exec('cd ./../ && git pull origin ' . $branch .'');
   #echo '' . json_encode($output) . '';
   echo $output;
 
