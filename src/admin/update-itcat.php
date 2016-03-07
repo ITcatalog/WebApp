@@ -72,8 +72,8 @@ if($output != 'Already up-to-date.'){
 
 
   echo '<h2>SchemaGraph</h2>';
-  sendFileToSparqlHTTP('../../ITcat/Ontology/SchemaGraph.ttl', 'PUT');
+  sendFileToSparqlHTTP('./../../../ITcat/Ontology/SchemaGraph.ttl', 'PUT');
 
   echo '<h2>DataGraph</h2>';
-  sendFileToSparqlHTTP('../../ITcat/Ontology/DataGraph.ttl', 'POST');
+  sendFileToSparqlHTTP('./../../../ITcat/Ontology/DataGraph.ttl', 'POST');
 }
