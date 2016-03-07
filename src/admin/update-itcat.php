@@ -62,7 +62,7 @@ else{
     $branch = $_GET['branch'];
   }
 
-  $output = exec('cd /var/www/html/git/ITcat/ && git pull origin ' . $branch .'');
+  $output = exec('cd ./../../../ITcat/ && git pull origin ' . $branch .'');
   #echo '' . json_encode($output) . '';
   echo '<h2>' . $output . '<h2>';
 }
