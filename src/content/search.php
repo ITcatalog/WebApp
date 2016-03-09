@@ -132,7 +132,7 @@ if (strpos($searchTerm, 'in:') !== false) {
         ORDER BY ?propX ?catTypeX';
 } else {
     $sparqlResult = '
-        SELECT DISTINCT (?service AS ?uri) ?prefLabel ?abstract
+        SELECT DISTINCT (?service AS ?uri) (?prefLabel AS ?Name) (?abstract AS ?Beschreibung)
         WHERE {
             ?service a schema:Service.
             ?service ?prop ?valueLang
