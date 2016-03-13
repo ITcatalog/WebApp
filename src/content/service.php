@@ -30,13 +30,13 @@ $serviceController = new serviceController($db, $service);
                        echo 'homeTabBarActive';
                    } ?>">Dokumente</a>
             <?php } ?>
-            <?php $result = $serviceController->getObjectProperty('(schema:isRelatedTo | ^schema:isRelatedTo)');
+            <?php /* $result = $serviceController->getObjectProperty('(schema:isRelatedTo | ^schema:isRelatedTo)');
             if ($result['num'] > 0) { ?>
                 <a href="?c=service&action=map&service=<?php echo urlencode($service) ?>"
                    class="mdl-tabs__tab <?php if ($_GET['action'] == 'map') {
                        echo 'homeTabBarActive';
                    } ?>">Landkarte</a>
-            <?php } ?>
+            <?php } */ ?>
         </div>
     </div>
 
