@@ -1,6 +1,4 @@
 <?php
-require_once('./inc/config.php');
-require_once('./inc/functions.php');
 
 if (isset($_POST['en'])) {
     setcookie("lang", "en", 0, "/");
@@ -17,7 +15,8 @@ if (!isset($_COOKIE['lang'])) {
     define('LANG', $_COOKIE['lang']);
 }
 
-
+require_once('./inc/config.php');
+require_once('./inc/functions.php');
 
 ?>
 <!doctype html>

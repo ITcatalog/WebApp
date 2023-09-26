@@ -62,6 +62,11 @@ if (isset($_GET['input'])) {
 
 }
 
+$subPath = array(array("Service-Kategorien", "Service-Karte", "Service-Liste", "Service-Kataloge", "Reports", "Impressum", "Suche"), array("Service-Categories", "Service-Map", "Service-Lists", "Service-Catalog", "Reports", "Imprint", "Search"));
+$pos = 0;
+if (LANG == 'en') {
+    $pos = 1;
+}
 
 if (isset($_GET['c'])) {
     switch ($_GET['c']) {
@@ -71,7 +76,7 @@ if (isset($_GET['c'])) {
 
         case 'categories':
             $includePath = 'content/categories.php';
-            $pageTitle = 'Service-Kategorien';
+            $pageTitle = $subPath[$pos][0];
             break;
 
         case 'category':
@@ -84,22 +89,22 @@ if (isset($_GET['c'])) {
 
         case 'map':
             $includePath = 'content/map.php';
-            $pageTitle = 'Service-Karte';
+            $pageTitle = $subPath[$pos][1];
             break;
 
         case 'list':
             $includePath = 'content/list.php';
-            $pageTitle = 'Service-Liste';
+            $pageTitle = $subPath[$pos][2];
             break;
 
         case 'catalog':
             $includePath = 'content/catalog.php';
-            $pageTitle = 'Service-Kataloge';
+            $pageTitle = $subPath[$pos][3];
             break;
 
         case 'reports':
             $includePath = 'content/reports.php';
-            $pageTitle = 'Reports';
+            $pageTitle = $subPath[$pos][4];
             break;
 
         case 'portfolio':
@@ -114,13 +119,13 @@ if (isset($_GET['c'])) {
 			
 	    case 'imprint':
 	        $includePath = 'content/imprint.php';
-	        $pageTitle = 'Impressum';
+	        $pageTitle = $subPath[$pos][5];
 	        break;
 
     }
 } elseif (isset($_GET['search'])) {
     $includePath = 'content/search.php';
-    $pageTitle = 'Suche';
+    $pageTitle = $subPath[$pos][6];
 } else {
 
     $includePath = 'content/home.php';

@@ -1,10 +1,48 @@
 <?php
 
+$sparql = '
+    SELECT ?provider_tab ?catalog_tab ?category_tab ?detail_contact ?detail_feature
+    {    
+        GRAPH ?g {
+            itcat_app:provider_tab itcat_app:name ?provider_tab .
+    		itcat_app:catalog_tab itcat_app:name ?catalog_tab .
+    		itcat_app:category_tab itcat_app:name ?category_tab .
+    		itcat_app:detail_contact 	itcat_app:name ?detail_contact .
+    		itcat_app:detail_feature itcat_app:subCategorie1 ?detail_feature .
+            FILTER (langMatches(lang(?provider_tab),"' . LANG . '"))
+            FILTER (langMatches(lang(?catalog_tab),"' . LANG . '"))
+            FILTER (langMatches(lang(?category_tab),"' . LANG . '"))
+            FILTER (langMatches(lang(?detail_contact),"' . LANG . '"))
+            FILTER (langMatches(lang(?detail_feature),"' . LANG . '"))
+        }
+    }';
+
+$result = $db->query($sparql);
+if (!$result) {
+    print $db->errno() . ": " . $db->error() . "\n";
+    exit;
+}
+
+$provider_tab = '';
+$catalog_tab = '';
+$category_tab = '';
+$detail_contact = '';
+$detail_feature = '';
+
+if ($result->num_rows() > 0) {
+    while ($row = $result->fetch_array()) {
+        $provider_tab = $row['provider_tab'];
+        $catalog_tab = $row['catalog_tab'];
+        $category_tab = $row['category_tab'];
+        $detail_contact = $row['detail_contact'];
+        $detail_feature = $row['detail_feature'];
+    }
+}
+
 $searchTerm = $_GET['search'];
 $searchTermInput = $searchTerm;
 $sparqlFilter = '';
 $filterItemsHtml = '';
-
 
 if (isset($_GET['arg'])) {
 
@@ -75,6 +113,12 @@ if (isset($conditionArray)) {
  *
  */
 
+$general = array(array("?Name", "?Beschreibung"), array("?Name", "?Description"));
+$pos = 0;
+if (LANG == 'en') {
+    $pos = 1;
+}
+
 if (strpos($searchTerm, 'in:') !== false) {
     $ex = explode(':', $searchTerm, 2);
     $identifier = $ex[0];
@@ -132,7 +176,7 @@ if (strpos($searchTerm, 'in:') !== false) {
         ORDER BY ?propX ?catTypeX';
 } else {
     $sparqlResult = '
-        SELECT DISTINCT (?service AS ?uri) (?prefLabel AS ?Name) (?abstract AS ?Beschreibung)
+        SELECT DISTINCT (?service AS ?uri) (?prefLabel AS '.$general[$pos][0].') (?abstract AS '.$general[$pos][1].')
         WHERE {
             ?service a schema:Service.
             ?service ?prop ?valueLang
@@ -150,8 +194,8 @@ if (strpos($searchTerm, 'in:') !== false) {
 
             ?service skos:prefLabel ?prefLabelLang;
           dcterms:abstract      ?abstractLang;
-          FILTER (langMatches(lang(?prefLabelLang),"de"))
-            FILTER (langMatches(lang(?abstractLang),"de"))
+          FILTER (langMatches(lang(?prefLabelLang),"' . LANG . '"))
+            FILTER (langMatches(lang(?abstractLang),"' . LANG . '"))
             BIND (str(?prefLabelLang) AS ?prefLabel)
             BIND (str(?abstractLang) AS ?abstract)
           OPTIONAL{
@@ -207,21 +251,17 @@ if (!$result) {
 
 $navCategoryArray = array(
     #"http://schema.org/customer" => "Kunde",
-    "http://schema.org/provider" => "Anbieter",
+    "http://schema.org/provider" => $provider_tab,
     #"http://th-brandenburg.de/ns/itcat#user" => "User",
     #"http://th-brandenburg.de/ns/itcat#hasCriticality" => "Kritikalität",
     #"http://th-brandenburg.de/ns/itcat#hasPriority" => "Priorität",
     #"http://th-brandenburg.de/ns/itcat#hasStage" => "LifeCycleStage",
-    "http://th-brandenburg.de/ns/itcat#inCategory" => "Kategorie",
-    "http://th-brandenburg.de/ns/itcat#supporter" => "Ansprechpartner",
-    "http://th-brandenburg.de/ns/itcat#usableWith" => "Verfügbar für",
-
-
+    "http://th-brandenburg.de/ns/itcat#inCategory" => $category_tab,
+    "http://th-brandenburg.de/ns/itcat#supporter" => $detail_contact,
+    "http://th-brandenburg.de/ns/itcat#usableWith" => $detail_feature,
     #"http://schema.org/isRelatedTo" => "Verwandte Dienste",
-
-    "http://th-brandenburg.de/ns/itcat#SubjectCategory" => "Kategorie",
-
-    "http://th-brandenburg.de/ns/itcat#CatalogCategory" => "Kataloge",
+    "http://th-brandenburg.de/ns/itcat#SubjectCategory" => $category_tab,
+    "http://th-brandenburg.de/ns/itcat#CatalogCategory" => $catalog_tab,
 
 );
 
