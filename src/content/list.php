@@ -1,9 +1,30 @@
 <table class="mdl-cell--12-col mdl-data-table mdl-js-data-table mdl-text-table">
     <thead>
     <tr>
-        <th class="mdl-data-table__cell--non-numeric">Service-Name</th>
-        <th class="mdl-data-table__cell--non-numeric">Beschreibung</th>
-        <th class="mdl-data-table__cell--non-numeric">URL</th>
+        <?php
+        $sparql = '
+        SELECT ?list_name ?list_description
+        {
+          GRAPH ?g {
+            itcat_app:list_name itcat_app:name ?list_name .
+            itcat_app:list_description itcat_app:name ?list_description .
+            FILTER (langMatches(lang(?list_name),"' . LANG . '"))
+            FILTER (langMatches(lang(?list_description),"' . LANG . '"))
+          }
+        }
+        ';
+
+        $result = $db->query($sparql);
+        if (!$result) {
+            print $db->errno() . ": " . $db->error() . "\n";
+            exit;
+        }
+        while ($row = $result->fetch_array()) {
+            echo '<th class="mdl-data-table__cell--non-numeric">'.$row['list_name'].'</th>';
+            echo '<th class="mdl-data-table__cell--non-numeric">'.$row['list_description'].'</th>';
+            echo '<th class="mdl-data-table__cell--non-numeric">URL</th>';
+        }
+        ?>
     </tr>
     </thead>
     <tbody>

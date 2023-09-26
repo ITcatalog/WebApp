@@ -111,6 +111,11 @@ if (isset($_GET['c'])) {
             $includePath = 'content/help.php';
             $pageTitle = 'Hilfe';
             break;
+			
+	    case 'imprint':
+	        $includePath = 'content/imprint.php';
+	        $pageTitle = 'Impressum';
+	        break;
 
     }
 } elseif (isset($_GET['search'])) {

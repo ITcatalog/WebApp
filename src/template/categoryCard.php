@@ -1,6 +1,6 @@
 <?php
 
-function showCardTemplate($uri, $title, $description, $numberOfServices, $bgColor, $urlParameter, $cardSize = 4, $colorValue = 300, $callToActionValue = 'Öffnen')
+function showCardTemplate($uri, $title, $description, $numberOfServices, $bgColor, $urlParameter,  $callToActionValue = 'Öffnen', $serviceValue, $cardSize = 4, $colorValue = 300)
 {
 
     $uri = urlencode($uri);
@@ -23,7 +23,7 @@ function showCardTemplate($uri, $title, $description, $numberOfServices, $bgColo
         $badge = '
             <span class="service-number">
                 <span class="number">'.$numberOfServices.'</span>
-                <span class="label">Dienste</span>
+                <span class="label">'.$serviceValue.'</span>
             </span>
         ';
     }

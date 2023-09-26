@@ -1,38 +1,111 @@
+<?php
+$sparql = '
+    SELECT ?provider ?subProvider1 ?subProvider2 ?service ?subService1 ?subService2 ?subService3 ?subService4 ?admin ?subAdmin1 ?subAdmin2 ?subAdmin3 ?subAdmin4
+        {
+          GRAPH ?g {
+            itcat_app:report_provider	itcat_app:name ?provider ;
+                                      itcat_app:subCategorie1 ?subProvider1 ;
+                                      itcat_app:subCategorie2 ?subProvider2 .
+    
+    		itcat_app:report_service	itcat_app:name ?service ;
+                                      itcat_app:subCategorie1 ?subService1 ;
+                                      itcat_app:subCategorie2 ?subService2 ;
+                                      itcat_app:subCategorie3 ?subService3 ;
+                                      itcat_app:subCategorie4 ?subService4 .
+    
+    		itcat_app:report_administration	itcat_app:name ?admin ;
+                                      itcat_app:subCategorie1 ?subAdmin1 ;
+                                      itcat_app:subCategorie2 ?subAdmin2 ;
+                                      itcat_app:subCategorie3 ?subAdmin3 ;
+                                      itcat_app:subCategorie4 ?subAdmin4 .
+    
+            FILTER (langMatches(lang(?provider),"' . LANG . '"))
+            FILTER (langMatches(lang(?subProvider1),"' . LANG . '"))
+            FILTER (langMatches(lang(?subProvider2),"' . LANG . '"))
+            FILTER (langMatches(lang(?service),"' . LANG . '"))
+            FILTER (langMatches(lang(?subService1),"' . LANG . '"))
+            FILTER (langMatches(lang(?subService2),"' . LANG . '"))
+            FILTER (langMatches(lang(?subService3),"' . LANG . '"))
+            FILTER (langMatches(lang(?subService4),"' . LANG . '"))
+            FILTER (langMatches(lang(?admin),"' . LANG . '"))		
+            FILTER (langMatches(lang(?subAdmin1),"' . LANG . '"))
+            FILTER (langMatches(lang(?subAdmin2),"' . LANG . '"))
+            FILTER (langMatches(lang(?subAdmin3),"' . LANG . '"))
+            FILTER (langMatches(lang(?subAdmin4),"' . LANG . '"))
+          }
+        }';
+
+$result = $db->query($sparql);
+if (!$result) {
+    print $db->errno() . ": " . $db->error() . "\n";
+    exit;
+}
+
+$providerName = '';
+$subProvider1 = '';
+$subProvider2 = '';
+$serviceName = '';
+$subService1 = '';
+$subService2 = '';
+$subService3 = '';
+$subService4 = '';
+$adminName = '';
+$subAdmin1 = '';
+$subAdmin2 = '';
+$subAdmin3 = '';
+$subAdmin4 = '';
+
+if ($result->num_rows() > 0) {
+    while ($row = $result->fetch_array()) {
+        $providerName = $row['provider'];
+        $subProvider1 = $row['subProvider1'];
+        $subProvider2 = $row['subProvider2'];
+        $serviceName = $row['service'];
+        $subService1 = $row['subService1'];
+        $subService2 = $row['subService2'];
+        $subService3 = $row['subService3'];
+        $subService4 = $row['subService4'];
+        $adminName = $row['admin'];
+        $subAdmin1 = $row['subAdmin1'];
+        $subAdmin2 = $row['subAdmin2'];
+        $subAdmin3 = $row['subAdmin3'];
+        $subAdmin4 = $row['subAdmin4'];
+    }
+}
+
+?>
+
 <div class="mdl-cell mdl-cell--4-col mdl-cell--8-col-tablet mdl-cell--4-col--phone">
     <div class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card navigation-card">
 
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Provider</h2>
+            <h2 class="mdl-card__title-text"><?php echo $providerName ?></h2>
         </div>
         <div class="mdl-card__navigation">
-            <a href="?c=reports&action=provider&category=category">Alle Provider</a>
-            <a href="?c=reports&action=externProvider&category=category">Externe Provider</a>
+            <a href="?c=reports&action=provider&category=category"><?php echo $subProvider1 ?></a>
+            <a href="?c=reports&action=externProvider&category=category"><?php echo $subProvider2 ?></a>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card navigation-card">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Dienste</h2>
+            <h2 class="mdl-card__title-text"><?php echo $serviceName ?></h2>
         </div>
         <div class="mdl-card__navigation">
-            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Staff">Dienste für
-                Mitarbeiter</a>
-            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23StaffADM">Dienste für
-                Verwaltung/Zentren </a>
-            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Smartphone">Dienste für
-                Smartphones</a>
-            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Operation">Dienste in
-                Betrieb</a>
+            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Staff"><?php echo $subService1 ?></a>
+            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23StaffADM"><?php echo $subService2 ?></a>
+            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Smartphone"><?php echo $subService3 ?></a>
+            <a href="?c=reports&action=in&value=http%3A%2F%2Fth-brandenburg.de%2Fns%2Fitcat%23Operation"><?php echo $subService4 ?></a>
         </div>
     </div>
     <div class="mdl-cell mdl-cell--12-col mdl-color--white mdl-shadow--2dp mdl-card navigation-card">
         <div class="mdl-card__title">
-            <h2 class="mdl-card__title-text">Administration</h2>
+            <h2 class="mdl-card__title-text"><?php echo $adminName ?></h2>
         </div>
         <div class="mdl-card__navigation">
-            <a href="?c=reports&action=find_withoutDocs">Dienste ohne Dokumente</a>
-            <a href="?c=reports&action=find_lessThan18">Dienste mit weniger als 18 Eigenschaften</a>
-            <a href="?c=reports&action=find_withoutType">Elemente ohne Typ</a>
-            <a href="?c=reports&action=statistic&category=category">Statistik</a>
+            <a href="?c=reports&action=find_withoutDocs"><?php echo $subAdmin1 ?></a>
+            <a href="?c=reports&action=find_lessThan18"><?php echo $subAdmin2 ?></a>
+            <a href="?c=reports&action=find_withoutType"><?php echo $subAdmin3 ?></a>
+            <a href="?c=reports&action=statistic&category=category"><?php echo $subAdmin4 ?></a>
         </div>
     </div>
 
@@ -40,8 +113,16 @@
 
 <div class="mdl-cell mdl-cell--8-col mdl-cell--8-col-tablet mdl-cell--4-col--phone">
 
+<?php
 
-    <?php
+    $provider = array(array("?Anbieter", "?Beschreibung", "?Dienste"), array("?Provider", "?Description", "?Services"));
+    $general = array(array("?Name", "?Beschreibung"), array("?Name", "?Description"));
+    $statistic = array(array("?Kategorie", "?Beschreibung", "?Diensteanzahl"), array("?Category", "?Description", "?Number_of_services"));
+
+    $pos = 0;
+    if (LANG == 'en') {
+        $pos = 1;
+    }
 
     $urlParameters = '?input=';
 
@@ -64,7 +145,7 @@
                 $searchTermSparql = urldecode($_GET['value']);
 
                 $sparql = '
-                  SELECT DISTINCT (?service as ?uri) (?prefLabel as ?Name) (?abstract as ?Beschreibung)
+                  SELECT DISTINCT (?service as ?uri) (?prefLabel as '.$general[$pos][0].') (?abstract as '.$general[$pos][1].')
                   WHERE {
                     ?service ?x <' . $searchTermSparql . '>.
                     ?service skos:prefLabel ?prefLabelLang;
@@ -79,7 +160,7 @@
 
             case 'provider':
                 $sparql = '
-                  SELECT DISTINCT (?provider AS ?uri) (?prefLabel AS ?Provider) (?title AS ?Beschreibung) (COUNT(?service) AS ?Dienste)
+                  SELECT DISTINCT (?provider AS ?uri) (?prefLabel AS '.$provider[$pos][0].') (?title AS '.$provider[$pos][1].') (COUNT(?service) AS '.$provider[$pos][2].')
                   WHERE {
                     ?service schema:provider ?provider.
                     ?provider skos:prefLabel ?prefLabelLang;
@@ -97,7 +178,7 @@
 
             case 'externProvider':
                 $sparql = '
-                    SELECT DISTINCT (?provider AS ?uri) (?prefLabel AS ?Provider) (?title AS ?Beschreibung) (COUNT(?service) AS ?Dienste)
+                    SELECT DISTINCT (?provider AS ?uri) (?prefLabel AS '.$provider[$pos][0].') (?title AS '.$provider[$pos][1].') (COUNT(?service) AS '.$provider[$pos][2].')
                     WHERE{
                       {
                         SELECT *
@@ -134,7 +215,7 @@
 
                         case 'find_withoutDocs':
                             $sparql = '
-                  SELECT (?service as ?uri)(?prefLabel as ?Name) (?abstract as ?Beschreibung)
+                  SELECT (?service as ?uri)(?prefLabel as '.$general[$pos][0].') (?abstract as '.$general[$pos][1].')
                   WHERE {
                     ?service a schema:Service;
                     skos:prefLabel ?prefLabelLang;
@@ -166,7 +247,7 @@
 
             case 'find_lessThan18':
                 $sparql = '
-                    SELECT (?service as ?uri)(?prefLabel as ?Name) (?abstract as ?Beschreibung)
+                    SELECT (?service as ?uri)(?prefLabel as '.$general[$pos][0].') (?abstract as '.$general[$pos][1].')
                     WHERE{
                     {
                     SELECT ?service (COUNT(?props) AS ?numProps)
@@ -210,7 +291,7 @@
 
             case 'statistic':
                 $sparql = '
-                    SELECT (?category AS ?uri) (?prefLabel AS ?Kategorie) (?definition AS ?Beschreibung) (COUNT(?service) AS ?Diensteanzahl)
+                    SELECT (?category AS ?uri) (?prefLabel AS '.$statistic[$pos][0].') (?definition AS '.$statistic[$pos][1].') (COUNT(?service) AS '.$statistic[$pos][2].')
                     WHERE{
                     ?service itcat:inCategory ?category.
                               ?category a ?type;
@@ -230,7 +311,7 @@
     } else {
 
         $sparql = '
-            SELECT (?service as ?uri)(?prefLabel as ?Name) (?abstract as ?Beschreibung)
+            SELECT (?service as ?uri)(?prefLabel as '.$general[$pos][0].') (?abstract as '.$general[$pos][1].')
             WHERE {
                 ?service a schema:Service;
                 skos:prefLabel ?prefLabelLang;

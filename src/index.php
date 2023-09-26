@@ -2,6 +2,22 @@
 require_once('./inc/config.php');
 require_once('./inc/functions.php');
 
+if (isset($_POST['en'])) {
+    setcookie("lang", "en", 0, "/");
+}
+
+if (isset($_POST['de'])) {
+    setcookie("lang", "de", 0, "/");
+}
+
+if (!isset($_COOKIE['lang'])) {
+    //setcookie("lang", "de", 0, "/");
+    define('LANG', 'de');
+} else {
+    define('LANG', $_COOKIE['lang']);
+}
+
+
 
 ?>
 <!doctype html>
