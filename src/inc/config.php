@@ -10,7 +10,7 @@ require_once( "lib/sparqllib.php" );
 
 //define ('LANG', 'en');
 
-define ('SPARQL_ENDPOINT', 'http://localhost:3030/itcat/query');
+define ('SPARQL_ENDPOINT', 'http://fbwsvcdev.fh-brandenburg.de:8080/fuseki/itcat/query');
 
 /***************************************/
 /***************************************/
